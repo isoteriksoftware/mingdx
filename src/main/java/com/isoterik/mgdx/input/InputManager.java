@@ -1574,7 +1574,7 @@ public class InputManager extends InputAdapter
 	 * Determines whether to prevent the BACK (on android devices) from exiting the application when pressed.
 	 * This is handy for creating custom behaviors in such scenarios. For example; show confirmation dialog.
 	 * <p>
-	 * <stong>Note:</stong> This setting affects every instance of {@link InputManager}.
+	 * <strong>Note:</strong> This setting affects every instance of {@link InputManager}.
 	 * Use {@link #addOnBackpressListener(IKeyListener)} to define custom behaviors.
 	 * @param catchBackKey if {@code true} the BACK key will stop exiting the application when pressed
 	 */
@@ -1584,7 +1584,7 @@ public class InputManager extends InputAdapter
 	/**
 	 * Determines whether the mouse cursor is displayed.
 	 * <p>
-	 * <stong>Note:</stong> This setting affects every instance of {@link InputManager}.
+	 * <strong>Note:</strong> This setting affects every instance of {@link InputManager}.
 	 * @param cursorCatched if true the cursor won't be displayed, else it displays.
 	 */
 	public void setCursorCatched(boolean cursorCatched) {
@@ -1594,7 +1594,7 @@ public class InputManager extends InputAdapter
 	/**
 	 * Sets the current position of the mouse cursor.
 	 * <p>
-	 * <stong>Note:</stong> This setting affects every instance of {@link InputManager}.
+	 * <strong>Note:</strong> This setting affects every instance of {@link InputManager}.
 	 * @param x the position on the x-coordinate.
 	 * @param y the position on the y-coordinate.
 	 */

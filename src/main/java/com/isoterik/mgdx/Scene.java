@@ -796,6 +796,7 @@ public class Scene implements ContactListener
                 }
             }
         }
+        garbagePhysicsBodies2d.clear();
     }
 
     /**
