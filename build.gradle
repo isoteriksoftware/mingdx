@@ -1,0 +1,64 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+    }
+}
+
+apply plugin: 'java-library'
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group 'com.isoterik.mgdx'
+version '1.0.0'
+
+ext {
+    gdxVersion = '1.9.11'
+    aiVersion = '1.8.0'
+
+    bintrayRepo = 'MinGdx'
+    bintrayName = 'com.isoterik.mgdx'
+
+    libraryName = 'mingdx'
+    publishedGroupId = 'com.isoterik.mgdx'
+    artifact = 'mingdx'
+    libraryVersion = '1.0.0'
+
+    libraryDescription = 'A small library for building libGDX games easier'
+    siteUrl = 'https://github.com/isoteriksoftware/mingdx'
+    gitUrl = 'https://github.com/isoteriksoftware/mingdx.git'
+    developerId = 'isoteriksoftware'
+    developerName = 'Isoterik Software'
+    developerEmail = 'isoteriksoftware@gmail.com'
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ['Apache-2.0']
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "https://plugins.gradle.org/m2/" }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    jcenter()
+}
+
+dependencies {
+    api "com.badlogicgames.gdx:gdx:$gdxVersion"
+    api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+    api "com.badlogicgames.gdx:gdx-ai:$aiVersion"
+}
+
+if (project.rootProject.file('local.properties').exists()) {
+    apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+    apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+}
