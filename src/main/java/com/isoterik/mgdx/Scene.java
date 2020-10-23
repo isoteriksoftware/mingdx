@@ -997,8 +997,8 @@ public class Scene implements ContactListener
         if (goA == null && goB == null)
             return;
 
-        collisionA = collisionPool.obtain(contact, goB);
-        collisionB = collisionPool.obtain(contact, goA);
+        collisionA = collisionPool.obtain(contact, goB, contact.getFixtureA(), contact.getFixtureB());
+        collisionB = collisionPool.obtain(contact, goA, contact.getFixtureB(), contact.getFixtureA());
 
         isSensorA = contact.getFixtureA().isSensor();
         isSensorB = contact.getFixtureB().isSensor();
@@ -1033,8 +1033,8 @@ public class Scene implements ContactListener
         if (goA == null && goB == null)
             return;
 
-        collisionA = collisionPool.obtain(contact, goB);
-        collisionB = collisionPool.obtain(contact, goA);
+        collisionA = collisionPool.obtain(contact, goB, contact.getFixtureA(), contact.getFixtureB());
+        collisionB = collisionPool.obtain(contact, goA, contact.getFixtureB(), contact.getFixtureA());
 
         isSensorA = contact.getFixtureA().isSensor();
         isSensorB = contact.getFixtureB().isSensor();

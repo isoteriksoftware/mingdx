@@ -85,6 +85,22 @@ public class Physics2d extends Component
         return body;
     }
 
+    private void createAndAttachCollider(Collider collider) {
+        FixtureDef fdef = collider.getFixtureDef();
+        fdef.friction = material.friction;
+        fdef.restitution = material.bounciness;
+        fdef.density = material.density;
+        fdef.isSensor = collider.isSensor();
+        fdef.filter.categoryBits = collider.getCategoryBits();
+        fdef.filter.groupIndex = collider.getGroupIndex();
+        fdef.filter.maskBits = collider.getMaskBits();
+
+        Fixture fixture = body.createFixture(fdef);
+        fixture.setUserData(collider.getUserData());
+        collider.__setFixture(fixture);
+        collider.__disposeShape();
+    }
+
     /*
     Creates the physics body for the host game object
      */
@@ -111,18 +127,7 @@ public class Physics2d extends Component
 
         // Create the collision shapes using available colliders
         for (Collider collider : colliders) {
-            FixtureDef fdef = collider.getFixtureDef();
-            fdef.friction = material.friction;
-            fdef.restitution = material.bounciness;
-            fdef.density = material.density;
-            fdef.isSensor = collider.isSensor();
-            fdef.filter.categoryBits = collider.getCategoryBits();
-            fdef.filter.groupIndex = collider.getGroupIndex();
-            fdef.filter.maskBits = collider.getMaskBits();
-
-            Fixture fixture = body.createFixture(fdef);
-            collider.__setFixture(fixture);
-            collider.__disposeShape();
+            createAndAttachCollider(collider);
         }
     }
 
@@ -230,18 +235,7 @@ public class Physics2d extends Component
 
                 // If we have a non-null physics body already then we have to attach this collider immediately
                 if (body != null) {
-                    FixtureDef fdef = collider.getFixtureDef();
-                    fdef.friction = material.friction;
-                    fdef.restitution = material.bounciness;
-                    fdef.density = material.density;
-                    fdef.isSensor = collider.isSensor();
-                    fdef.filter.categoryBits = collider.getCategoryBits();
-                    fdef.filter.groupIndex = collider.getGroupIndex();
-                    fdef.filter.maskBits = collider.getMaskBits();
-
-                    Fixture fixture = body.createFixture(fdef);
-                    collider.__setFixture(fixture);
-                    collider.__disposeShape();
+                    createAndAttachCollider(collider);
                 }
             }
         }

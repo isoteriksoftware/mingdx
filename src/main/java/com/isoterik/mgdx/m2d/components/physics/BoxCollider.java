@@ -13,6 +13,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 public class BoxCollider extends Collider
 {
 	private Vector2 size;
+	private Vector2 center = new Vector2();
+	private float angle;
 
 	/**
 	 * Creates a new instance given a width and a height
@@ -52,6 +54,47 @@ public class BoxCollider extends Collider
 	public Vector2 getSize()
 	{ return size; }
 
+	/**
+	 * Sets the center of the box in local coordinates.
+	 * @param center the center
+	 */
+	public void setCenter(Vector2 center) {
+		this.center = center;
+	}
+
+	/**
+	 * Sets the center of the box in local coordinates.
+	 * @param cx the x-coordinate of the center
+	 * @param cy the y-coordinate of the center
+	 */
+	public void setCenter(float cx, float cy) {
+		setCenter(new Vector2(cx, cy));
+	}
+
+	/**
+	 * Returns the center of the box in local coordinates.
+	 * @return the center of the box in local coordinates.
+	 */
+	public Vector2 getCenter() {
+		return center;
+	}
+
+	/**
+	 * Sets the rotation in radians of the box in local coordinates.
+	 * @param angle the rotation in radians of the box in local coordinates.
+	 */
+	public void setAngle(float angle) {
+		this.angle = angle;
+	}
+
+	/**
+	 * Gets the rotation in radians of the box in local coordinates.
+	 * @return the rotation in radians of the box in local coordinates.
+	 */
+	public float getAngle() {
+		return angle;
+	}
+
 	@Override
 	public FixtureDef getFixtureDef()
 	{
@@ -60,8 +103,9 @@ public class BoxCollider extends Collider
 			size.set(gameObject.transform.size.x, gameObject.transform.size.y);
 			
 		shape = new PolygonShape();
-		((PolygonShape)shape).setAsBox(size.x * 0.5f, size.y * 0.5f);
-		
+
+		((PolygonShape)shape).setAsBox(size.x * 0.5f, size.y * 0.5f, center, angle);
+
 		FixtureDef fdef = new FixtureDef();
 		fdef.shape = shape;
 		

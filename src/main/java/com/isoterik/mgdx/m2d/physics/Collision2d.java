@@ -1,6 +1,7 @@
 package com.isoterik.mgdx.m2d.physics;
 
 import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.utils.Pool;
 import com.isoterik.mgdx.GameObject;
 
@@ -21,6 +22,16 @@ public final class Collision2d implements Pool.Poolable
      * The {@link GameObject} collided with. This will be null if the collision is not with a known game object (like an independent {@link com.badlogic.gdx.physics.box2d.Body})
      */
     public GameObject other;
+
+    /**
+     * The fixture of the current game object that collided.
+     */
+    public Fixture fixture;
+
+    /**
+     * The fixture of the other game object that collided.
+     */
+    public Fixture otherFixture;
 
     /**
      * Creates a new instance given a contact and the game object collided with
@@ -53,6 +64,8 @@ public final class Collision2d implements Pool.Poolable
     {
         contact = null;
         other = null;
+        fixture = null;
+        otherFixture = null;
     }
 
     /**
@@ -66,11 +79,13 @@ public final class Collision2d implements Pool.Poolable
             return new Collision2d();
         }
 
-        public Collision2d obtain(Contact contact, GameObject other)
+        public Collision2d obtain(Contact contact, GameObject other, Fixture fixture, Fixture otherFixture)
         {
             Collision2d collision = obtain();
             collision.contact = contact;
             collision.other = other;
+            collision.fixture = fixture;
+            collision.otherFixture = otherFixture;
 
             return collision;
         }
