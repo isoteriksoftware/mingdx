@@ -21,13 +21,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 /**
- * For loading and managing game assets. This class uses {@link AssetManager} for managing assets.
- * Assets can be loaded either synchronously or asynchronously
+ * For loading and managing game assets. This class uses {@link AssetManager} internally for handling assets.
+ * Assets can be loaded either synchronously or asynchronously.
  *
  * @author isoteriksoftware
  */
-public final class GameAssetsLoader
-{
+public final class GameAssetsLoader {
     protected AssetManager assetManager;
     
 	protected boolean loadAssetsInBackground;
@@ -48,8 +47,7 @@ public final class GameAssetsLoader
 	public static GameAssetsLoader instance()
 	{ return instance; }
 	
-    private GameAssetsLoader()
-    {
+    private GameAssetsLoader() {
         assetManager = new AssetManager();
         setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
     }
@@ -62,8 +60,7 @@ public final class GameAssetsLoader
 	 * @param <T> the type of asset
 	 * @param <P> the type of the loader parameters
 	 */
-	public <T, P extends AssetLoaderParameters<T>> void setLoader(Class<T> assetClass, AssetLoader<T, P> loader)
-	{
+	public <T, P extends AssetLoaderParameters<T>> void setLoader(Class<T> assetClass, AssetLoader<T, P> loader) {
 		assetManager.setLoader(assetClass, loader);
 	}
 
@@ -122,8 +119,7 @@ public final class GameAssetsLoader
 	 * After calling this method you need to continuously call {@link #update()} to progress loading and invoke the passed runnable when done with loading.
 	 * @param onLoadAssets a runnable to invoke the number of loaded assets. Can be null
 	 */
-	public void loadAssetsInBackground(Runnable onLoadAssets)
-	{
+	public void loadAssetsInBackground(Runnable onLoadAssets) {
 		this.loadAssetsInBackground = true;
 		this.onLoadAssets = onLoadAssets;
 	}
@@ -132,8 +128,7 @@ public final class GameAssetsLoader
 	 * Calling this method progresses the loading process.
 	 * You'll typically call this method after calling {@link #loadAssetsInBackground}.
 	 */
-	public void update()
-	{
+	public void update() {
 		if (tickLoader() && loadAssetsInBackground) {
 			if (onLoadAssets != null)
 				onLoadAssets.run();
@@ -160,8 +155,7 @@ public final class GameAssetsLoader
 	 * {@link #loadAssetsNow()} or {@link #loadAssetNow(String)} is called.
 	 * @param folderPath path to the folder containing the assets
 	 */
-    public void enqueueSfxFolder(String folderPath)
-    {
+    public void enqueueSfxFolder(String folderPath) {
         for (FileHandle file : Gdx.files.internal(folderPath).list()) {
             Class c = Sound.class;
             if (file.extension().equals("mp3"))
@@ -180,8 +174,7 @@ public final class GameAssetsLoader
 	 * @param assetClass the asset class
 	 * @param <T> type of asset
 	 */
-	public <T> void enqueueFolderContents(String folderPath, Class<T> assetClass)
-    {
+	public <T> void enqueueFolderContents(String folderPath, Class<T> assetClass) {
     	FileHandle dir = Gdx.files.internal(folderPath);
 
     	if (!dir.isDirectory())
@@ -227,8 +220,7 @@ public final class GameAssetsLoader
 	 *
 	 * @return the progress in percent of completion on a scale of [0 - 100]
 	 */
-	public float getProgressPercentage()
-    {
+	public float getProgressPercentage() {
        float t = assetManager.getProgress();
        return(t * 100);
     }
@@ -293,16 +285,15 @@ public final class GameAssetsLoader
 	/**
 	 * Convenient method for retrieving loaded {@link Texture}s.
 	 * @param name path to the asset file
-	 * @param linearFilter if true linear {@link com.badlogic.gdx.graphics.Texture.TextureFilter} will be applied, else nearest will be applied
+	 * @param applyLinearFilter if true linear {@link com.badlogic.gdx.graphics.Texture.TextureFilter} will be applied, else nearest will be applied
 	 * @return the texture
 	 */
-    public Texture getTexture(String name, boolean linearFilter)
-    {
+    public Texture getTexture(String name, boolean applyLinearFilter) {
         Texture texture = assetManager.get(name, Texture.class);
         if (texture == null)
         	return null;
 
-        if(linearFilter)
+        if(applyLinearFilter)
            texture.setFilter( Texture.TextureFilter.Linear,
             Texture.TextureFilter.Linear );
         else
@@ -338,11 +329,11 @@ public final class GameAssetsLoader
 	/**
 	 * Convenient method for creating {@link TextureRegion}s from loaded {@link Texture}s.
 	 * @param name path to the asset file
-	 * @param linearFilter if true linear {@link com.badlogic.gdx.graphics.Texture.TextureFilter} will be applied, else nearest will be applied
+	 * @param applyLinearFilter if true linear {@link com.badlogic.gdx.graphics.Texture.TextureFilter} will be applied, else nearest will be applied
 	 * @return the texture region
 	 */
-    public TextureRegion regionForTexture(String name, boolean linearFilter)
-    { return(new TextureRegion(getTexture(name, linearFilter))); }
+    public TextureRegion regionForTexture(String name, boolean applyLinearFilter)
+    { return(new TextureRegion(getTexture(name, applyLinearFilter))); }
 
 	/**
 	 * Convenient method for creating {@link TextureRegion}s from loaded {@link Texture}s. Linear {@link com.badlogic.gdx.graphics.Texture.TextureFilter} will be applied
@@ -355,11 +346,11 @@ public final class GameAssetsLoader
 	/**
 	 * Convenient method for creating {@link Drawable}s from loaded {@link Texture}s.
 	 * @param name path to the asset file
-	 * @param linearFilter if true linear {@link com.badlogic.gdx.graphics.Texture.TextureFilter} will be applied, else nearest will be applied
+	 * @param applyLinearFilter if true linear {@link com.badlogic.gdx.graphics.Texture.TextureFilter} will be applied, else nearest will be applied
 	 * @return a drawable
 	 */
-    public Drawable drawableForTexture(String name, boolean linearFilter)
-    { return(new TextureRegionDrawable(regionForTexture(name, linearFilter))); }
+    public Drawable drawableForTexture(String name, boolean applyLinearFilter)
+    { return(new TextureRegionDrawable(regionForTexture(name, applyLinearFilter))); }
 
 	/**
 	 * Convenient method for creating {@link TextureRegion}s from loaded {@link Texture}s. Linear {@link com.badlogic.gdx.graphics.Texture.TextureFilter} will be applied

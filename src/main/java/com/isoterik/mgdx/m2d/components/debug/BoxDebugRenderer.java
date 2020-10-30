@@ -7,50 +7,46 @@ import com.badlogic.gdx.math.Vector3;
 import com.isoterik.mgdx.GameCamera;
 
 /**
- * A debug draw that renders a box shape around the host game object
+ * Renders a box shape around the host game object
  *
  * @author isoteriksoftware
  */
-public class BoxDebugDraw extends DebugDrawBase
-{
+public class BoxDebugRenderer extends DebugRendererBase {
 	/**
 	 * Creates a new instance given a shape type and a color
 	 * @param shapeType the shape type
 	 * @param color the color
 	 */
-	public BoxDebugDraw(ShapeType shapeType, Color color)
+	public BoxDebugRenderer(ShapeType shapeType, Color color)
 	{ super(shapeType, color); }
 
 	/**
 	 * Creates a new instance given a shape type
 	 * @param shapeType the shape type
 	 */
-	public BoxDebugDraw(ShapeType shapeType)
+	public BoxDebugRenderer(ShapeType shapeType)
 	{ super(shapeType); }
 
 	/**
 	 * Creates a new instance
 	 */
-	public BoxDebugDraw()
+	public BoxDebugRenderer()
 	{ super(); }
 	
 	@Override
-	public BoxDebugDraw setColor(Color color)
-	{
+	public BoxDebugRenderer setColor(Color color) {
 		super.setColor(color);
 		return this;
 	}
 	
 	@Override
-	public BoxDebugDraw setShapeType(ShapeType shapeType)
-	{
+	public BoxDebugRenderer setShapeType(ShapeType shapeType) {
 		super.setShapeType(shapeType);
 		return this;
 	}
 	
 	@Override
-	public void draw(ShapeRenderer shapeRenderer, GameCamera gameCamera)
-	{
+	public void draw(ShapeRenderer shapeRenderer, GameCamera gameCamera) {
 		Vector3 pos = gameObject.transform.position;
 		Vector3 size = gameObject.transform.size;
 		Vector3 origin = gameObject.transform.origin;

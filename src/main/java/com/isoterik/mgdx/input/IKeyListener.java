@@ -5,8 +5,7 @@ package com.isoterik.mgdx.input;
  *
  * @author isoteriksoftware
  */
-public interface IKeyListener extends InputListener
-{
+public interface IKeyListener extends InputListener {
     /**
      * Called when a key event occurs. The {@link KeyEventData} passed must not be modified, it should be used as a read-only data source.
      * @param mappingName the name of the mapping that this listener is mapped to. If this listener is not mapped, this value will be {@code null}

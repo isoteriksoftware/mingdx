@@ -7,8 +7,7 @@ import com.isoterik.mgdx.ai.fsm.ICondition;
  *
  * @author isoteriksoftware
  */
-public class BooleanCondition implements ICondition
-{
+public class BooleanCondition implements ICondition {
 	protected DataSource<Boolean> dataSource;
 
 	/**

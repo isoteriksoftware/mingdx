@@ -9,8 +9,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
  *
  * @author isoteriksoftware
  */
-public class CircleCollider extends Collider
-{
+public class CircleCollider extends Collider {
 	private float radius;
 	private Vector2 position;
 
@@ -20,8 +19,7 @@ public class CircleCollider extends Collider
 	 * @param x the x-coordinate of the position of the circle
 	 * @param y the y-coordinate of the position of the circle
 	 */
-	public CircleCollider(float radius, float x, float y)
-	{
+	public CircleCollider(float radius, float x, float y) {
 		position = new Vector2(x, y);
 		this.radius = radius;
 	}
@@ -55,8 +53,7 @@ public class CircleCollider extends Collider
 	{ return radius; }
 
 	@Override
-	public FixtureDef getFixtureDef()
-	{
+	public FixtureDef getFixtureDef() {
 		// Assumes the radius of the host game object if the radius is <= 0
 		if (radius <= 0)
 			radius = gameObject.transform.size.x * .5f;

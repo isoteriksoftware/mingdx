@@ -5,8 +5,7 @@ package com.isoterik.mgdx.m2d.scenes.transition;
  *
  * @author isoteriksoftware
  */
-public class TransitionDirection
-{
+public class TransitionDirection {
     public static final int LEFT = 0;
     public static final int RIGHT = 1;
     public static final int UP = 2;

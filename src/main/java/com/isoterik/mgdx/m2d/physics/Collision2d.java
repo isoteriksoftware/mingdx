@@ -11,8 +11,7 @@ import com.isoterik.mgdx.GameObject;
  *
  * @author isoteriksoftware
  */
-public final class Collision2d implements Pool.Poolable
-{
+public final class Collision2d implements Pool.Poolable {
     /**
      * The {@link Contact} instance generated for this collision.
      */
@@ -38,8 +37,7 @@ public final class Collision2d implements Pool.Poolable
      * @param contact the contact
      * @param other the other game object or null if its not a game object
      */
-    public Collision2d(Contact contact, GameObject other)
-    {
+    public Collision2d(Contact contact, GameObject other) {
         this.contact = contact;
         this.other = other;
     }
@@ -51,8 +49,7 @@ public final class Collision2d implements Pool.Poolable
      * @param tag the tag to compare
      * @return true if the two game objects have tags similar to the given one. false otherwise
      */
-    public boolean compareTag(String tag)
-    {
+    public boolean compareTag(String tag) {
         if (other == null)
             return false;
 
@@ -60,8 +57,7 @@ public final class Collision2d implements Pool.Poolable
     }
 
     @Override
-    public void reset()
-    {
+    public void reset() {
         contact = null;
         other = null;
         fixture = null;
@@ -71,16 +67,14 @@ public final class Collision2d implements Pool.Poolable
     /**
      * A pool for recycling instances of {@link Collision2d}
      */
-    public static class CollisionPool extends Pool<Collision2d>
-    {
+    public static class CollisionPool extends Pool<Collision2d> {
         @Override
         public Collision2d newObject()
         {
             return new Collision2d();
         }
 
-        public Collision2d obtain(Contact contact, GameObject other, Fixture fixture, Fixture otherFixture)
-        {
+        public Collision2d obtain(Contact contact, GameObject other, Fixture fixture, Fixture otherFixture) {
             Collision2d collision = obtain();
             collision.contact = contact;
             collision.other = other;

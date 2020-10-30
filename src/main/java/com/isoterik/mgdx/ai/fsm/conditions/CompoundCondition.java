@@ -5,20 +5,21 @@ import com.isoterik.mgdx.ai.fsm.ICondition;
 /**
  * A condition that delegates to other conditions to create a complex condition.
  * This condition always evaluates to the result obtained from delegated conditions.
- * A {@link CompoundCondition} can delegate to another {@link CompoundCondition} and so on
+ * <p>
+ * A {@link CompoundCondition} can delegate to another {@link CompoundCondition} and so on.
  *
  * @author isoteriksoftware
  */
-public class CompoundCondition implements ICondition
-{
+public class CompoundCondition implements ICondition {
 	protected ICondition condition;
 
 	/**
 	 * Creates an instance with an initial condition to delegate to.
 	 * @param initialCondition the initial condition to delegate to
 	 */
-	public CompoundCondition(ICondition initialCondition)
-	{ this.condition = initialCondition; }
+	public CompoundCondition(ICondition initialCondition) {
+		this.condition = initialCondition;
+	}
 
 	/**
 	 * Delegates to {@link AndCondition} using the current condition and one or more conditions
@@ -27,8 +28,7 @@ public class CompoundCondition implements ICondition
 	 * @return this instance for chaining
 	 * @see AndCondition
 	 */
-	public CompoundCondition and(ICondition newCondition, ICondition... newConditions)
-	{
+	public CompoundCondition and(ICondition newCondition, ICondition... newConditions) {
 		ICondition old = condition;
 		condition = new AndCondition(newCondition, newConditions);
 		((AndCondition)condition).addCondition(old);
@@ -43,8 +43,7 @@ public class CompoundCondition implements ICondition
 	 * @return this instance for chaining
 	 * @see OrCondition
 	 */
-	public CompoundCondition or(ICondition newCondition, ICondition... newConditions)
-	{
+	public CompoundCondition or(ICondition newCondition, ICondition... newConditions) {
 		ICondition old = condition;
 		condition = new OrCondition(newCondition, newConditions);
 		((OrCondition)condition).addCondition(old);
@@ -57,8 +56,7 @@ public class CompoundCondition implements ICondition
 	 * @return this instance for chaining
 	 * @see NotCondition
 	 */
-	public CompoundCondition not()
-	{
+	public CompoundCondition not() {
 		condition = new NotCondition(new BooleanCondition(
 			condition.test()));
 		return this;
@@ -70,8 +68,7 @@ public class CompoundCondition implements ICondition
 	 * @return this instance for chaining
 	 * @see EqualsCondition
 	 */
-	public CompoundCondition is(boolean value)
-	{
+	public CompoundCondition is(boolean value) {
 		condition = new EqualsCondition<>(condition
 	    	.test(), value);
 		return this;
@@ -83,8 +80,7 @@ public class CompoundCondition implements ICondition
 	 * @return this instance for chaining
 	 * @see NotEqualCondition
 	 */
-	public CompoundCondition isNot(boolean value)
-	{
+	public CompoundCondition isNot(boolean value) {
 		condition = new NotEqualCondition<>(condition.test(), value);
 		return this;
 	}
@@ -93,8 +89,7 @@ public class CompoundCondition implements ICondition
 	 * @return the compounded evaluation of the delegated conditions
 	 */
 	@Override
-	public boolean test()
-	{
+	public boolean test() {
 		if (condition == null)
 			return false;
 			

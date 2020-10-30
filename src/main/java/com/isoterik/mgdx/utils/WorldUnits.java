@@ -9,12 +9,11 @@ import com.isoterik.mgdx.Transform;
  *
  * @author isoteriksoftware
  */
-public class WorldUnits
-{
-    private float unit;
-    private float ppu;
-    private float worldWidth;
-    private float worldHeight;
+public class WorldUnits {
+    private final float unit;
+    private final float ppu;
+    private final float worldWidth;
+    private final float worldHeight;
 
     /**
      * Creates a new instance given the pixel dimensions of the game world and the pixels per meter.
@@ -23,8 +22,7 @@ public class WorldUnits
      * @param pixelsPerUnit how many pixels make one world unit
      */
     public WorldUnits(float pixelsWidth, float pixelsHeight,
-                      float pixelsPerUnit)
-    {
+                      float pixelsPerUnit) {
         ppu = pixelsPerUnit;
 
         worldWidth = pixelsWidth/ ppu;
@@ -54,8 +52,7 @@ public class WorldUnits
      * @param pixelsY pixels on the y-axis
      * @return the position in world unit
      */
-    public Vector2 toWorldUnit(float pixelsX, float pixelsY)
-    {
+    public Vector2 toWorldUnit(float pixelsX, float pixelsY) {
         return(new Vector2(toWorldUnit(pixelsX),
                 toWorldUnit(pixelsY)));
     }
@@ -65,8 +62,7 @@ public class WorldUnits
      * @param region a texture region
      * @return the dimension of the texture region in world unit
      */
-    public Vector2 toWorldUnit(TextureRegion region)
-    {
+    public Vector2 toWorldUnit(TextureRegion region) {
         return(toWorldUnit(region.getRegionWidth(),
                 region.getRegionHeight()));
     }
@@ -75,8 +71,7 @@ public class WorldUnits
      * Converts the dimensions and position of a {@link Transform} to world units.
      * @param transform a transform
      */
-    public void toWorldTransform(Transform transform)
-    {
+    public void toWorldTransform(Transform transform) {
         float w = toWorldUnit(transform.size.x);
         float h = toWorldUnit(transform.size.y);
         float d = toWorldUnit(transform.size.z);

@@ -7,8 +7,7 @@ import com.badlogic.gdx.utils.Array;
  *
  * @author isoteriksoftware
  */
-public class Layer
-{
+public class Layer {
     private Array<GameObject> gameObjects;
 
     private String name;
@@ -17,8 +16,7 @@ public class Layer
      * Creates a new layer with a given name.
      * @param name a name for the layer
      */
-    public Layer(String name)
-    {
+    public Layer(String name) {
         this.name = name;
 
         gameObjects = new Array<>();

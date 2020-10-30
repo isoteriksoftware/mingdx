@@ -2,7 +2,7 @@ package com.isoterik.mgdx.input;
 
 /**
  * The base interface for all triggers.
- * A trigger uses an event data to determine when to fire. When a trigger fires, the {@link InputManager} invokes any {@link InputListener} associated with that trigger
+ * A trigger uses an event data to determine when to fire. When a trigger fires, the {@link InputManager} invokes any {@link InputListener} associated with that trigger.
  * @see Trigger
  * @see KeyTrigger
  * @see TouchTrigger
@@ -10,8 +10,7 @@ package com.isoterik.mgdx.input;
  *
  * @author isoteriksoftware
  */
-public interface ITrigger
-{
+public interface ITrigger {
     /**
      * Changes the state of this trigger
      * @param active if {@code true} this trigger can be fired, otherwise it is disabled

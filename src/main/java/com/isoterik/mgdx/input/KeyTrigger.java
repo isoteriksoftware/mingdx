@@ -6,8 +6,7 @@ package com.isoterik.mgdx.input;
  *
  * @author isoteriksoftware
  */
-public class KeyTrigger extends Trigger
-{
+public class KeyTrigger extends Trigger {
     /**
      * Determines when this trigger should fire
      */

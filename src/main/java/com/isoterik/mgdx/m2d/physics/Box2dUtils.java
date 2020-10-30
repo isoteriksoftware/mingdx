@@ -19,8 +19,7 @@ import com.badlogic.gdx.physics.box2d.joints.RopeJointDef;
  *
  * @author isoteriksoftware
  */
-public class Box2dUtils
-{
+public class Box2dUtils {
     public static final int bottomBoundaryIndex = 0;
     public static final int rightBoundaryIndex = 1;
     public static final int topBoundaryIndex = 2;
@@ -28,8 +27,7 @@ public class Box2dUtils
 
     public static Body createBoxBody(World world, Vector2 dimens,
                                      Vector2 position, BodyDef.BodyType bodyType, float density,
-                                     float restitution, float friction, float rotation)
-    {
+                                     float restitution, float friction, float rotation) {
         float width = dimens.x;
         float height = dimens.y;
         float x = position.x + width/2;
@@ -58,8 +56,7 @@ public class Box2dUtils
 
     public static Body createRoundBody(World world, float radius,
                                        Vector2 position, BodyDef.BodyType bodyType, float density,
-                                       float restitution, float friction, float rotation)
-    {
+                                       float restitution, float friction, float rotation) {
         float x = position.x + radius;
         float y = position.y + radius;
 
@@ -88,8 +85,7 @@ public class Box2dUtils
                                   float[] vertices, BodyDef.BodyType bodyType,
                                   Vector2 dimens, Vector2 position,
                                   float density, float restitution,
-                                  float friction, float rotation)
-    {
+                                  float friction, float rotation) {
         float width = dimens.x;
         float height = dimens.y;
         float x = position.x + width;
@@ -119,8 +115,7 @@ public class Box2dUtils
     public static Body createDynamicBody(World world,
                                          float[] vertices, Vector2 dimens,
                                          Vector2 pos, float density, float restitution,
-                                         float friction, float rotation)
-    {
+                                         float friction, float rotation) {
         return(createBody(world, vertices, BodyDef.BodyType.DynamicBody,
                 dimens, pos, density,
                 restitution, friction, rotation));
@@ -129,8 +124,7 @@ public class Box2dUtils
     public static Body createStaticBody(World world,
                                         float[] vertices, Vector2 dimens,
                                         Vector2 pos, float density, float restitution,
-                                        float friction, float rotation)
-    {
+                                        float friction, float rotation) {
         return(createBody(world, vertices, BodyDef.BodyType.StaticBody,
                 dimens,pos, density,
                 restitution, friction, rotation));
@@ -138,8 +132,7 @@ public class Box2dUtils
 
     public static Body createBoxBody(World world, Vector2 dimens,
                                      Vector2 position, float density,
-                                     float restitution, float friction, float rotation)
-    {
+                                     float restitution, float friction, float rotation) {
         return(createBoxBody(world, dimens, position,
                 BodyDef.BodyType.StaticBody, density, restitution,
                 friction, rotation));
@@ -147,24 +140,21 @@ public class Box2dUtils
 
     public static Body createBoxBody(World world, Vector2 dimens,
                                      Vector2 position, float density,
-                                     float restitution, float friction)
-    {
+                                     float restitution, float friction) {
         return(createBoxBody(world, dimens, position,
                 BodyDef.BodyType.StaticBody, density, restitution,
                 friction, 0));
     }
 
     public static Body createBoxBody(World world, Vector2 dimens,
-                                     Vector2 position)
-    {
+                                     Vector2 position) {
         return(createBoxBody(world, dimens, position,
                 BodyDef.BodyType.StaticBody, 0, 0,
                 0, 0));
     }
 
     public static Body boxBodyFor(com.isoterik.mgdx.Transform transform, World world,
-                                  float density, float restitution, float friction)
-    {
+                                  float density, float restitution, float friction) {
         Vector2 position = new Vector2(transform.position.x, transform.position.y);
         Vector2 dimens = new Vector2(transform.size.x, transform.size.y);
 
@@ -175,8 +165,7 @@ public class Box2dUtils
 
     public static Body createDynamicBoxBody(World world, Vector2 dimens,
                                             Vector2 position, float density,
-                                            float restitution, float friction, float rotation)
-    {
+                                            float restitution, float friction, float rotation) {
         return(createBoxBody(world, dimens, position,
                 BodyDef.BodyType.DynamicBody, density, restitution,
                 friction, rotation));
@@ -184,24 +173,21 @@ public class Box2dUtils
 
     public static Body createDynamicBoxBody(World world, Vector2 dimens,
                                             Vector2 position, float density,
-                                            float restitution, float friction)
-    {
+                                            float restitution, float friction) {
         return(createBoxBody(world, dimens, position,
                 BodyDef.BodyType.DynamicBody, density, restitution,
                 friction, 0));
     }
 
     public static Body createDynamicBoxBody(World world, Vector2 dimens,
-                                            Vector2 position)
-    {
+                                            Vector2 position) {
         return(createBoxBody(world, dimens, position,
                 BodyDef.BodyType.DynamicBody, 0, 0,
                 0, 0));
     }
 
     public static Body dynamicBoxBodyFor(com.isoterik.mgdx.Transform transform, World world,
-                                         float density, float restitution, float friction)
-    {
+                                         float density, float restitution, float friction) {
         Vector2 position = new Vector2(transform.position.x, transform.position.y);
         Vector2 dimens = new Vector2(transform.size.x, transform.size.y);
 
@@ -212,8 +198,7 @@ public class Box2dUtils
 
     public static Body createRoundBody(World world, float radius,
                                        Vector2 position, float density,
-                                       float restitution, float friction, float rotation)
-    {
+                                       float restitution, float friction, float rotation) {
         return(createRoundBody(world, radius, position,
                 BodyDef.BodyType.StaticBody, density, restitution,
                 friction, rotation));
@@ -221,24 +206,21 @@ public class Box2dUtils
 
     public static Body createRoundBody(World world, float radius,
                                        Vector2 position, float density,
-                                       float restitution, float friction)
-    {
+                                       float restitution, float friction) {
         return(createRoundBody(world, radius, position,
                 BodyDef.BodyType.StaticBody, density, restitution,
                 friction, 0));
     }
 
     public static Body createRoundBody(World world, float radius,
-                                       Vector2 position)
-    {
+                                       Vector2 position) {
         return(createRoundBody(world, radius, position,
                 BodyDef.BodyType.StaticBody, 0, 0,
                 0, 0));
     }
 
     public static Body roundBodyFor(com.isoterik.mgdx.Transform transform, World world,
-                                    float density, float restitution, float friction)
-    {
+                                    float density, float restitution, float friction) {
         Vector2 position = new Vector2(transform.position.x, transform.position.y);
         float radius = transform.size.x/2;
         return(createRoundBody(world, radius, position,
@@ -248,8 +230,7 @@ public class Box2dUtils
 
     public static Body createDynamicRoundBody(World world, float radius,
                                               Vector2 position, float density,
-                                              float restitution, float friction, float rotation)
-    {
+                                              float restitution, float friction, float rotation) {
         return(createRoundBody(world, radius, position,
                 BodyDef.BodyType.DynamicBody, density, restitution,
                 friction, rotation));
@@ -257,24 +238,21 @@ public class Box2dUtils
 
     public static Body createDynamicRoundBody(World world, float radius,
                                               Vector2 position, float density,
-                                              float restitution, float friction)
-    {
+                                              float restitution, float friction) {
         return(createRoundBody(world, radius, position,
                 BodyDef.BodyType.DynamicBody, density, restitution,
                 friction, 0));
     }
 
     public static Body createDynamicRoundBody(World world, float radius,
-                                              Vector2 position)
-    {
+                                              Vector2 position) {
         return(createRoundBody(world, radius, position,
                 BodyDef.BodyType.DynamicBody, 0, 0,
                 0, 0));
     }
 
     public static Body dynamicRoundBodyFor(com.isoterik.mgdx.Transform transform, World world,
-                                           float density, float restitution, float friction)
-    {
+                                           float density, float restitution, float friction) {
         Vector2 position = new Vector2(transform.position.x, transform.position.y);
         float radius = transform.size.x/2;
         return(createDynamicRoundBody(world, radius, position,
@@ -283,16 +261,14 @@ public class Box2dUtils
     }
 
     public static Body createWall(World world,
-                                  Vector2 dimens, Vector2 pos, float friction)
-    {
+                                  Vector2 dimens, Vector2 pos, float friction) {
         return(createBoxBody(world, dimens,
                 pos, 0, 0, friction));
     }
 
     public static Body createEdge(World world,
                                   Vector2 pos, Vector2 start,
-                                  Vector2 end, float friction)
-    {
+                                  Vector2 end, float friction) {
         float x1 = start.x;
         float y1 = start.y;
         float x2 = end.x;
@@ -325,8 +301,7 @@ public class Box2dUtils
      * @return world boundaries (array of generated bodies)
      */
     public static Body[] createBoundaryBox(World world, float boundaryWidth,
-                                               float boundaryHeight, float friction)
-    {
+                                               float boundaryHeight, float friction) {
         Body[] walls = new Body[4];
 
         float size = 0.25f;
@@ -351,8 +326,7 @@ public class Box2dUtils
         return(walls);
     }
 
-    public static Body[] removeWorldBoundary(Body[] boundaries, int index)
-    {
+    public static Body[] removeWorldBoundary(Body[] boundaries, int index) {
         if(index >= boundaries.length ||
                 index < 0)
             return(null);
@@ -375,8 +349,7 @@ public class Box2dUtils
 
     public static Body[] createRope(World world, int maxBodies, boolean ofBoxes,
                                     Vector2 dimens, Vector2 position, float density, float restitution,
-                                    float friction, float rotation)
-    {
+                                    float friction, float rotation) {
         float width = dimens.x;
         float height = dimens.y;
         float radius = width/2;

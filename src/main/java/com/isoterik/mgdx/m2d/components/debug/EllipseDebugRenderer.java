@@ -7,12 +7,11 @@ import com.badlogic.gdx.math.Vector3;
 import com.isoterik.mgdx.GameCamera;
 
 /**
- * A debug draw that renders an ellipse shape around the host game object
+ * Renders an ellipse shape around the host game object
  *
  * @author isoteriksoftware
  */
-public class EllipseDebugDraw extends DebugDrawBase
-{
+public class EllipseDebugRenderer extends DebugRendererBase {
 	protected int segments = 20;
 
 	/**
@@ -20,20 +19,20 @@ public class EllipseDebugDraw extends DebugDrawBase
 	 * @param shapeType the shape type
 	 * @param color the color
 	 */
-	public EllipseDebugDraw(ShapeType shapeType, Color color)
+	public EllipseDebugRenderer(ShapeType shapeType, Color color)
 	{ super(shapeType, color); }
 
 	/**
 	 * Creates a new instance given a shape type
 	 * @param shapeType the shape type
 	 */
-	public EllipseDebugDraw(ShapeType shapeType)
+	public EllipseDebugRenderer(ShapeType shapeType)
 	{ super(shapeType); }
 
 	/**
 	 * Creates a new instance
 	 */
-	public EllipseDebugDraw()
+	public EllipseDebugRenderer()
 	{ super(); }
 
 	/**
@@ -41,8 +40,7 @@ public class EllipseDebugDraw extends DebugDrawBase
 	 * @param segments the number of segments
 	 * @return this instance for chaining
 	 */
-	public EllipseDebugDraw setSegments(int segments)
-	{
+	public EllipseDebugRenderer setSegments(int segments) {
 		this.segments = segments;
 		return this;
 	}
@@ -55,22 +53,19 @@ public class EllipseDebugDraw extends DebugDrawBase
 	{ return segments; }
 	
 	@Override
-	public EllipseDebugDraw setColor(Color color)
-	{
+	public EllipseDebugRenderer setColor(Color color) {
 		super.setColor(color);
 		return this;
 	}
 
 	@Override
-	public EllipseDebugDraw setShapeType(ShapeType shapeType)
-	{
+	public EllipseDebugRenderer setShapeType(ShapeType shapeType) {
 		super.setShapeType(shapeType);
 		return this;
 	}
 
 	@Override
-	public void draw(ShapeRenderer shapeRenderer, GameCamera gameCamera)
-	{
+	public void draw(ShapeRenderer shapeRenderer, GameCamera gameCamera) {
 		Vector3 pos = gameObject.transform.position;
 		Vector3 size = gameObject.transform.size;
 		float rotation = gameObject.transform.getRotation();

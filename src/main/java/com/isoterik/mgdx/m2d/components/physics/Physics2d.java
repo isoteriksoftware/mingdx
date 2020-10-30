@@ -22,8 +22,7 @@ import com.isoterik.mgdx.m2d.physics.PhysicsMaterial2d;
  *
  * @author isoteriksoftware
  */
-public class Physics2d extends Component
-{
+public class Physics2d extends Component {
     /** A dynamic body type. Dynamic bodies have positive mass, non-zero velocity determined by forces and  moved by solver */
     public static final BodyDef.BodyType DynamicBody = BodyDef.BodyType.DynamicBody;
 
@@ -44,8 +43,7 @@ public class Physics2d extends Component
      * @param bodyType the body type
      * @param material the physics material
      */
-    public Physics2d(BodyDef.BodyType bodyType, PhysicsMaterial2d material)
-    {
+    public Physics2d(BodyDef.BodyType bodyType, PhysicsMaterial2d material) {
         this.bodyType = bodyType;
         this.material = material;
 
@@ -73,8 +71,7 @@ public class Physics2d extends Component
      * @param hostScene a scene where the host game object will be added to
      * @return the created physics body or null if a body cannot be created
      */
-    public Body getBody(Scene hostScene)
-    {
+    public Body getBody(Scene hostScene) {
         if (body != null)
             return body;
 
@@ -104,8 +101,7 @@ public class Physics2d extends Component
     /*
     Creates the physics body for the host game object
      */
-    private void createBody(World physicsWorld)
-    {
+    private void createBody(World physicsWorld) {
         // Offset the current game object position by half its dimension
         Vector2 pos = new Vector2(gameObject.transform.position.x,
                 gameObject.transform.position.y);
@@ -133,11 +129,10 @@ public class Physics2d extends Component
 
     /**
      * Interpolates the physic body to avoid temporal aliasing.
-     * This method is called internally by the system and should never be called directly
+     * This method is called internally by the system and should never be called directly.
      * @param alpha the ratio of the time spent by the renderer to a fixed time steps
      */
-    public void __interpolate(float alpha)
-    {
+    public void __interpolate(float alpha) {
         // We bail out if the body is either null or inactive
         if (body == null || !body.isActive())
             return;
@@ -169,8 +164,7 @@ public class Physics2d extends Component
         gameObject.transform.setRotation(bodyAngle * alpha + angle * (1.0f - alpha));
     }
 
-    private void __disposeBody()
-    {
+    private void __disposeBody() {
         if (scene == null || body == null)
             return;
 
@@ -178,8 +172,7 @@ public class Physics2d extends Component
     }
 
     @Override
-    public void __setHostScene(Scene scene)
-    {
+    public void __setHostScene(Scene scene) {
         super.__setHostScene(scene);
 
         // Create a physics body once a valid scene is available
@@ -189,8 +182,7 @@ public class Physics2d extends Component
     }
 
     @Override
-    public void attach()
-    {
+    public void attach() {
         // This body cannot have more than one instance of this Component
         if (hasComponent(Physics2d.class))
             throw new UnsupportedOperationException("A GameObject can have only one instance of Physics2d attached!");
@@ -209,23 +201,20 @@ public class Physics2d extends Component
     }
 
     @Override
-    public void detach()
-    {
+    public void detach() {
         // Destroy the physics body associated with this RigidBody
         this.__disposeBody();
     }
 
     @Override
-    public void start()
-    {
+    public void start() {
         // Create the physics body using available colliders
         if (body == null)
             createBody(scene.getPhysicsWorld2d());
     }
 
     @Override
-    public void componentAdded(Component component)
-    {
+    public void componentAdded(Component component) {
         // If the component added is a Collider then we have add it to our list of colliders
 
         if (component instanceof Collider) {
@@ -242,8 +231,7 @@ public class Physics2d extends Component
     }
 
     @Override
-    public void componentRemoved(Component component)
-    {
+    public void componentRemoved(Component component) {
         // If the component removed is a Collider then we have to remove it from our list of colliders.
         // We also need to detach it from the body
 
@@ -261,8 +249,7 @@ public class Physics2d extends Component
     }
 
     @Override
-    public void fixedUpdate(float deltaTime)
-    {
+    public void fixedUpdate(float deltaTime) {
         // Attempt to create a body if none exists.
         // This should never happen but just in case
         if (body == null)

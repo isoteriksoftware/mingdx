@@ -8,12 +8,11 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.utils.Array;
 
 /**
- * A scene transition that divides the scenes display into slices and animate those slices.
+ * A scene transition that divides the scene into slices and animate those slices.
  *
  * @author isoteriksoftware
  */
-public class Slice implements ISceneTransition
-{
+public class Slice implements ISceneTransition {
     private static final Slice instance = new Slice();
 
     private float duration;
@@ -30,8 +29,7 @@ public class Slice implements ISceneTransition
      * @return the created instance
      */
     public static Slice init (float duration, int direction, int numSlices,
-                              Interpolation easing)
-    {
+                              Interpolation easing) {
         instance.duration = duration;
         instance.direction = direction;
         instance.easing = easing;
@@ -52,8 +50,7 @@ public class Slice implements ISceneTransition
 
     @Override
     public void render (SpriteBatch batch, Texture currScreen,
-                        Texture nextScreen, float alpha)
-    {
+                        Texture nextScreen, float alpha) {
         float w = currScreen.getWidth();
         float h = currScreen.getHeight();
         float x = 0;

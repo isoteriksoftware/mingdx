@@ -11,16 +11,14 @@ import com.isoterik.mgdx.ai.fsm.ICondition;
  * @author isoteriksoftware
  * @see com.isoterik.mgdx.ai.fsm.conditions.CompoundCondition
  */
-public class NumericCompoundCondition<T extends Number> extends CompoundCondition
-{
+public class NumericCompoundCondition<T extends Number> extends CompoundCondition {
 	protected DataSource<T> dataSource;
 
 	/**
 	 * Creates a new instance given an initial value
 	 * @param value the initial value
 	 */
-	public NumericCompoundCondition(T value)
-	{
+	public NumericCompoundCondition(T value) {
 		super(new EqualsCondition<T>(value, value));
 		dataSource = ((EqualsCondition<T>)condition).firstDataSource;
 	}
@@ -30,8 +28,7 @@ public class NumericCompoundCondition<T extends Number> extends CompoundConditio
 	 * @param value the value
 	 * @return this instance for chaining
 	 */
-	public NumericCompoundCondition<T> setValue(T value)
-	{
+	public NumericCompoundCondition<T> setValue(T value) {
 		dataSource.data = value;
 		return this;
 	}
@@ -40,8 +37,9 @@ public class NumericCompoundCondition<T extends Number> extends CompoundConditio
 	 *
 	 * @return the current value
 	 */
-	public T getValue()
-	{ return dataSource.data; }
+	public T getValue() {
+		return dataSource.data;
+	}
 
 	/**
 	 * Delegates to {@link AndCondition} using the current condition and one or more conditions
@@ -51,8 +49,7 @@ public class NumericCompoundCondition<T extends Number> extends CompoundConditio
 	 * @see AndCondition
 	 */
 	@Override
-	public NumericCompoundCondition<T> and(ICondition newCondition, ICondition... newConditions)
-	{
+	public NumericCompoundCondition<T> and(ICondition newCondition, ICondition... newConditions) {
 		super.and( newCondition, newConditions);
 		return this;
 	}
@@ -65,8 +62,7 @@ public class NumericCompoundCondition<T extends Number> extends CompoundConditio
 	 * @see OrCondition
 	 */
 	@Override
-	public NumericCompoundCondition<T> or(ICondition newCondition, ICondition... newConditions)
-	{
+	public NumericCompoundCondition<T> or(ICondition newCondition, ICondition... newConditions) {
 		super.or(newCondition, newConditions);
 		return this;
 	}
@@ -78,8 +74,7 @@ public class NumericCompoundCondition<T extends Number> extends CompoundConditio
 	 * @see EqualsCondition
 	 */
 	@Override
-	public NumericCompoundCondition<T> is(boolean value)
-	{
+	public NumericCompoundCondition<T> is(boolean value) {
 		super.is(value);
 		return this;
 	}
@@ -90,8 +85,7 @@ public class NumericCompoundCondition<T extends Number> extends CompoundConditio
 	 * @return this instance for chaining
 	 * @see NotCondition
 	 */
-	public NumericCompoundCondition<T> not(T testValue)
-	{
+	public NumericCompoundCondition<T> not(T testValue) {
 		condition = new NotCondition(new EqualsCondition<T>(
 			dataSource, new DataSource<>(testValue)));
 		return this;
@@ -103,8 +97,7 @@ public class NumericCompoundCondition<T extends Number> extends CompoundConditio
 	 * @see NotCondition
 	 */
 	@Override
-	public NumericCompoundCondition<T> not()
-	{
+	public NumericCompoundCondition<T> not() {
 		super.not();
 		return this;
 	}
@@ -115,8 +108,7 @@ public class NumericCompoundCondition<T extends Number> extends CompoundConditio
 	 * @return this instance for chaining
 	 * @see EqualsCondition
 	 */
-	public NumericCompoundCondition<T> is(T testValue)
-	{
+	public NumericCompoundCondition<T> is(T testValue) {
 		condition = new EqualsCondition<T>(dataSource, new DataSource<>(testValue),
 				false);
 		return this;
@@ -128,8 +120,7 @@ public class NumericCompoundCondition<T extends Number> extends CompoundConditio
 	 * @return this instance for chaining
 	 * @see NotEqualCondition
 	 */
-	public NumericCompoundCondition<T> isNot(T testValue)
-	{
+	public NumericCompoundCondition<T> isNot(T testValue) {
 		condition = new NotEqualCondition<T>(dataSource, new DataSource<>(testValue),
 				false);
 		return this;
@@ -142,8 +133,7 @@ public class NumericCompoundCondition<T extends Number> extends CompoundConditio
 	 * @see NotEqualCondition
 	 */
 	@Override
-	public NumericCompoundCondition<T> isNot(boolean value)
-	{
+	public NumericCompoundCondition<T> isNot(boolean value) {
 		super.isNot(value);
 		return this;
 	}
@@ -154,8 +144,7 @@ public class NumericCompoundCondition<T extends Number> extends CompoundConditio
 	 * @return this instance for chaining
 	 * @see GreaterThanCondition
 	 */
-	public NumericCompoundCondition<T> greaterThan(T testValue)
-	{
+	public NumericCompoundCondition<T> greaterThan(T testValue) {
 		condition = new GreaterThanCondition<T>(dataSource, new DataSource<>(testValue));
 		return this;
 	}
@@ -166,8 +155,7 @@ public class NumericCompoundCondition<T extends Number> extends CompoundConditio
 	 * @return this instance for chaining
 	 * @see LessThanCondition
 	 */
-	public NumericCompoundCondition<T> lessThan(T testValue)
-	{
+	public NumericCompoundCondition<T> lessThan(T testValue) {
 		condition = new LessThanCondition<T>(dataSource, new DataSource<>(testValue));
 		return this;
 	}

@@ -8,8 +8,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
  *
  * @author isoteriksoftware
  */
-public class PolygonCollider extends Collider
-{
+public class PolygonCollider extends Collider {
 	private float[] vertices;
 
 	/**
@@ -18,8 +17,7 @@ public class PolygonCollider extends Collider
 	 * @param vertices the vertices of the polygon
 	 * @throws IllegalArgumentException if the vertices array is null or empty
 	 */
-	public PolygonCollider(float[] vertices) throws IllegalArgumentException
-	{
+	public PolygonCollider(float[] vertices) throws IllegalArgumentException {
 		if (vertices == null || vertices.length == 0)
 			throw new IllegalArgumentException("Vertices are required!");
 			
@@ -27,8 +25,7 @@ public class PolygonCollider extends Collider
 	}
 	
 	@Override
-	public FixtureDef getFixtureDef()
-	{
+	public FixtureDef getFixtureDef() {
 		shape = new PolygonShape();
 		((PolygonShape)shape).set(vertices);
 

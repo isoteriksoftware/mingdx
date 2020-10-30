@@ -16,29 +16,27 @@ import com.isoterik.mgdx.Scene;
  *
  * @author isoteriksoftware
  */
-public class InputManager extends InputAdapter
-		implements GestureDetector.GestureListener
-{
+public class InputManager extends InputAdapter implements GestureDetector.GestureListener {
 	private final Scene hostScene;
 
-	private ArrayMap<String, Array<ITrigger>> mappings;
-	private ArrayMap<String, Array<ITouchListener>> mappedTouchListeners;
-	private ArrayMap<String, Array<IKeyListener>> mappedKeyListeners;
-	private ArrayMap<String, Array<IGestureListener>> mappedGestureListeners;
+	private final ArrayMap<String, Array<ITrigger>> mappings;
+	private final ArrayMap<String, Array<ITouchListener>> mappedTouchListeners;
+	private final ArrayMap<String, Array<IKeyListener>> mappedKeyListeners;
+	private final ArrayMap<String, Array<IGestureListener>> mappedGestureListeners;
 
-	private ArrayMap<TouchTrigger, ITouchListener> touchListeners;
-	private ArrayMap<KeyTrigger, IKeyListener> keyListeners;
-	private ArrayMap<GestureTrigger, IGestureListener> gestureListeners;
+	private final ArrayMap<TouchTrigger, ITouchListener> touchListeners;
+	private final ArrayMap<KeyTrigger, IKeyListener> keyListeners;
+	private final ArrayMap<GestureTrigger, IGestureListener> gestureListeners;
 
 	private static TouchEventData.DataPool touchDataPool;
 	private static KeyEventData.DataPool keyDataPool;
 	private static GestureEventData.DataPool gestureDataPool;
 
-	private InputMultiplexer inputMultiplexer;
-	private GestureDetector gestureDetector;
+	private final InputMultiplexer inputMultiplexer;
+	private final GestureDetector gestureDetector;
 
-	private Vector2 tempVector = new Vector2();
-	private Vector3 tempVector3 = new Vector3();
+	private final Vector2 tempVector = new Vector2();
+	private final Vector3 tempVector3 = new Vector3();
 
 	/**
 	 * An array of supported mouse buttons.
@@ -56,8 +54,7 @@ public class InputManager extends InputAdapter
 	 * Creates a new instance for a given scene
 	 * @param hostScene the scene that this manager gets input data from
 	 */
-	public InputManager (Scene hostScene)
-	{
+	public InputManager (Scene hostScene) {
 		this.hostScene = hostScene;
 
 		mappings = new ArrayMap<>();
@@ -112,8 +109,7 @@ public class InputManager extends InputAdapter
 	 * @param triggers more triggers to map
 	 * @return {@code true} if the mapping was created, {@code false} if the mapping already exists
 	 */
-	public boolean addMapping(String mappingName, ITrigger trigger, ITrigger... triggers)
-	{
+	public boolean addMapping(String mappingName, ITrigger trigger, ITrigger... triggers) {
 		if (hasMapping(mappingName))
 			return false;
 
@@ -132,8 +128,7 @@ public class InputManager extends InputAdapter
 	 * @param triggers more triggers to add
 	 * @return {@code true} if the mapping was modified, {@code false} if the mapping doesn't exist
 	 */
-	public boolean updateMapping(String mappingName, ITrigger trigger, ITrigger... triggers)
-	{
+	public boolean updateMapping(String mappingName, ITrigger trigger, ITrigger... triggers) {
 		if (!hasMapping(mappingName))
 			return false;
 
@@ -148,8 +143,7 @@ public class InputManager extends InputAdapter
 	 * @param mappingName the name of the mapping
 	 * @return an array of triggers for an existing map. {@code null} if the mapping doesn't exist
 	 */
-	public Array<ITrigger> getMapping (String mappingName)
-	{
+	public Array<ITrigger> getMapping (String mappingName) {
 		if (!hasMapping(mappingName))
 			return null;
 
@@ -170,8 +164,7 @@ public class InputManager extends InputAdapter
 	 * @param mappingName the name of the mapping
 	 * @return true if the mapped triggers were removed, false otherwise
 	 */
-	public boolean removedMappedTriggers(String mappingName)
-	{
+	public boolean removedMappedTriggers(String mappingName) {
 		if (!hasMapping(mappingName))
 			return false;
 
@@ -184,8 +177,7 @@ public class InputManager extends InputAdapter
 	/**
 	 * Removes all mapped triggers from every mapping
 	 */
-	public void removeAllMappedTriggers()
-	{
+	public void removeAllMappedTriggers() {
 		ArrayMap.Keys<String> keys = mappings.keys();
 		for (String key : keys)
 			getMapping(key).clear();
@@ -195,47 +187,41 @@ public class InputManager extends InputAdapter
 	 * Clears all mapped listeners for a given mapping name
 	 * @param mappingName the name of the mapping to clear
 	 */
-	public void clearMappedListeners(String mappingName)
-	{
+	public void clearMappedListeners(String mappingName) {
 		clearMappedTouchListeners(mappingName);
 		clearMappedKeyListeners(mappingName);
 		clearMappedGestureListeners(mappingName);
 	}
 
-	private void clearMappedTouchListeners(String mappingName)
-	{
+	private void clearMappedTouchListeners(String mappingName) {
 		if (!mappedTouchListeners.containsKey(mappingName))
 			return;
 
 		mappedTouchListeners.get(mappingName).clear();
 	}
 
-	private void clearMappedKeyListeners(String mappingName)
-	{
+	private void clearMappedKeyListeners(String mappingName) {
 		if (!mappedKeyListeners.containsKey(mappingName))
 			return;
 
 		mappedKeyListeners.get(mappingName).clear();
 	}
 
-	private void clearMappedGestureListeners(String mappingName)
-	{
+	private void clearMappedGestureListeners(String mappingName) {
 		if (!mappedGestureListeners.containsKey(mappingName))
 			return;
 
 		mappedGestureListeners.get(mappingName).clear();
 	}
 
-	private void removeMappedTouchListeners(String mappingName)
-	{
+	private void removeMappedTouchListeners(String mappingName) {
 		if (!mappedTouchListeners.containsKey(mappingName))
 			return;
 
 		mappedTouchListeners.removeKey(mappingName);
 	}
 
-	private void removeMappedTouchListener(String mappingName, ITouchListener touchListener)
-	{
+	private void removeMappedTouchListener(String mappingName, ITouchListener touchListener) {
 		if (!mappedTouchListeners.containsKey(mappingName))
 			return;
 
@@ -243,16 +229,14 @@ public class InputManager extends InputAdapter
 		listeners.removeValue(touchListener, true);
 	}
 
-	private void removeMappedKeyListeners(String mappingName)
-	{
+	private void removeMappedKeyListeners(String mappingName) {
 		if (!mappedKeyListeners.containsKey(mappingName))
 			return;
 
 		mappedKeyListeners.removeKey(mappingName);
 	}
 
-	private void removeMappedKeyListener(String mappingName, IKeyListener keyListener)
-	{
+	private void removeMappedKeyListener(String mappingName, IKeyListener keyListener) {
 		if (!mappedKeyListeners.containsKey(mappingName))
 			return;
 
@@ -260,16 +244,14 @@ public class InputManager extends InputAdapter
 		listeners.removeValue(keyListener, true);
 	}
 
-	private void removeMappedGestureListeners(String mappingName)
-	{
+	private void removeMappedGestureListeners(String mappingName) {
 		if (!mappedGestureListeners.containsKey(mappingName))
 			return;
 
 		mappedGestureListeners.removeKey(mappingName);
 	}
 
-	private void removeMappedGestureListener(String mappingName, IGestureListener gestureListener)
-	{
+	private void removeMappedGestureListener(String mappingName, IGestureListener gestureListener) {
 		if (!mappedGestureListeners.containsKey(mappingName))
 			return;
 
@@ -282,8 +264,7 @@ public class InputManager extends InputAdapter
 	 * @param mappingName the mapping to remove from
 	 * @param listener the listener to remove
 	 */
-	public void removeMappedListener(String mappingName, InputListener listener)
-	{
+	public void removeMappedListener(String mappingName, InputListener listener) {
 		if (listener instanceof ITouchListener)
 			removeMappedTouchListener(mappingName, (ITouchListener)listener);
 		else if (listener instanceof IKeyListener)
@@ -296,8 +277,7 @@ public class InputManager extends InputAdapter
 	 * Removes all mapped listeners for a give mapping name
 	 * @param mappingName the mapping name
 	 */
-	public void removeMappedListeners(String mappingName)
-	{
+	public void removeMappedListeners(String mappingName) {
 		removeMappedTouchListeners(mappingName);
 		removeMappedKeyListeners(mappingName);
 		removeMappedGestureListeners(mappingName);
@@ -324,8 +304,7 @@ public class InputManager extends InputAdapter
 	 *     </li>
 	 * </ul>
 	 */
-	public void removeAllMappedListeners()
-	{
+	public void removeAllMappedListeners() {
 		removeAllMappedTouchListeners();
 		removeAllMappedKeyListeners();
 		removeAllMappedGestureListeners();
@@ -335,8 +314,7 @@ public class InputManager extends InputAdapter
 	 * Removes a mapping
 	 * @param mappingName the name of the mapping
 	 */
-	public void removeMapping(String mappingName)
-	{
+	public void removeMapping(String mappingName) {
 		if (!hasMapping(mappingName))
 			return;
 
@@ -384,8 +362,7 @@ public class InputManager extends InputAdapter
 	/**
 	 * Deactivates all mapped triggers of all mappings
 	 */
-	public void deactivateAllMappedTriggers()
-	{
+	public void deactivateAllMappedTriggers() {
 		ArrayMap.Keys<String> keys = mappings.keys();
 		for (String key : keys)
 			deactivateMappedTriggers(key);
@@ -396,8 +373,7 @@ public class InputManager extends InputAdapter
 	 * @param triggerClass the type class of the triggers
 	 * @param <T> the type of triggers
 	 */
-	public <T extends ITrigger> void deactivateAllMappedTriggers(Class<T> triggerClass)
-	{
+	public <T extends ITrigger> void deactivateAllMappedTriggers(Class<T> triggerClass) {
 		ArrayMap.Keys<String> keys = mappings.keys();
 		for (String key : keys)
 			deactivateMappedTriggers(key, triggerClass);
@@ -406,8 +382,7 @@ public class InputManager extends InputAdapter
 	/**
 	 * Activates all mapped triggers of all mappings
 	 */
-	public void activateAllMappedTriggers()
-	{
+	public void activateAllMappedTriggers() {
 		ArrayMap.Keys<String> keys = mappings.keys();
 		for (String key : keys)
 			activateMappedTriggers(key);
@@ -418,15 +393,13 @@ public class InputManager extends InputAdapter
 	 * @param triggerClass the type class of the triggers
 	 * @param <T> the type of triggers
 	 */
-	public <T extends ITrigger> void activateAllMappedTriggers(Class<T> triggerClass)
-	{
+	public <T extends ITrigger> void activateAllMappedTriggers(Class<T> triggerClass) {
 		ArrayMap.Keys<String> keys = mappings.keys();
 		for (String key : keys)
 			activateMappedTriggers(key, triggerClass);
 	}
 
-	private void changeTriggersState(String mappingName, boolean active)
-	{
+	private void changeTriggersState(String mappingName, boolean active) {
 		if (!hasMapping(mappingName))
 			return;
 
@@ -436,8 +409,7 @@ public class InputManager extends InputAdapter
 
 	}
 
-	private <T extends ITrigger> void changeTriggersState (String mappingName, boolean active, Class<T> triggerClass)
-	{
+	private <T extends ITrigger> void changeTriggersState (String mappingName, boolean active, Class<T> triggerClass) {
 		if (!hasMapping(mappingName))
 			return;
 
@@ -450,8 +422,7 @@ public class InputManager extends InputAdapter
 
 	}
 
-	private void mapListener(String mappingName, ITouchListener listener)
-	{
+	private void mapListener(String mappingName, ITouchListener listener) {
 		Array<ITouchListener> listeners =
 				mappedTouchListeners.containsKey(mappingName) ?
 						mappedTouchListeners.get(mappingName) : new Array<>();
@@ -461,8 +432,7 @@ public class InputManager extends InputAdapter
 
 	}
 
-	private void mapListener(String mappingName, IKeyListener listener)
-	{
+	private void mapListener(String mappingName, IKeyListener listener) {
 		Array<IKeyListener> listeners =
 				mappedKeyListeners.containsKey(mappingName) ?
 						mappedKeyListeners.get(mappingName) : new Array<>();
@@ -472,8 +442,7 @@ public class InputManager extends InputAdapter
 
 	}
 
-	private void mapListener(String mappingName, IGestureListener listener)
-	{
+	private void mapListener(String mappingName, IGestureListener listener) {
 		Array<IGestureListener> listeners =
 				mappedGestureListeners.containsKey(mappingName) ?
 						mappedGestureListeners.get(mappingName) : new Array<>();
@@ -489,8 +458,7 @@ public class InputManager extends InputAdapter
 	 * @param listener a listener to map
 	 * @param listeners more listeners
 	 */
-	public void mapListener(String mappingName, InputListener listener, InputListener... listeners)
-	{
+	public void mapListener(String mappingName, InputListener listener, InputListener... listeners) {
 		if (listener instanceof ITouchListener)
 			mapListener(mappingName, (ITouchListener)listener);
 		else if (listener instanceof IKeyListener)
@@ -520,8 +488,7 @@ public class InputManager extends InputAdapter
 	 * @param mappingName the mapping name
 	 * @return all mapped key listeners that are mapped to the given mapping name. or null if no such mapping exists
 	 */
-	public Array<IKeyListener> getMappedKeyListeners(String mappingName)
-	{
+	public Array<IKeyListener> getMappedKeyListeners(String mappingName) {
 		if (!mappedKeyListeners.containsKey(mappingName))
 			return null;
 
@@ -540,8 +507,7 @@ public class InputManager extends InputAdapter
 	 * @param mappingName the mapping name
 	 * @return all mapped touch listeners that are mapped to the given mapping name. or null if no such mapping exists
 	 */
-	public Array<ITouchListener> getMappedTouchListeners(String mappingName)
-	{
+	public Array<ITouchListener> getMappedTouchListeners(String mappingName) {
 		if (!mappedTouchListeners.containsKey(mappingName))
 			return null;
 
@@ -560,8 +526,7 @@ public class InputManager extends InputAdapter
 	 * @param mappingName the mapping name
 	 * @return all mapped gesture listeners that are mapped to the given mapping name. or null if no such mapping exists
 	 */
-	public Array<IGestureListener> getMappedGestureListeners(String mappingName)
-	{
+	public Array<IGestureListener> getMappedGestureListeners(String mappingName) {
 		if (!mappedGestureListeners.containsKey(mappingName))
 			return null;
 
@@ -574,8 +539,7 @@ public class InputManager extends InputAdapter
 	 * @param trigger a trigger for the listener
 	 * @param listener the listener
 	 */
-	public void addListener(ITrigger trigger, InputListener listener)
-	{
+	public void addListener(ITrigger trigger, InputListener listener) {
 		if (trigger instanceof TouchTrigger && listener instanceof ITouchListener)
 			addTouchListener((TouchTrigger)trigger, (ITouchListener)listener);
 		if (trigger instanceof KeyTrigger && listener instanceof IKeyListener)
@@ -584,24 +548,21 @@ public class InputManager extends InputAdapter
 			addGestureListener((GestureTrigger) trigger, (IGestureListener) listener);
 	}
 
-	private void addTouchListener(TouchTrigger trigger, ITouchListener listener)
-	{
+	private void addTouchListener(TouchTrigger trigger, ITouchListener listener) {
 		if (touchListeners.containsKey(trigger))
 			return;
 
 		touchListeners.put(trigger, listener);
 	}
 
-	private void addKeyListener(KeyTrigger trigger, IKeyListener listener)
-	{
+	private void addKeyListener(KeyTrigger trigger, IKeyListener listener) {
 		if (keyListeners.containsKey(trigger))
 			return;
 
 		keyListeners.put(trigger, listener);
 	}
 
-	private void addGestureListener(GestureTrigger trigger, IGestureListener listener)
-	{
+	private void addGestureListener(GestureTrigger trigger, IGestureListener listener) {
 		if (gestureListeners.containsKey(trigger))
 			return;
 
@@ -613,8 +574,7 @@ public class InputManager extends InputAdapter
 	 * <strong>Note:</strong> this wont remove mapped listener. Use {@link #removeMappedListener(String, InputListener)} to remove mapped listener.
 	 * @param trigger the associated trigger
 	 */
-	public void removeListener(ITrigger trigger)
-	{
+	public void removeListener(ITrigger trigger) {
 		if (trigger instanceof TouchTrigger)
 			removeTouchListener((TouchTrigger)trigger);
 		if (trigger instanceof KeyTrigger)
@@ -628,8 +588,7 @@ public class InputManager extends InputAdapter
 	 * <strong>Note:</strong> this wont remove mapped listener. Use {@link #removeMappedListener(String, InputListener)} to remove mapped listener.
 	 * @param listener the listener to remove
 	 */
-	public void removeListener(InputListener listener)
-	{
+	public void removeListener(InputListener listener) {
 		if (listener instanceof  ITouchListener)
 			removeTouchListener((ITouchListener)listener);
 		if (listener instanceof  IKeyListener)
@@ -638,8 +597,7 @@ public class InputManager extends InputAdapter
 			removeGestureListener((IGestureListener) listener);
 	}
 
-	private void removeTouchListener(TouchTrigger trigger)
-	{
+	private void removeTouchListener(TouchTrigger trigger) {
 		if (!touchListeners.containsKey(trigger))
 			return;
 
@@ -654,8 +612,7 @@ public class InputManager extends InputAdapter
 	 * <strong>Note:</strong> this wont remove mapped listeners.
 	 * @param touchEvent the event type
 	 */
-	public void removeTouchListeners(TouchEventData.TouchEvent touchEvent)
-	{
+	public void removeTouchListeners(TouchEventData.TouchEvent touchEvent) {
 		ArrayMap.Keys<TouchTrigger> triggers = touchListeners.keys();
 		for (TouchTrigger trigger : triggers) {
 			if (trigger.touchEventData.sameEvent(touchEvent)) {
@@ -669,8 +626,7 @@ public class InputManager extends InputAdapter
 	 * <strong>Note:</strong> this wont remove mapped listeners.
 	 * @param keyEvent the event type
 	 */
-	public void removeKeyListeners(KeyEventData.KeyEvent keyEvent)
-	{
+	public void removeKeyListeners(KeyEventData.KeyEvent keyEvent) {
 		ArrayMap.Keys<KeyTrigger> triggers = keyListeners.keys();
 		for (KeyTrigger trigger : triggers) {
 			if (trigger.keyEventData.sameEvent(keyEvent)) {
@@ -684,8 +640,7 @@ public class InputManager extends InputAdapter
 	 * <strong>Note:</strong> this wont remove mapped listeners.
 	 * @param gestureEvent the event type
 	 */
-	public void removeGestureListeners(GestureEventData.GestureEvent gestureEvent)
-	{
+	public void removeGestureListeners(GestureEventData.GestureEvent gestureEvent) {
 		ArrayMap.Keys<GestureTrigger> triggers = gestureListeners.keys();
 		for (GestureTrigger trigger : triggers) {
 			if (trigger.gestureEventData.sameEvent(gestureEvent)) {
@@ -701,8 +656,7 @@ public class InputManager extends InputAdapter
 	public void removeAllTouchListeners()
 	{ touchListeners.clear(); }
 
-	private void removeKeyListener(KeyTrigger trigger)
-	{
+	private void removeKeyListener(KeyTrigger trigger) {
 		if (!keyListeners.containsKey(trigger))
 			return;
 
@@ -719,8 +673,7 @@ public class InputManager extends InputAdapter
 	public void removeAllKeyListeners ()
 	{ keyListeners.clear(); }
 
-	private void removeGestureListener(GestureTrigger trigger)
-	{
+	private void removeGestureListener(GestureTrigger trigger) {
 		if (!gestureListeners.containsKey(trigger))
 			return;
 
@@ -741,16 +694,14 @@ public class InputManager extends InputAdapter
 	 * Removes all listeners.
 	 * <strong>Note:</strong> this wont remove mapped listeners. Use {@link #removeAllMappedListeners()} to remove all mapped listeners
 	 */
-	public void removeAllListeners()
-	{
+	public void removeAllListeners() {
 		removeAllTouchListeners();
 		removeAllKeyListeners();
 		removeAllGestureListeners();
 	}
 
 	@Override
-	public boolean touchUp (int screenX, int screenY, int pointer, int button)
-	{
+	public boolean touchUp (int screenX, int screenY, int pointer, int button) {
 		Vector2 coords = getWorldCoords(screenX, screenY);
 
 		TouchEventData eventData = obtainTouchEventData();
@@ -770,8 +721,7 @@ public class InputManager extends InputAdapter
 	}
 
 	@Override
-	public boolean touchDown (int screenX, int screenY, int pointer, int button)
-	{
+	public boolean touchDown (int screenX, int screenY, int pointer, int button) {
 		Vector2 coords = getWorldCoords(screenX, screenY);
 
 		TouchEventData eventData = obtainTouchEventData();
@@ -791,8 +741,7 @@ public class InputManager extends InputAdapter
 	}
 
 	@Override
-	public boolean touchDragged (int screenX, int screenY, int pointer)
-	{
+	public boolean touchDragged (int screenX, int screenY, int pointer) {
 		Vector2 coords = getWorldCoords(screenX, screenY);
 
 		TouchEventData eventData = obtainTouchEventData();
@@ -811,8 +760,7 @@ public class InputManager extends InputAdapter
 	}
 
 	@Override
-	public boolean keyUp (int keyCode)
-	{
+	public boolean keyUp (int keyCode) {
 		KeyEventData eventData = obtainKeyEventData();
 		eventData.keyEvent = KeyEventData.KeyEvent.KEY_UP;
 		eventData.keyCode = keyCode;
@@ -827,8 +775,7 @@ public class InputManager extends InputAdapter
 	}
 
 	@Override
-	public boolean keyDown (int keyCode)
-	{
+	public boolean keyDown (int keyCode) {
 		KeyEventData eventData = obtainKeyEventData();
 		eventData.keyEvent = KeyEventData.KeyEvent.KEY_DOWN;
 		eventData.keyCode = keyCode;
@@ -843,8 +790,7 @@ public class InputManager extends InputAdapter
 	}
 
 	@Override
-	public boolean keyTyped (char keyChar)
-	{
+	public boolean keyTyped (char keyChar) {
 		KeyEventData eventData = obtainKeyEventData();
 		eventData.keyEvent = KeyEventData.KeyEvent.KEY_TYPED;
 		eventData.keyChar = keyChar;
@@ -859,8 +805,7 @@ public class InputManager extends InputAdapter
 	}
 
 	@Override
-	public boolean tap (float x, float y, int count, int button)
-	{
+	public boolean tap (float x, float y, int count, int button) {
 		Vector2 coords = getWorldCoords(x, y);
 
 		GestureEventData eventData = obtainGestureEventData();
@@ -883,8 +828,7 @@ public class InputManager extends InputAdapter
 	}
 
 	@Override
-	public boolean fling (float velocityX, float velocityY, int button)
-	{
+	public boolean fling (float velocityX, float velocityY, int button) {
 		GestureEventData eventData = obtainGestureEventData();
 		eventData.gestureEvent = GestureEventData.GestureEvent.FLING;
 		eventData.flingVelocityX = velocityX;
@@ -901,8 +845,7 @@ public class InputManager extends InputAdapter
 	}
 
 	@Override
-	public boolean longPress (float x, float y)
-	{
+	public boolean longPress (float x, float y) {
 		Vector2 coords = getWorldCoords(x, y);
 
 		GestureEventData eventData = obtainGestureEventData();
@@ -920,8 +863,7 @@ public class InputManager extends InputAdapter
 	}
 
 	@Override
-	public boolean pinch (Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2)
-	{
+	public boolean pinch (Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
 		GestureEventData eventData = obtainGestureEventData();
 		eventData.gestureEvent = GestureEventData.GestureEvent.PINCH;
 
@@ -947,8 +889,7 @@ public class InputManager extends InputAdapter
 	}
 
 	@Override
-	public void pinchStop ()
-	{
+	public void pinchStop () {
 		GestureEventData eventData = obtainGestureEventData();
 		eventData.gestureEvent = GestureEventData.GestureEvent.PINCH_STOP;
 
@@ -960,8 +901,7 @@ public class InputManager extends InputAdapter
 	}
 
 	@Override
-	public boolean pan (float x, float y, float deltaX, float deltaY)
-	{
+	public boolean pan (float x, float y, float deltaX, float deltaY) {
 		Vector2 coords = getWorldCoords(x, y);
 
 		GestureEventData eventData = obtainGestureEventData();
@@ -983,8 +923,7 @@ public class InputManager extends InputAdapter
 	}
 
 	@Override
-	public boolean panStop (float x, float y, int pointer, int button)
-	{
+	public boolean panStop (float x, float y, int pointer, int button) {
 		Vector2 coords = getWorldCoords(x, y);
 
 		GestureEventData eventData = obtainGestureEventData();
@@ -1003,8 +942,7 @@ public class InputManager extends InputAdapter
 	}
 
 	@Override
-	public boolean zoom (float initialDistance, float distance)
-	{
+	public boolean zoom (float initialDistance, float distance) {
 		Vector2 worldPoint = getWorldCoords(initialDistance, distance);
 		initialDistance = worldPoint.x;
 		distance = worldPoint.y;
@@ -1035,8 +973,7 @@ public class InputManager extends InputAdapter
 	 * @param screenY screen position on the y-axis
 	 * @return the coordinates in world units
 	 */
-	public Vector2 getWorldCoords (float screenX, float screenY)
-	{
+	public Vector2 getWorldCoords (float screenX, float screenY) {
 		if (hostScene.getMainCamera() == null)
 			throw new IllegalStateException("There is no valid MainCamera for the target Scene!");
 
@@ -1061,8 +998,7 @@ public class InputManager extends InputAdapter
 	public void addOnBackpressListener(IKeyListener listener)
 	{ addListener(KeyTrigger.keyDownTrigger(Keys.BACK), listener); }
 
-	private void wakeMappedTouchListeners(TouchEventData eventData)
-	{
+	private void wakeMappedTouchListeners(TouchEventData eventData) {
 		// Get the mapped listener keys
 		ArrayMap.Keys<String> mappedListenerKeys  = mappedTouchListeners.keys();
 
@@ -1095,8 +1031,7 @@ public class InputManager extends InputAdapter
 		}
 	}
 
-	private void wakeMappedKeyListeners(KeyEventData eventData)
-	{
+	private void wakeMappedKeyListeners(KeyEventData eventData) {
 		// Get the mapped listener keys
 		ArrayMap.Keys<String> mappedListenerKeys  = mappedKeyListeners.keys();
 
@@ -1129,8 +1064,7 @@ public class InputManager extends InputAdapter
 		}
 	}
 
-	private void wakeMappedGestureListeners(GestureEventData eventData)
-	{
+	private void wakeMappedGestureListeners(GestureEventData eventData) {
 		// Get the mapped listener keys
 		ArrayMap.Keys<String> mappedListenerKeys  = mappedGestureListeners.keys();
 
@@ -1163,8 +1097,7 @@ public class InputManager extends InputAdapter
 		}
 	}
 
-	private void wakeTouchListeners(TouchEventData eventData)
-	{
+	private void wakeTouchListeners(TouchEventData eventData) {
 		// Check triggers that fired
 		ArrayMap.Keys<TouchTrigger> triggers = touchListeners.keys();
 		for (TouchTrigger trigger : triggers) {
@@ -1176,8 +1109,7 @@ public class InputManager extends InputAdapter
 		}
 	}
 
-	private void wakeKeyListeners(KeyEventData eventData)
-	{
+	private void wakeKeyListeners(KeyEventData eventData) {
 		// Check triggers that fired
 		ArrayMap.Keys<KeyTrigger> triggers = keyListeners.keys();
 		for (KeyTrigger trigger : triggers) {
@@ -1189,8 +1121,7 @@ public class InputManager extends InputAdapter
 		}
 	}
 
-	private void wakeGestureListeners(GestureEventData eventData)
-	{
+	private void wakeGestureListeners(GestureEventData eventData) {
 		// Check triggers that fired
 		ArrayMap.Keys<GestureTrigger> triggers = gestureListeners.keys();
 		for (GestureTrigger trigger : triggers) {
@@ -1202,8 +1133,7 @@ public class InputManager extends InputAdapter
 		}
 	}
 
-	private void wakeMappedPolledTouchListeners(TouchEventData eventData)
-	{
+	private void wakeMappedPolledTouchListeners(TouchEventData eventData) {
 		// Get the mapped listener keys
 		ArrayMap.Keys<String> mappedListenerKeys  = mappedTouchListeners.keys();
 
@@ -1236,8 +1166,7 @@ public class InputManager extends InputAdapter
 		}
 	}
 
-	private void wakeMappedPolledKeyListeners()
-	{
+	private void wakeMappedPolledKeyListeners() {
 		// Get the mapped listener keys
 		ArrayMap.Keys<String> mappedListenerKeys  = mappedKeyListeners.keys();
 
@@ -1275,8 +1204,7 @@ public class InputManager extends InputAdapter
 		}
 	}
 
-	private void wakeMappedPolledGestureListeners(GestureEventData eventData)
-	{
+	private void wakeMappedPolledGestureListeners(GestureEventData eventData) {
 		// Get the mapped listener keys
 		ArrayMap.Keys<String> mappedListenerKeys  = mappedGestureListeners.keys();
 
@@ -1309,8 +1237,7 @@ public class InputManager extends InputAdapter
 		}
 	}
 
-	private void wakePolledTouchListeners(TouchEventData eventData)
-	{
+	private void wakePolledTouchListeners(TouchEventData eventData) {
 		ArrayMap.Keys<TouchTrigger> triggers = touchListeners.keys();
 		for (TouchTrigger trigger : triggers) {
 			if (!trigger.isActive() || !trigger.isPolled())
@@ -1321,8 +1248,7 @@ public class InputManager extends InputAdapter
 		}
 	}
 
-	private void wakePolledKeyListeners()
-	{
+	private void wakePolledKeyListeners() {
 		ArrayMap.Keys<KeyTrigger> triggers = keyListeners.keys();
 		for (KeyTrigger trigger : triggers) {
 			if (!trigger.isActive() || !trigger.isPolled())
@@ -1338,8 +1264,7 @@ public class InputManager extends InputAdapter
 		}
 	}
 
-	private void wakePolledGestureListeners(GestureEventData eventData)
-	{
+	private void wakePolledGestureListeners(GestureEventData eventData) {
 		ArrayMap.Keys<GestureTrigger> triggers = gestureListeners.keys();
 		for (GestureTrigger trigger : triggers) {
 			if (!trigger.isActive() || !trigger.isPolled())
@@ -1354,8 +1279,7 @@ public class InputManager extends InputAdapter
 	 * Called every frame internally by the system. This is where polled triggers gets evaluated and fired if need be.
 	 * <strong>Do not call this method explicitly</strong>
 	 */
-	public void __update()
-	{
+	public void __update() {
 		int maxPointers = Gdx.input.getMaxPointers();
 		for (int i=0; i < maxPointers; i++) {
 			if (isTouched(i)) {
@@ -1606,55 +1530,48 @@ public class InputManager extends InputAdapter
 	 * Initializes the internal pools.
 	 * This method is called internally by the system. DO NOT CALL THIS METHOD
 	 */
-	public static void __initPools ()
-	{
+	public static void __initPools () {
 		touchDataPool = new TouchEventData.DataPool();
 		keyDataPool = new KeyEventData.DataPool();
 		gestureDataPool = new GestureEventData.DataPool();
 	}
 
-	private static TouchEventData obtainTouchEventData ()
-	{
+	private static TouchEventData obtainTouchEventData () {
 		if (touchDataPool == null)
 			throw new IllegalStateException("The Event Data Pools are not initialized yet!");
 
 		return touchDataPool.obtain();
 	}
 
-	private static KeyEventData obtainKeyEventData ()
-	{
+	private static KeyEventData obtainKeyEventData () {
 		if (keyDataPool == null)
 			throw new IllegalStateException("The Event Data Pools are not initialized yet!");
 
 		return keyDataPool.obtain();
 	}
 
-	private static GestureEventData obtainGestureEventData ()
-	{
+	private static GestureEventData obtainGestureEventData () {
 		if (gestureDataPool == null)
 			throw new IllegalStateException("The Event Data Pools are not initialized yet!");
 
 		return gestureDataPool.obtain();
 	}
 
-	private static void recycleEventData  (TouchEventData eventData)
-	{
+	private static void recycleEventData  (TouchEventData eventData) {
 		if (touchDataPool == null)
 			throw new IllegalStateException("The Event Data Pools are not initialized yet!");
 
 		touchDataPool.free(eventData);
 	}
 
-	private static void recycleEventData  (KeyEventData eventData)
-	{
+	private static void recycleEventData  (KeyEventData eventData) {
 		if (keyDataPool == null)
 			throw new IllegalStateException("The Event Data Pools are not initialized yet!");
 
 		keyDataPool.free(eventData);
 	}
 
-	private static void recycleEventData  (GestureEventData eventData)
-	{
+	private static void recycleEventData  (GestureEventData eventData) {
 		if (gestureDataPool == null)
 			throw new IllegalStateException("The Event Data Pools are not initialized yet!");
 

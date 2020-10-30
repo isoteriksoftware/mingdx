@@ -16,8 +16,7 @@ import com.isoterik.mgdx.m2d.physics.Collision2d;
  *
  * @author isoteriksoftware
  */
-public class Component
-{
+public class Component {
     protected GameObject gameObject;
     protected Scene scene;
     protected InputManager input;
@@ -111,7 +110,13 @@ public class Component
     public void detach() {}
 
     /**
-     * Called when the {@link Scene} where the host game object resides wants to is about to be disposed.
+     * Called when the host game object is removed from a {@link Scene}.
+     * {@link #scene} and {@link #input} instances becomes invalid after this method executes.
+     */
+    public void stop() {}
+
+    /**
+     * Called when the {@link Scene} where the host game object resides is getting destroyed.
      * You should dispose all scene wide resources here.
      */
     public void destroy() {}
@@ -181,12 +186,13 @@ public class Component
      * This method is called internally by the system and should never be called directly!
      * @param scene the scene where the host game object resides
      */
-    public void __setHostScene(Scene scene)
-    {
+    public void __setHostScene(Scene scene) {
         this.scene = scene;
 
         if (scene != null)
             this.input = scene.getInputManager();
+        else
+            this.input = null;
     }
 
     /**

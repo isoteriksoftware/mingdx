@@ -9,8 +9,7 @@ import com.badlogic.gdx.utils.*;
  *
  * @author isoteriksoftware
  */
-public class TouchEventData implements Pool.Poolable
-{
+public class TouchEventData implements Pool.Poolable {
 	/**
 	 * Types of touch events
 	 */
@@ -65,8 +64,7 @@ public class TouchEventData implements Pool.Poolable
     { return sameEvent(secondData.touchEvent); }
 
 	@Override
-	public void reset()
-	{
+	public void reset() {
 		touchEvent = null;
 		touchX = touchY = 0;
 		pointer = -1;
@@ -97,11 +95,9 @@ public class TouchEventData implements Pool.Poolable
 	/**
 	 * A pool for recycling instances of {@link TouchEventData}
 	 */
-	public static class DataPool extends Pool<TouchEventData>
-	{
+	public static class DataPool extends Pool<TouchEventData> {
 		@Override
-		protected TouchEventData newObject()
-		{
+		protected TouchEventData newObject() {
 			return new TouchEventData();
 		}
 	}

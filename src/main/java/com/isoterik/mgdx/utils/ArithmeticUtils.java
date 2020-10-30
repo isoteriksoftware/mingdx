@@ -8,15 +8,13 @@ import com.badlogic.gdx.math.*;
  *
  * @author dave baol
  */
-public class ArithmeticUtils
-{
+public class ArithmeticUtils {
 	/**
 	 * Converts a {@link Vector2} to an angle in radians.
 	 * @param vector the {@link Vector2} to convert.
 	 * @return the calculated angle
 	 */
-	public static float vectorToAngle2d(Vector2 vector)
-	{
+	public static float vectorToAngle2d(Vector2 vector) {
 		return (float)Math.atan2(-vector.x, vector.y);
 	}
 
@@ -26,8 +24,7 @@ public class ArithmeticUtils
 	 * @param outVector an existing {@link Vector2} instance where the output can be set. This help avoid creating new instances every time
 	 * @return the converted output vector
 	 */
-	public static Vector2 angleToVector2d(float angle, Vector2 outVector)
-	{
+	public static Vector2 angleToVector2d(float angle, Vector2 outVector) {
 		outVector.x = -(float)Math.sin(angle);
 		outVector.y = (float)Math.cos(angle);
 		return outVector;

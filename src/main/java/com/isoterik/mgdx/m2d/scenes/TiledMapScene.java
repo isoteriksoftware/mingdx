@@ -32,8 +32,7 @@ import java.util.Iterator;
  *
  * @author isoteriksoftware
  */
-public class TiledMapScene extends Scene
-{
+public class TiledMapScene extends Scene {
     /** The dimension of the map. */
     public final int mapWidth, mapHeight;
 
@@ -52,8 +51,7 @@ public class TiledMapScene extends Scene
      * @param tiledMap the tiled map
      * @param unitScale the unit scale
      */
-    public TiledMapScene(TiledMap tiledMap, float unitScale)
-    {
+    public TiledMapScene(TiledMap tiledMap, float unitScale) {
         super();
 
         this.tiledMap = tiledMap;
@@ -82,15 +80,13 @@ public class TiledMapScene extends Scene
      * <strong>Note:</strong> the map is always rendered first. Every other thing will be rendered on top of it including {@link GameObject}s that can be rendered.
      * @param gameCamera2d the 2D game camera
      */
-    protected void renderTiledMap(GameCamera2d gameCamera2d)
-    {
+    protected void renderTiledMap(GameCamera2d gameCamera2d) {
         tiledMapRenderer.setView(gameCamera2d.getCamera());
         tiledMapRenderer.render();
     }
 
     @Override
-    public void __render()
-    {
+    public void __render() {
         Array<GameObject> gameObjects = getGameObjects();
 
         if (mainCamera != null && mainCamera instanceof GameCamera2d) {
@@ -114,11 +110,14 @@ public class TiledMapScene extends Scene
             batch.end();
         }
 
-        if (renderPhysicsDebugLines)
+        if (renderPhysicsDebugLines) {
+            assert mainCamera != null;
             physicsDebugRenderer2d.render(physicsWorld2d, mainCamera.getCamera().combined);
+        }
 
         // Render debug drawings
         if (renderCustomDebugLines) {
+            assert mainCamera != null;
             shapeRenderer.setProjectionMatrix(mainCamera.getCamera().combined);
 
             // Line
@@ -141,17 +140,6 @@ public class TiledMapScene extends Scene
                 go.__forEachComponent(debugPointIter);
             }
             shapeRenderer.end();
-        }
-
-        // destroy physics bodies scheduled for removal
-        for (Body body : garbagePhysicsBodies2d) {
-            if (body != null) {
-                try {
-                    physicsWorld2d.destroyBody(body);
-                } catch (Exception e) {
-                    Gdx.app.error(getClass().getSimpleName(), "Failed to destroy physics body: " + e.getMessage());
-                }
-            }
         }
 
         canvas.draw();
@@ -178,8 +166,7 @@ public class TiledMapScene extends Scene
      * @param value the property value to check
      * @return an array of found objects
      */
-    public Array<RectangleMapObject> getRectangleObjects(MapLayer mapLayer, String propertyName, String value)
-    {
+    public Array<RectangleMapObject> getRectangleObjects(MapLayer mapLayer, String propertyName, String value) {
         Array<RectangleMapObject> found = new Array<>();
 
         for (MapObject mapObject : mapLayer.getObjects()) {
@@ -205,8 +192,7 @@ public class TiledMapScene extends Scene
      * @param value the property value to check
      * @return an array of found objects
      */
-    public Array<RectangleMapObject> getRectangleObjects(String propertyName, String value)
-    {
+    public Array<RectangleMapObject> getRectangleObjects(String propertyName, String value) {
         Array<RectangleMapObject> found = new Array<>();
 
         for (MapLayer mapLayer : tiledMap.getLayers()) {
@@ -235,8 +221,7 @@ public class TiledMapScene extends Scene
      * @param value the property value to check
      * @return an array of found objects
      */
-    public Array<CircleMapObject> getCircleObjects(MapLayer mapLayer, String propertyName, String value)
-    {
+    public Array<CircleMapObject> getCircleObjects(MapLayer mapLayer, String propertyName, String value) {
         Array<CircleMapObject> found = new Array<>();
 
         for (MapObject mapObject : mapLayer.getObjects()) {
@@ -262,8 +247,7 @@ public class TiledMapScene extends Scene
      * @param value the property value to check
      * @return an array of found objects
      */
-    public Array<CircleMapObject> getCircleObjects(String propertyName, String value)
-    {
+    public Array<CircleMapObject> getCircleObjects(String propertyName, String value) {
         Array<CircleMapObject> found = new Array<>();
 
         for (MapLayer mapLayer : tiledMap.getLayers()) {
@@ -292,8 +276,7 @@ public class TiledMapScene extends Scene
      * @param value the property value to check
      * @return an array of found objects
      */
-    public Array<EllipseMapObject> getEllipseObjects(MapLayer mapLayer, String propertyName, String value)
-    {
+    public Array<EllipseMapObject> getEllipseObjects(MapLayer mapLayer, String propertyName, String value) {
         Array<EllipseMapObject> found = new Array<>();
 
         for (MapObject mapObject : mapLayer.getObjects()) {
@@ -319,8 +302,7 @@ public class TiledMapScene extends Scene
      * @param value the property value to check
      * @return an array of found objects
      */
-    public Array<EllipseMapObject> getEllipseObjects(String propertyName, String value)
-    {
+    public Array<EllipseMapObject> getEllipseObjects(String propertyName, String value) {
         Array<EllipseMapObject> found = new Array<>();
 
         for (MapLayer mapLayer : tiledMap.getLayers()) {
@@ -349,8 +331,7 @@ public class TiledMapScene extends Scene
      * @param value the property value to check
      * @return an array of found objects
      */
-    public Array<PolygonMapObject> getPolygonObjects(MapLayer mapLayer, String propertyName, String value)
-    {
+    public Array<PolygonMapObject> getPolygonObjects(MapLayer mapLayer, String propertyName, String value) {
         Array<PolygonMapObject> found = new Array<>();
 
         for (MapObject mapObject : mapLayer.getObjects()) {
@@ -376,8 +357,7 @@ public class TiledMapScene extends Scene
      * @param value the property value to check
      * @return an array of found objects
      */
-    public Array<PolygonMapObject> getPolygonObjects(String propertyName, String value)
-    {
+    public Array<PolygonMapObject> getPolygonObjects(String propertyName, String value) {
         Array<PolygonMapObject> found = new Array<>();
 
         for (MapLayer mapLayer : tiledMap.getLayers()) {
@@ -406,8 +386,7 @@ public class TiledMapScene extends Scene
      * @param value the property value to check
      * @return an array of found objects
      */
-    public Array<PolylineMapObject> getPolylineObjects(MapLayer mapLayer, String propertyName, String value)
-    {
+    public Array<PolylineMapObject> getPolylineObjects(MapLayer mapLayer, String propertyName, String value) {
         Array<PolylineMapObject> found = new Array<>();
 
         for (MapObject mapObject : mapLayer.getObjects()) {
@@ -433,8 +412,7 @@ public class TiledMapScene extends Scene
      * @param value the property value to check
      * @return an array of found objects
      */
-    public Array<PolylineMapObject> getPolylineObjects(String propertyName, String value)
-    {
+    public Array<PolylineMapObject> getPolylineObjects(String propertyName, String value) {
         Array<PolylineMapObject> found = new Array<>();
 
         for (MapLayer mapLayer : tiledMap.getLayers()) {
@@ -465,8 +443,7 @@ public class TiledMapScene extends Scene
      * @param value the property value to check
      * @return an array of found objects
      */
-    public Array<TiledMapTileMapObject> getTileObjects(MapLayer mapLayer, String propertyName, String value)
-    {
+    public Array<TiledMapTileMapObject> getTileObjects(MapLayer mapLayer, String propertyName, String value) {
         Array<TiledMapTileMapObject> found = new Array<>();
 
         for (MapObject mapObject : mapLayer.getObjects()) {
@@ -510,8 +487,7 @@ public class TiledMapScene extends Scene
      * @param value the property value to check
      * @return an array of found objects
      */
-    public Array<TiledMapTileMapObject> getTileObjects(String propertyName, String value)
-    {
+    public Array<TiledMapTileMapObject> getTileObjects(String propertyName, String value) {
         Array<TiledMapTileMapObject> found = new Array<>();
 
         for (MapLayer mapLayer : tiledMap.getLayers()) {

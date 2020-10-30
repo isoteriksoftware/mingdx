@@ -5,8 +5,7 @@ package com.isoterik.mgdx.m2d.physics;
  *
  * @author isoteriksoftware
  */
-public class PhysicsMaterial2d
-{
+public class PhysicsMaterial2d {
     /**
      * The friction coefficient, usually in the range [0,1].
      */
@@ -29,8 +28,7 @@ public class PhysicsMaterial2d
      * @param density The density, usually in kg/m^2.
      */
     public PhysicsMaterial2d(float friction, float bounciness,
-                           float density)
-    {
+                           float density) {
         this.friction   = friction;
         this.bounciness = bounciness;
         this.density    = density;
@@ -39,8 +37,7 @@ public class PhysicsMaterial2d
     /**
      * Creates an instance with default values. friction defaults to 0.4f, bounciness defaults to 0.1f and density defaults to 1f
      */
-    public PhysicsMaterial2d()
-    {
+    public PhysicsMaterial2d() {
         this(0.4f, 0.1f, 1f);
     }
 }

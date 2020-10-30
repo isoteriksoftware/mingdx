@@ -30,8 +30,10 @@ import com.isoterik.mgdx.utils.WorldUnits;
 
 /**
  * A Scene contains the {@link GameObject}s of your game. Think of each Scene as a unique level of your game.
- * A {@link GameCamera} is used to display a portion of the scene or the whole scene at a time. While in practice multiple cameras can be used, scenes currently
- * support one main camera for projection. Every scene has its own {@link InputManager} for managing input.
+ * Every scene has its own {@link InputManager} for managing input.
+ * <p>
+ * A {@link GameCamera} is used to display a portion of the scene or the whole scene at a time. While its possible to use multiple cameras, scenes currently
+ * support only one main camera for projection.
  * <p>
  *
  * {@link GameObject}s are manged with {@link Layer}s.
@@ -39,18 +41,18 @@ import com.isoterik.mgdx.utils.WorldUnits;
  * A default layer is provided so you don't have to use layers if you don't need to.
  * <p>
  *
- * Physics is also managed by the scene. Box2D is used to manage 2D physics simulations. There is currently no support for 3D physics simulation.
+ * Physics is also managed by the scene. Box2D is used to manage 2D physics simulations.
  * For Box2D, every scene has its own instance of {@link World}. The scene provides its own implementation of {@link ContactListener}; so manually calling
  * {@link World#setContactListener(ContactListener)} will prevent some minGdx physics features from working correctly. <strong>If you need to extend the default
  * implementation of the {@link ContactListener}, simply override the needed methods and don't forget to call the super class's implementation!</strong>.
  * <p>
- *
+ * There is currently no support for 3D physics simulation.
+ * <p>
  * Every scene has a {@link Stage} instance for working with UI elements. The stage is already setup to update, receive input and render; you don't have do these yourself.
  *
  * @author isoteriksoftware
  */
-public class Scene implements ContactListener
-{
+public class Scene implements ContactListener {
     /** The name of the default layer. Use this to add {@link GameObject}s to the default layer. */
     public static final String DEFAULT_LAYER = "MGDX_DEFAULT_LAYER";
 
@@ -121,11 +123,13 @@ public class Scene implements ContactListener
 
     // Used for iterating components when collision is detected
     // We do this to avoid instantiating multiple instances on every collision and effectively speeds things up
-    private GameObject.__ComponentIterationListener iterAEnter, iterBEnter, iterAExit,
-            iterBExit;
+    private final GameObject.__ComponentIterationListener iterAEnter;
+    private final GameObject.__ComponentIterationListener iterBEnter;
+    private final GameObject.__ComponentIterationListener iterAExit;
+    private final GameObject.__ComponentIterationListener iterBExit;
 
     // The collision pool
-    private Collision2d.CollisionPool collisionPool;
+    private final Collision2d.CollisionPool collisionPool;
 
     // An array of game objects
     Array<GameObject> gameObjects = new Array<>();
@@ -135,8 +139,7 @@ public class Scene implements ContactListener
      * @param gravity the gravity of the physics world
      * @param is3dMode whether this scene is 3D scene
      */
-    public Scene(Vector3 gravity, boolean is3dMode)
-    {
+    public Scene(Vector3 gravity, boolean is3dMode) {
         this.is3dMode = is3dMode;
 
         defaultLayer = new Layer(DEFAULT_LAYER);
@@ -351,8 +354,7 @@ public class Scene implements ContactListener
      * Use this method to change the viewport to your desired viewport.
      * @param viewport a viewport for scaling UI elements
      */
-    public void setupCanvas(Viewport viewport)
-    {
+    public void setupCanvas(Viewport viewport) {
         if (canvas != null)
             inputManager.getInputMultiplexer().removeProcessor(canvas);
 
@@ -380,8 +382,7 @@ public class Scene implements ContactListener
      * <strong>NEVER MANUALLY DELETE A BODY; IT COULD BREAK THE SIMULATION AND CRASH THE GAME</strong>
      * @param body the body to destroy
      */
-    public void destroyPhysicsBody2d(Body body)
-    {
+    public void destroyPhysicsBody2d(Body body) {
         if (body != null && !garbagePhysicsBodies2d.contains(body, true))
             garbagePhysicsBodies2d.add(body);
     }
@@ -463,8 +464,7 @@ public class Scene implements ContactListener
      * @param name the name of the layer to find.
      * @return the layer if found or null if not found
      */
-    public Layer findLayer(String name)
-    {
+    public Layer findLayer(String name) {
         for (Layer layer : layers) {
             if (layer.getName().equals(name))
                 return layer;
@@ -493,8 +493,7 @@ public class Scene implements ContactListener
      * @param layerName the name of the layer.
      * @return true if the layer exists. false otherwise.
      */
-    public boolean hasLayer(String layerName)
-    {
+    public boolean hasLayer(String layerName) {
         for (Layer layer : layers) {
             if (layer.getName().equals(layerName))
                 return true;
@@ -516,8 +515,7 @@ public class Scene implements ContactListener
      * @param layer the layer to remove
      * @throws IllegalArgumentException if the layer is the default layer for this scene.
      */
-    public void removeLayer(Layer layer) throws IllegalArgumentException
-    {
+    public void removeLayer(Layer layer) throws IllegalArgumentException {
         if (layer == defaultLayer)
             throw new IllegalArgumentException("You cannot remove the default layer!");
 
@@ -530,8 +528,7 @@ public class Scene implements ContactListener
      * @param layerName the name of the layer to remove
      * @throws IllegalArgumentException if the layer is the default layer for this scene.
      */
-    public void removeLayer(String layerName) throws IllegalArgumentException
-    {
+    public void removeLayer(String layerName) throws IllegalArgumentException {
         if (layerName.equals(DEFAULT_LAYER))
             throw new IllegalArgumentException("You cannot remove the default layer!");
 
@@ -553,8 +550,7 @@ public class Scene implements ContactListener
      * @param layer the layer to add the game object to
      * @throws IllegalArgumentException if the given layer does not exist in this scene
      */
-    public void addGameObject(GameObject gameObject, Layer layer) throws IllegalArgumentException
-    {
+    public void addGameObject(GameObject gameObject, Layer layer) throws IllegalArgumentException {
         if (!hasLayer(layer))
             throw new IllegalArgumentException("This layer does not exist in this scene");
 
@@ -568,8 +564,7 @@ public class Scene implements ContactListener
      * @param layerName the name of the layer to add the game object to
      * @throws IllegalArgumentException if there is no existing layer with such name
      */
-    public void addGameObject(GameObject gameObject, String layerName) throws IllegalArgumentException
-    {
+    public void addGameObject(GameObject gameObject, String layerName) throws IllegalArgumentException {
         Layer layer = findLayer(layerName);
         if (layer == null)
             throw new IllegalArgumentException("This layer does not exist in this scene");
@@ -582,8 +577,7 @@ public class Scene implements ContactListener
      * Adds a game object to this scene. The game object is added to the default layer.
      * @param gameObject the game object to add.
      */
-    public void addGameObject(GameObject gameObject)
-    {
+    public void addGameObject(GameObject gameObject) {
         gameObject.__setHostScene(this);
         defaultLayer.addGameObject(gameObject);
     }
@@ -594,8 +588,7 @@ public class Scene implements ContactListener
      * @param layer the layer
      * @return true if the game object was removed. false otherwise.
      */
-    public boolean removeGameObject(GameObject gameObject, Layer layer)
-    {
+    public boolean removeGameObject(GameObject gameObject, Layer layer) {
         if (!hasLayer(layer))
             return false;
 
@@ -609,12 +602,12 @@ public class Scene implements ContactListener
      * @param layerName the name of the layer
      * @return true if the game object was removed. false otherwise.
      */
-    public boolean removeGameObject(GameObject gameObject, String layerName)
-    {
+    public boolean removeGameObject(GameObject gameObject, String layerName) {
         Layer layer = findLayer(layerName);
         if (layer == null)
             return false;
 
+        gameObject.__removeFromScene();
         gameObject.__setHostScene(null);
         return layer.removeGameObject(gameObject);
     }
@@ -624,8 +617,7 @@ public class Scene implements ContactListener
      * @param gameObject the game object to remove.
      * @return true if the game object was removed. false otherwise.
      */
-    public boolean removeGameObject(GameObject gameObject)
-    {
+    public boolean removeGameObject(GameObject gameObject) {
         gameObject.__setHostScene(null);
         return defaultLayer.removeGameObject(gameObject);
     }
@@ -634,8 +626,7 @@ public class Scene implements ContactListener
      *
      * @return all the game objects added to this scene
      */
-    public Array<GameObject> getGameObjects()
-    {
+    public Array<GameObject> getGameObjects() {
         gameObjects.clear();
 
         for (Layer layer : layers) {
@@ -649,15 +640,13 @@ public class Scene implements ContactListener
      * Sets the background color of this scene if it uses a {@link GameCamera2d}
      * @param color the background color
      */
-    public void setBackgroundColor(Color color)
-    {
+    public void setBackgroundColor(Color color) {
         if (mainCamera instanceof GameCamera2d)
             ((GameCamera2d)mainCamera).setBackgroundColor(color);
     }
 
     /* Steps the physics world */
-    private void stepPhysicsWorld2d()
-    {
+    private void stepPhysicsWorld2d() {
         double newTime = TimeUtils.millis() / 1000.0;
         double frameTime = Math.min(newTime - currentTime, 0.25);
 
@@ -679,16 +668,14 @@ public class Scene implements ContactListener
         }
     }
 
-    private void updateComponents(Array<GameObject> gameObjects, final float deltaTime)
-    {
+    private void updateComponents(Array<GameObject> gameObjects, final float deltaTime) {
         this.deltaTime = deltaTime;
         for (GameObject go : gameObjects) {
             go.__forEachComponent(updateIter);
         }
     }
 
-    private void interpolateTransforms(Array<GameObject> gameObjects, float alpha)
-    {
+    private void interpolateTransforms(Array<GameObject> gameObjects, float alpha) {
         for (GameObject go : gameObjects) {
             Physics2d physics2d = go.getComponent(Physics2d.class);
             if (physics2d != null)
@@ -700,8 +687,7 @@ public class Scene implements ContactListener
      * Called when the scene is entered.
      * <strong>DO NOT CALL THIS METHOD!</strong>
      */
-    public void __start()
-    {
+    public void __start() {
         Array<GameObject> gameObjects = getGameObjects();
 
         for (GameObject go : gameObjects) {
@@ -787,6 +773,10 @@ public class Scene implements ContactListener
         canvas.act(deltaTime);
 
         // destroy physics bodies scheduled for removal
+        destroyPhysicsBodies();
+    }
+
+    protected void destroyPhysicsBodies() {
         for (Body body : garbagePhysicsBodies2d) {
             if (body != null) {
                 try {

@@ -16,8 +16,7 @@ import com.isoterik.mgdx.utils.WorldUnits;
  *
  * @author isoteriksoftware
  */
-public class SpriteRenderer extends Component
-{
+public class SpriteRenderer extends Component {
     private TextureRegion sprite;
 
     private Color color;
@@ -35,8 +34,7 @@ public class SpriteRenderer extends Component
      * @param sprite an instance of {@link TextureRegion}
      * @param worldUnits an instance of {@link WorldUnits}
      */
-    public SpriteRenderer(TextureRegion sprite, WorldUnits worldUnits)
-    {
+    public SpriteRenderer(TextureRegion sprite, WorldUnits worldUnits) {
         this.worldUnits = worldUnits;
 
         this.sprite = sprite;
@@ -87,19 +85,20 @@ public class SpriteRenderer extends Component
     { return cull; }
 
     /**
-     * Sets the sprite ({@link TextureRegion}) for this renderer. The {@link WorldUnits} given will be used for converting the sprite dimension to world units.
+     * Sets the sprite ({@link TextureRegion}) for this renderer. The host game object will be resized to fit the dimensions of the sprite.
+     * The {@link WorldUnits} given will be used for converting the sprite dimension to world units.
      * @param sprite an instance of {@link TextureRegion}
      * @param worldUnits an instance of {@link WorldUnits}
      */
-    public void setSprite(TextureRegion sprite, WorldUnits worldUnits)
-    {
+    public void setSprite(TextureRegion sprite, WorldUnits worldUnits) {
         this.sprite = sprite;
         this.worldUnits = worldUnits;
         setWorldSize();
     }
 
     /**
-     * Sets the sprite ({@link TextureRegion}) for this renderer. The default {@link WorldUnits} provided during construction will be used for converting the sprite dimension to world units.
+     * Sets the sprite ({@link TextureRegion}) for this renderer. The host game object will be resized to fit the dimensions of the sprite.
+     * The default {@link WorldUnits} provided during construction will be used for converting the sprite dimension to world units.
      * @param sprite an instance of {@link TextureRegion}
      */
     public void setSprite(TextureRegion sprite)
@@ -170,26 +169,31 @@ public class SpriteRenderer extends Component
 
     /**
      * Converts the dimensions of the sprite to world units then use it as the dimension for the host game object.
-     * The origin is also shifted to the center of the game object
+     * The origin is also shifted to the center of the game object.
+     * No change is made if there is currently no host game object.
      */
-    public void setWorldSize()
-    {
+    public void setWorldSize() {
+        if (gameObject == null)
+            return;
+
         Vector2 worldSize = worldUnits.toWorldUnit(sprite);
         gameObject.transform.size.set(worldSize, 0);
         gameObject.transform.origin.set(worldSize.x * .5f,
                 worldSize.y * .5f, 0);
     }
 
+    /**
+     * Once this component is attached, the host game object will be resized to fit the dimensions of the sprite.
+     * {@inheritDoc}
+     */
     @Override
-    public void attach()
-    {
+    public void attach() {
         // Setup the world size of this sprite once we have a game object
         setWorldSize();
     }
 
     @Override
-    public void render(GameCamera gameCamera)
-    {
+    public void render(GameCamera gameCamera) {
         // Render only if visible
         if (!visible)
             return;
@@ -209,8 +213,7 @@ public class SpriteRenderer extends Component
      * Renders the sprite to the screen.
      * @param gameCamera the camera used by the scene where the host game object resides
      */
-    protected void drawSprite(GameCamera gameCamera)
-    {
+    protected void drawSprite(GameCamera gameCamera) {
         // The game camera must be a GameCamera2d instance
         if (!(gameCamera instanceof GameCamera2d))
             return;

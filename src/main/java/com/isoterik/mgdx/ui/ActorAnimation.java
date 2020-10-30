@@ -19,8 +19,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sizeTo;
  *
  * @author isoteriksoftware
  */
-public final class ActorAnimation
-{
+public final class ActorAnimation {
     private static ActorAnimation instance;
 
     private float screenWidth, screenHeight;
@@ -36,8 +35,7 @@ public final class ActorAnimation
      * Returns a singleton instance. This will assume the dimensions of the current scene if it has a valid main camera
      * @return singleton instance.
      */
-    public static ActorAnimation instance()
-    {
+    public static ActorAnimation instance() {
         if(instance == null)
 			instance = new ActorAnimation();
 
@@ -55,8 +53,7 @@ public final class ActorAnimation
      * @param screenWidth the width in pixels
      * @param screenHeight the height in pixels
      */
-    public void setup(float screenWidth, float screenHeight)
-    {
+    public void setup(float screenWidth, float screenHeight) {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
     }
@@ -68,8 +65,7 @@ public final class ActorAnimation
      * @param easing an interpolation to use
      */
     public void grow(Actor actor, float duration,
-						   Interpolation easing)
-    {
+						   Interpolation easing) {
 		actor.setScale(0, 0);
 		Action grow = scaleTo(1, 1, duration, easing);
 		actor.addAction(grow);
@@ -83,8 +79,7 @@ public final class ActorAnimation
      * @param easing an interpolation to use
      */
     public void resize(Actor actor, float duration,
-						 float fraction, Interpolation easing)
-    {
+						 float fraction, Interpolation easing) {
 		float w = actor.getWidth() * fraction;
 		float h = actor.getHeight() * fraction;
 		Action grow = sizeTo(w, h, duration, easing);
@@ -98,8 +93,7 @@ public final class ActorAnimation
      * @param easing an interpolation to use
      */
     public void shrinkThenRemove(Actor actor, float duration,
-							 Interpolation easing)
-    {
+							 Interpolation easing) {
 		Action shrink = scaleTo(0, 0, duration, easing);
 		actor.addAction(sequence(shrink, removeActor()));
     }
@@ -111,8 +105,7 @@ public final class ActorAnimation
      * @param easing an interpolation to use
      */
     public void shrink(Actor actor, float duration,
-					   Interpolation easing)
-    {
+					   Interpolation easing) {
 		Action shrink = scaleTo(0, 0, duration, easing);
 		actor.addAction(shrink);
     }
@@ -125,8 +118,7 @@ public final class ActorAnimation
      * @param easing an interpolation to use
      */
     public void slideIn(Actor actor, int direction,
-                        float duration, Interpolation easing)
-    {
+                        float duration, Interpolation easing) {
         float w = actor.getWidth();
         float h = actor.getHeight();
         float maxW = screenWidth;
@@ -164,8 +156,7 @@ public final class ActorAnimation
      * @param duration the duration in seconds
      */
     public void slideIn(Actor actor, int direction,
-                        float duration)
-    {
+                        float duration) {
         slideIn(actor, direction, duration,
 					Interpolation.swing);
     }
@@ -178,8 +169,7 @@ public final class ActorAnimation
      * @param easing an interpolation to use
      */
     public void slideOutThenRemove(Actor actor, int direction,
-                                   float duration, Interpolation easing)
-    {
+                                   float duration, Interpolation easing) {
         float w = actor.getWidth();
         float h = actor.getHeight();
         float maxW = screenWidth;
@@ -216,8 +206,7 @@ public final class ActorAnimation
      * @param duration the duration in seconds
      */
     public void slideOutThenRemove(Actor actor, int direction,
-                                   float duration)
-    {
+                                   float duration) {
         slideOutThenRemove(actor, direction, duration,
 					Interpolation.pow5);
     }
@@ -230,8 +219,7 @@ public final class ActorAnimation
      * @param easing an interpolation to use
      */
     public void slideOut(Actor actor, int direction,
-						 float duration, Interpolation easing)
-    {
+						 float duration, Interpolation easing) {
         float w = actor.getWidth();
         float h = actor.getHeight();
         float maxW = screenWidth;
@@ -268,8 +256,7 @@ public final class ActorAnimation
      * @param duration the duration in seconds
      */
     public void slideOut(Actor actor, int direction,
-						 float duration)
-    {
+						 float duration) {
         slideOut(actor, direction, duration,
 				 Interpolation.pow5);
     }

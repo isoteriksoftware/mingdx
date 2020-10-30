@@ -7,25 +7,24 @@ import com.badlogic.gdx.math.Vector3;
 import com.isoterik.mgdx.GameCamera;
 
 /**
- * A debug draw that renders a cross (X) at the position of the host game object
+ * Renders a cross (X) at the center of the host game object
  *
  * @author isoteriksoftware
  */
-public class XDebugDraw extends DebugDrawBase
-{
+public class XDebugRenderer extends DebugRendererBase {
 	protected float size = .1f;
 
 	/**
 	 * Creates a new instance given a color
 	 * @param color the color
 	 */
-	public XDebugDraw(Color color)
+	public XDebugRenderer(Color color)
 	{ super(LINE_SHAPE, color); }
 
 	/**
 	 * Creates a new instance
 	 */
-	public XDebugDraw()
+	public XDebugRenderer()
 	{ this(Color.RED); }
 
 	/**
@@ -43,8 +42,7 @@ public class XDebugDraw extends DebugDrawBase
 	{ return size; }
 	
 	@Override
-	public XDebugDraw setColor(Color color)
-	{
+	public XDebugRenderer setColor(Color color) {
 		super.setColor(color);
 		return this;
 	}
@@ -54,15 +52,13 @@ public class XDebugDraw extends DebugDrawBase
 	 * @throws UnsupportedOperationException if called
 	 */
 	@Override
-	public XDebugDraw setShapeType(ShapeType shapeType) throws UnsupportedOperationException
-	{
+	public XDebugRenderer setShapeType(ShapeType shapeType) throws UnsupportedOperationException {
 		throw new UnsupportedOperationException("A PointDebugDraw can only use ShapeRenderer.ShapeType.Line shape " +
 			" and cannot be changed!");
 	}
 
 	@Override
-	public void draw(ShapeRenderer shapeRenderer, GameCamera gameCamera)
-	{
+	public void draw(ShapeRenderer shapeRenderer, GameCamera gameCamera) {
 		Vector3 pos = gameObject.transform.position;
 		
 		shapeRenderer.x(pos.x, pos.y, size);

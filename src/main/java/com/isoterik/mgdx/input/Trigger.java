@@ -9,8 +9,7 @@ package com.isoterik.mgdx.input;
  *
  * @author isoteriksoftware
  */
-public abstract class Trigger implements ITrigger
-{
+public abstract class Trigger implements ITrigger {
     protected boolean active = true;
     protected boolean polled = false;
     

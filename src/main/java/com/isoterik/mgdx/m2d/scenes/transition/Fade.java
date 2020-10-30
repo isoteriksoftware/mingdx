@@ -11,8 +11,7 @@ import com.badlogic.gdx.math.Interpolation;
  *
  * @author isoteriksoftware
  */
-public class Fade implements ISceneTransition
-{
+public class Fade implements ISceneTransition {
     private static final Fade instance = new Fade();
 
     private float duration;
@@ -22,8 +21,7 @@ public class Fade implements ISceneTransition
      * @param duration the duration of the transition in seconds
      * @return the created instance
      */
-    public static Fade init(float duration)
-    {
+    public static Fade init(float duration) {
         instance.duration = duration;
         return instance;
     }
@@ -33,8 +31,7 @@ public class Fade implements ISceneTransition
     { return duration; }
 
     @Override
-    public void render(SpriteBatch batch, Texture currScreen, Texture nextScreen, float alpha)
-    {
+    public void render(SpriteBatch batch, Texture currScreen, Texture nextScreen, float alpha) {
         float w = currScreen.getWidth();
         float h = currScreen.getHeight();
         alpha = Interpolation.fade.apply(alpha);

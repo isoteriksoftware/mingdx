@@ -11,12 +11,10 @@ import com.isoterik.mgdx.io.GameAssetsLoader;
  *
  * @author isoteriksoftware
  */
-public class SpriteUtils
-{
+public class SpriteUtils {
 	/* Makes sures the number has at least the provided number of digits */
 	private static String forceDigits(int number, int digits,
-		com.badlogic.gdx.utils.StringBuilder builder)
-	{
+		com.badlogic.gdx.utils.StringBuilder builder) {
 		String str = String.valueOf(number);
 		if (str.length() == digits)
 			return str;
@@ -63,8 +61,7 @@ public class SpriteUtils
 	 */
 	public static Array<TextureRegion> getSpriteSequence(String beforeIndex, 
 		String afterIndex, int startingIndex, int stoppingIndex, 
-		int digits, boolean linearFilter)
-	{
+		int digits, boolean linearFilter) {
 		Array<TextureRegion> sequence = new Array<>();
 		
 		com.badlogic.gdx.utils.StringBuilder builder = new 
@@ -100,8 +97,7 @@ public class SpriteUtils
 	 * @return an array of texture regions for the sequence
 	 */
 	public static Array<TextureRegion> getSpriteSequence(String beforeIndex, 
-			String afterIndex, int startingIndex, int stoppingIndex, int digits)
-	{
+			String afterIndex, int startingIndex, int stoppingIndex, int digits) {
 		return getSpriteSequence(beforeIndex, afterIndex, startingIndex, 
 			stoppingIndex, digits, true);
 	}

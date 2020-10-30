@@ -10,29 +10,29 @@ import com.isoterik.mgdx.ai.fsm.ICondition;
  * @author isoteriksoftware
  * @see GroupCondition
  */
-public class AndCondition extends GroupCondition
-{
+public class AndCondition extends GroupCondition {
 	/**
 	 * Creates a new instance given an array of conditions.
 	 * @param conditions the array of conditions
 	 */
-	public AndCondition(Array<ICondition> conditions)
-	{ super(conditions); }
+	public AndCondition(Array<ICondition> conditions) {
+		super(conditions);
+	}
 
 	/**
 	 * Creates a new instance given one or more conditions.
 	 * @param condition first condition
 	 * @param conditions more conditions
 	 */
-	public AndCondition(ICondition condition, ICondition... conditions)
-	{ super(condition, conditions); }
+	public AndCondition(ICondition condition, ICondition... conditions) {
+		super(condition, conditions);
+	}
 
 	/**
 	 * @return {@code true} if all the conditions are satisfied, {@code false} otherwise
 	 */
 	@Override
-	public boolean test()
-	{
+	public boolean test() {
 		if (conditions.isEmpty())
 			return false;
 

@@ -9,8 +9,9 @@ import com.isoterik.mgdx.ai.fsm.Transition;
 import com.isoterik.mgdx.m2d.animation.SpriteAnimation;
 
 /**
- * A SpriteAnimator uses one or more {@link SpriteAnimation}s to animate a {@link GameObject} with a {@link com.isoterik.mgdx.m2d.components.SpriteRenderer} attached.
- * It uses a {@link ManagedStateMachine} to determine the previous animation played, the current animation and the next animation to be played. Every {@link SpriteAnimation} represents
+ * A SpriteAnimator uses one or more {@link SpriteAnimation}s to animate a {@link GameObject} having a {@link com.isoterik.mgdx.m2d.components.SpriteRenderer} attached.
+ * <p>
+ * It uses a {@link ManagedStateMachine} internally to determine the previous animation played, the current animation and the next animation to be played. Every {@link SpriteAnimation} represents
  * a single state. States (animations) cannot be changed directly. To change state (animation), the animator relies on {@link Transition}s.
  *
  * @see ManagedStateMachine
@@ -19,8 +20,7 @@ import com.isoterik.mgdx.m2d.animation.SpriteAnimation;
  *
  * @author isoteriksoftware
  */
-public class SpriteAnimator extends Component
-{
+public class SpriteAnimator extends Component {
 	protected Array<SpriteAnimation> animations;
 	
 	protected ManagedStateMachine<GameObject, SpriteAnimation> stateMachine;
@@ -38,8 +38,7 @@ public class SpriteAnimator extends Component
 	 * @param otherAnimations other animations
 	 */
 	public SpriteAnimator(SpriteAnimation initialAnimation, 
-		SpriteAnimation... otherAnimations)
-	{
+		SpriteAnimation... otherAnimations) {
 		this.initialAnimation = initialAnimation;
 		
 		animations = new Array<>();
@@ -55,8 +54,7 @@ public class SpriteAnimator extends Component
 	{ return stateMachine; }
 
 	@Override
-	public void attach()
-	{
+	public void attach() {
 		/*
 		Because we need a GameObject to animate, we waited till this instance is attached before initializing the state machine
 		 */
@@ -72,15 +70,13 @@ public class SpriteAnimator extends Component
 	}
 
 	@Override
-	public void detach()
-	{
+	public void detach() {
 		// Once this is detached, we no longer have a valid GameObject to animate.
 		stateMachine = null;
 	}
 
 	@Override
-	public void update(float deltaTime)
-	{
+	public void update(float deltaTime) {
 		// Update the state machine
 		// This will effectively change (switch) animation if any transition is triggered
 		stateMachine.update();
@@ -99,8 +95,7 @@ public class SpriteAnimator extends Component
 	 * @param animation the animation to add
 	 * @return this instance for chaining
 	 */
-	public SpriteAnimator addAnimation(SpriteAnimation animation)
-	{
+	public SpriteAnimator addAnimation(SpriteAnimation animation) {
 		if (!hasAnimation(animation))
 			animations.add(animation);
 			
@@ -112,8 +107,7 @@ public class SpriteAnimator extends Component
 	 * @param animation the animation to remove
 	 * @return this instance for chaining
 	 */
-	public SpriteAnimator removeAnimation(SpriteAnimation animation)
-	{
+	public SpriteAnimator removeAnimation(SpriteAnimation animation) {
 		if (hasAnimation(animation)) {
 			animations.removeValue(animation, true);
 			
@@ -134,8 +128,7 @@ public class SpriteAnimator extends Component
 	 * @throws IllegalArgumentException if the {@link Transition} is for animation(s) that are not yet added to the list of animations managed by this animator
 	 * @return this instance for chaining
 	 */
-	public SpriteAnimator addTransition(Transition<SpriteAnimation> transition) throws IllegalArgumentException
-	{
+	public SpriteAnimator addTransition(Transition<SpriteAnimation> transition) throws IllegalArgumentException {
 		if (!hasAnimation(transition.getFromState()) &&
 			!hasAnimation(transition.getToState())) {
 				throw new IllegalArgumentException("None of the animations of this transition is managed by this animator!");
@@ -160,8 +153,7 @@ public class SpriteAnimator extends Component
 	 * @throws IllegalArgumentException if either of the animations given is not yet added to the list of animations managed by this animator
 	 */
 	public SpriteAnimator addTransition(SpriteAnimation from, SpriteAnimation to,
-										ICondition condition, ICondition... conditions) throws IllegalArgumentException
-	{
+										ICondition condition, ICondition... conditions) throws IllegalArgumentException {
 		Array<ICondition> conditionArray = new Array<>();
 		conditionArray.add(condition);
 		conditionArray.addAll(conditions);
@@ -190,8 +182,7 @@ public class SpriteAnimator extends Component
 	 * @param transition the transition to remove
 	 * @return this instance for chaining
 	 */
-	public SpriteAnimator removeTransition(Transition<SpriteAnimation> transition)
-	{
+	public SpriteAnimator removeTransition(Transition<SpriteAnimation> transition) {
 		stateMachine.removeTransition(transition);
 		return this;
 	}
@@ -244,8 +235,7 @@ public class SpriteAnimator extends Component
 	 *
 	 * @return the transitions managed by this animator
 	 */
-	public Array<Transition<SpriteAnimation>> getTransitions()
-	{
+	public Array<Transition<SpriteAnimation>> getTransitions() {
 		/*
 		If the state machine is not initialized yet it means this instance is not attached so we simply return the scheduled transitions.
 		 */

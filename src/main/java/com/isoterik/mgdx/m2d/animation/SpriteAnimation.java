@@ -11,16 +11,16 @@ import com.isoterik.mgdx.MinGdx;
 import com.isoterik.mgdx.m2d.components.SpriteRenderer;
 
 /**
- * For animating 2D sprites. SpriteAnimations are managed by a {@link com.isoterik.mgdx.m2d.components.animation.SpriteAnimator} to
- * determine when to animate sprites.
+ * Used for animating sprites. SpriteAnimations are managed by a {@link com.isoterik.mgdx.m2d.components.animation.SpriteAnimator} to
+ * determine which sprite animation to play.
+ * <p>
  * For SpriteAnimation to work, the host {@link GameObject} must have a {@link SpriteRenderer} attached!
  *
  * @see com.isoterik.mgdx.m2d.components.animation.SpriteAnimator
  *
  * @author isoteriksoftware
  */
-public class SpriteAnimation implements State<GameObject>
-{
+public class SpriteAnimation implements State<GameObject> {
     private Array<? extends TextureRegion> sprites;
 	
     private Animation<? extends TextureRegion> animation;
@@ -45,8 +45,7 @@ public class SpriteAnimation implements State<GameObject>
 	 * @param sprites array of texture regions
 	 * @param frameDuration the duration (in seconds) for a single frame of the animation
 	 */
-	public SpriteAnimation(Array<? extends TextureRegion> sprites, float frameDuration)
-	{
+	public SpriteAnimation(Array<? extends TextureRegion> sprites, float frameDuration) {
 		this.sprites = sprites;
 		this.animation = new Animation<>(frameDuration,
 													  this.sprites);
@@ -96,9 +95,7 @@ public class SpriteAnimation implements State<GameObject>
 	 * @param cols number of columns
 	 * @return an {@link Array} of texture regions
 	 */
-    public static Array<TextureRegion> getSpritesFromArray(
-		TextureRegion[][] spritesArray, int rows, int cols)
-    {
+    public static Array<TextureRegion> getSpritesFromArray(TextureRegion[][] spritesArray, int rows, int cols) {
 		Array<TextureRegion> array = new Array<>();
 		for(int i=0; i<rows; i++)
 			for(int j=0; j<cols; j++)
@@ -114,9 +111,7 @@ public class SpriteAnimation implements State<GameObject>
 	 * @param cols number of columns
 	 * @return a 2D array of texture regions
 	 */
-    public static TextureRegion[][] splitSpriteSheet(
-		Texture spriteSheet, int rows, int cols)
-    {
+    public static TextureRegion[][] splitSpriteSheet(Texture spriteSheet, int rows, int cols) {
 		int frameWidth = spriteSheet.getWidth()/cols;
 		int frameHeight = spriteSheet.getHeight()/rows;
 		return(TextureRegion.split(spriteSheet, frameWidth,
@@ -128,8 +123,7 @@ public class SpriteAnimation implements State<GameObject>
 	 * @param deltaTime the time difference between now and the previous frame
 	 * @return the next frame
 	 */
-	public TextureRegion update(float deltaTime)
-    {
+	public TextureRegion update(float deltaTime) {
 		stateTime += deltaTime;
 		return animation
 			.getKeyFrame(stateTime);
@@ -217,8 +211,7 @@ public class SpriteAnimation implements State<GameObject>
 	/* State implementations */
 	
 	@Override
-	public void enter(GameObject go)
-	{
+	public void enter(GameObject go) {
         /*
          * Render the first frame if the host game object has a SpriteRenderer attached
          */
@@ -231,8 +224,7 @@ public class SpriteAnimation implements State<GameObject>
 	}
 	
 	@Override
-	public void update(GameObject go)
-	{
+	public void update(GameObject go) {
         /*
          * Render the next frame if the host game object has a SpriteRenderer attached
          */
@@ -247,8 +239,7 @@ public class SpriteAnimation implements State<GameObject>
 	{ /* Nothing to do here */ }
 
 	@Override
-	public boolean onMessage(GameObject go, Telegram tel)
-	{
+	public boolean onMessage(GameObject go, Telegram tel){
 		// This is not used
 		return false;
 	}

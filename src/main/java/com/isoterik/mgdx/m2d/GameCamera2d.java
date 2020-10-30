@@ -13,8 +13,7 @@ import com.isoterik.mgdx.utils.WorldUnits;
  *
  * @author isoteriksoftware
  */
-public class GameCamera2d extends GameCamera
-{
+public class GameCamera2d extends GameCamera {
     private SpriteBatch spriteBatch;
 
     private Color backgroundColor;
@@ -25,8 +24,7 @@ public class GameCamera2d extends GameCamera
      * @param viewport the viewport
      * @param worldUnits an instance of {@link WorldUnits}
      */
-    public GameCamera2d(Viewport viewport, WorldUnits worldUnits)
-    {
+    public GameCamera2d(Viewport viewport, WorldUnits worldUnits) {
         super(viewport, worldUnits);
         this.spriteBatch = new SpriteBatch();
         this.backgroundColor = new Color(1, 0, 0, 1);
@@ -41,8 +39,7 @@ public class GameCamera2d extends GameCamera
      * Creates a new instance given an instance of {@link WorldUnits} for unit conversions. The viewport defaults to an {@link ExtendViewport}.
      * @param worldUnits an instance of {@link WorldUnits}
      */
-    public GameCamera2d(WorldUnits worldUnits)
-    {
+    public GameCamera2d(WorldUnits worldUnits) {
         this(new ExtendViewport(worldUnits.getWorldWidth(), worldUnits.getWorldHeight(),
                 new OrthographicCamera(worldUnits.getWorldWidth(), worldUnits.getWorldHeight())),
                 worldUnits);
@@ -88,8 +85,7 @@ public class GameCamera2d extends GameCamera
     { return (OrthographicCamera)camera; }
 
     @Override
-    public void setup(Viewport viewport, WorldUnits worldUnits)
-    {
+    public void setup(Viewport viewport, WorldUnits worldUnits) {
         super.setup(viewport, worldUnits);
         camera = new OrthographicCamera(worldUnits.getWorldWidth(), worldUnits.getWorldHeight());
         camera.position.set(worldUnits.getWorldWidth() * .5f, worldUnits.getWorldHeight() * .5f, 0);

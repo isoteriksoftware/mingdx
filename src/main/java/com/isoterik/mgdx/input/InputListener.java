@@ -9,5 +9,4 @@ package com.isoterik.mgdx.input;
  *
  * @author isoteriksoftware
  */
-public interface InputListener
-{}
+public interface InputListener {}

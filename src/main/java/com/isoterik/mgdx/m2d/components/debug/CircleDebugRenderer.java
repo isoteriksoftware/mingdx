@@ -7,12 +7,11 @@ import com.badlogic.gdx.math.Vector3;
 import com.isoterik.mgdx.GameCamera;
 
 /**
- * A debug draw that renders a circle shape around the host game object
+ * Renders a circle shape around the host game object
  *
  * @author isoteriksoftware
  */
-public class CircleDebugDraw extends DebugDrawBase
-{
+public class CircleDebugRenderer extends DebugRendererBase {
 	protected int segments = 30;
 
 	/**
@@ -20,20 +19,20 @@ public class CircleDebugDraw extends DebugDrawBase
 	 * @param shapeType the shape type
 	 * @param color the color
 	 */
-	public CircleDebugDraw(ShapeType shapeType, Color color)
+	public CircleDebugRenderer(ShapeType shapeType, Color color)
 	{ super(shapeType, color); }
 
 	/**
 	 * Creates a new instance given a shape type
 	 * @param shapeType the shape type
 	 */
-	public CircleDebugDraw(ShapeType shapeType)
+	public CircleDebugRenderer(ShapeType shapeType)
 	{ super(shapeType); }
 
 	/**
 	 * Creates a new instance
 	 */
-	public CircleDebugDraw()
+	public CircleDebugRenderer()
 	{ super(); }
 
 	/**
@@ -41,8 +40,7 @@ public class CircleDebugDraw extends DebugDrawBase
 	 * @param segments the number of segments
 	 * @return this instance for chaining
 	 */
-	public CircleDebugDraw setSegments(int segments)
-	{
+	public CircleDebugRenderer setSegments(int segments) {
 		this.segments = segments;
 		return this;
 	}
@@ -55,22 +53,19 @@ public class CircleDebugDraw extends DebugDrawBase
 	{ return segments; }
 
 	@Override
-	public CircleDebugDraw setColor(Color color)
-	{
+	public CircleDebugRenderer setColor(Color color) {
 		super.setColor(color);
 		return this;
 	}
 
 	@Override
-	public CircleDebugDraw setShapeType(ShapeType shapeType)
-	{
+	public CircleDebugRenderer setShapeType(ShapeType shapeType) {
 		super.setShapeType(shapeType);
 		return this;
 	}
 
 	@Override
-	public void draw(ShapeRenderer shapeRenderer, GameCamera gameCamera)
-	{
+	public void draw(ShapeRenderer shapeRenderer, GameCamera gameCamera) {
 		Vector3 pos = gameObject.transform.position;
 		Vector3 size = gameObject.transform.size;
 

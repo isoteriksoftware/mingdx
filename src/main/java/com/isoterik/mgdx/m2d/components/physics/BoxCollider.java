@@ -6,13 +6,12 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 /**
- * A collider in the form of a box. Useful for rectangular game objects
+ * A collider in the form of a box. Useful for rectangular game objects.
  *
  * @author isoteriksoftware
  */
-public class BoxCollider extends Collider
-{
-	private Vector2 size;
+public class BoxCollider extends Collider {
+	private final Vector2 size;
 	private Vector2 center = new Vector2();
 	private float angle;
 
@@ -96,8 +95,7 @@ public class BoxCollider extends Collider
 	}
 
 	@Override
-	public FixtureDef getFixtureDef()
-	{
+	public FixtureDef getFixtureDef() {
 		// If the size is zero, assume the size of the host game object
 		if (size.isZero())
 			size.set(gameObject.transform.size.x, gameObject.transform.size.y);

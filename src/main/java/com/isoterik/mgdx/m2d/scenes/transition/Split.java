@@ -11,8 +11,7 @@ import com.badlogic.gdx.math.Interpolation;
  *
  * @author isoteriksoftware
  */
-public class Split implements ISceneTransition
-{
+public class Split implements ISceneTransition {
     private static Split instance = new Split();
 
     private float duration;
@@ -30,8 +29,7 @@ public class Split implements ISceneTransition
      * @return the created instance
      */
     public static Split init( float duration, int direction,
-                              boolean slideOut, Interpolation easing)
-    {
+                              boolean slideOut, Interpolation easing) {
         instance.duration = duration;
         instance.direction = direction;
         instance.slideOut = slideOut;
@@ -46,8 +44,7 @@ public class Split implements ISceneTransition
 
     @Override
     public void render( SpriteBatch batch, Texture currScreen,
-                        Texture nextScreen, float alpha)
-    {
+                        Texture nextScreen, float alpha) {
         float w = currScreen.getWidth();
         float h = currScreen.getHeight();
         float x1 = 0;

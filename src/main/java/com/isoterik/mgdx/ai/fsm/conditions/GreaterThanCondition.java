@@ -3,13 +3,12 @@ package com.isoterik.mgdx.ai.fsm.conditions;
 import com.isoterik.mgdx.ai.fsm.ICondition;
 
 /**
- * A condition that compares two given value and evaluates to {@code true} if the first value is greater than the second
+ * A condition that compares two given value and evaluates to {@code true} if the first value is greater than the second.
  * @param <T> the type of number to compare. Currently supports precision to as high as {@link Float} precision.
  *
  * @author isoteriksoftware
  */
-public class GreaterThanCondition<T extends Number> implements ICondition
-{
+public class GreaterThanCondition<T extends Number> implements ICondition {
 	protected DataSource<T> firstDataSource;
 	protected DataSource<T> secondDataSource;
 
@@ -37,8 +36,7 @@ public class GreaterThanCondition<T extends Number> implements ICondition
 	 * @param first the value
 	 * @return this instance for chaining
 	 */
-	public GreaterThanCondition<T> setFirst(T first)
-	{
+	public GreaterThanCondition<T> setFirst(T first) {
 		firstDataSource.data = first;
 		return this;
 	}
@@ -47,16 +45,16 @@ public class GreaterThanCondition<T extends Number> implements ICondition
 	 *
 	 * @return the first value
 	 */
-	public T getFirst()
-	{ return firstDataSource.data; }
+	public T getFirst() {
+		return firstDataSource.data;
+	}
 
 	/**
 	 * Sets the second value
 	 * @param second the value
 	 * @return this instance for chaining
 	 */
-	public GreaterThanCondition<T> setSecond(T second)
-	{
+	public GreaterThanCondition<T> setSecond(T second) {
 		secondDataSource.data = second;
 		return this;
 	}
@@ -65,8 +63,9 @@ public class GreaterThanCondition<T extends Number> implements ICondition
 	 *
 	 * @return the second value
 	 */
-	public T getSecond()
-	{ return secondDataSource.data; }
+	public T getSecond() {
+		return secondDataSource.data;
+	}
 
 	/**
 	 * Returns the data source for the first value.
@@ -109,8 +108,7 @@ public class GreaterThanCondition<T extends Number> implements ICondition
 	 * @return {@code true} if the first value is greater than the second value, {@code false} otherwise
 	 */
 	@Override
-	public boolean test()
-	{
+	public boolean test() {
 		if (firstDataSource.data instanceof Integer) {
 			return firstDataSource.data.intValue() > secondDataSource.data.intValue();
 		}

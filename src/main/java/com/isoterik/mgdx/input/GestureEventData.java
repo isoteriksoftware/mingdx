@@ -9,13 +9,11 @@ import com.badlogic.gdx.utils.Pool;
  *
  * @author isoteriksoftware
  */
-public class GestureEventData implements Pool.Poolable
-{
+public class GestureEventData implements Pool.Poolable {
     /**
      * Types of gesture events
      */
-    public enum GestureEvent
-    {
+    public enum GestureEvent {
         FLING, LONG_PRESS, PAN, PAN_STOP, PINCH, PINCH_STOP,
         TAP, DOUBLE_TAP, ZOOM
     }
@@ -90,15 +88,14 @@ public class GestureEventData implements Pool.Poolable
      * Creates a new instance given a gesture event
      * @param gestureEvent the gesture event
      */
-    public GestureEventData (GestureEvent gestureEvent)
-    { this.gestureEvent = gestureEvent; }
+    public GestureEventData (GestureEvent gestureEvent) {
+        this.gestureEvent = gestureEvent;
+    }
     
-    public GestureEventData()
-	{}
+    public GestureEventData() {}
 
 	@Override
-	public void reset()
-	{
+	public void reset() {
 		gestureEvent = null;
 		x = y = 0;
 		flingVelocityX = flingVelocityY = 0;
@@ -120,8 +117,9 @@ public class GestureEventData implements Pool.Poolable
      * @param secondEvent the gesture event to compare against
      * @return {@code true} it the two events are similar
      */
-    public boolean sameEvent (GestureEvent secondEvent)
-    { return gestureEvent == secondEvent; }
+    public boolean sameEvent (GestureEvent secondEvent) {
+        return gestureEvent == secondEvent;
+    }
 
     /**
      * Determines if a given {@link GestureEventData} has the same event as this one.
@@ -129,8 +127,9 @@ public class GestureEventData implements Pool.Poolable
      * @param secondData the given event data
      * @return {@code true} it the two event data have similar events
      */
-    public boolean sameEvent (GestureEventData secondData)
-    { return sameEvent(secondData.gestureEvent); }
+    public boolean sameEvent (GestureEventData secondData) {
+        return sameEvent(secondData.gestureEvent);
+    }
 
     /**
      *

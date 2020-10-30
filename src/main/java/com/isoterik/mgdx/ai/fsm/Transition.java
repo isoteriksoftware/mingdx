@@ -14,8 +14,7 @@ import com.badlogic.gdx.utils.Array;
  * @see ICondition
  * @see State
  */
-public class Transition<S extends State<?>>
-{
+public class Transition<S extends State<?>> {
 	protected Array<ICondition> conditions;
 	
 	protected S fromState;
@@ -28,8 +27,7 @@ public class Transition<S extends State<?>>
 	 * @param conditions an array of conditions for this transition to take effect
 	 */
 	public Transition(S fromState, S toState,
-		Array<ICondition> conditions)
-	{
+		Array<ICondition> conditions) {
 		this.fromState = fromState;
 		this.toState = toState;
 		this.conditions = conditions;
@@ -73,8 +71,7 @@ public class Transition<S extends State<?>>
 	 * @param conditions the array of conditions
 	 * @return this instance for chaining
 	 */
-	public Transition<S> setConditions(Array<ICondition> conditions)
-	{
+	public Transition<S> setConditions(Array<ICondition> conditions) {
 		this.conditions = conditions;
 		return this;
 	}
@@ -82,16 +79,16 @@ public class Transition<S extends State<?>>
 	/**
 	 * @return the array of conditions for this transition
 	 */
-	public Array<ICondition> getConditions()
-	{ return conditions; }
+	public Array<ICondition> getConditions() {
+		return conditions;
+	}
 
 	/**
 	 * Adds a condition for this transition
 	 * @param condition the condition
 	 * @return this instance for chaining
 	 */
-	public Transition<S> addCondition(ICondition condition)
-	{
+	public Transition<S> addCondition(ICondition condition) {
 		conditions.add(condition);
 		return this;
 	}
@@ -101,8 +98,7 @@ public class Transition<S extends State<?>>
 	 * @param condition the condition
 	 * @return this instance for chaining
 	 */
-	public Transition<S> removeCondition(ICondition condition)
-	{
+	public Transition<S> removeCondition(ICondition condition) {
 		conditions.removeValue(condition, true);
 		return this;
 	}
@@ -112,16 +108,16 @@ public class Transition<S extends State<?>>
 	 * @param condition the given condition
 	 * @return {@code true} if condition exists, {@code false} otherwise
 	 */
-	public boolean hasCondition(ICondition condition)
-	{ return conditions.contains(condition, true); }
+	public boolean hasCondition(ICondition condition) {
+		return conditions.contains(condition, true);
+	}
 
 	/**
 	 * Set the state to transition from
 	 * @param fromState the state to transition from
 	 * @return this instance for chaining
 	 */
-	public Transition<S> setFromState(S fromState)
-	{
+	public Transition<S> setFromState(S fromState) {
 		this.fromState = fromState;
 		return this;
 	}
@@ -129,16 +125,16 @@ public class Transition<S extends State<?>>
 	/**
 	 * @return the state to transition from
 	 */
-	public S getFromState()
-	{ return fromState; }
+	public S getFromState() {
+		return fromState;
+	}
 
 	/**
 	 * Sets the state to transition to
 	 * @param toState the state to transition to
 	 * @return this instance for chaining
 	 */
-	public Transition<S> setToState(S toState)
-	{
+	public Transition<S> setToState(S toState) {
 		this.toState = toState;
 		return this;
 	}
@@ -146,8 +142,9 @@ public class Transition<S extends State<?>>
 	/**
 	 * @return the state to transition to
 	 */
-	public S getToState()
-	{ return toState; }
+	public S getToState() {
+		return toState;
+	}
 
 	/**
 	 * Creates a new instance capable of doing the exact opposite of what the current instance does. This is useful for creating bi-directional transitions.
@@ -165,8 +162,7 @@ public class Transition<S extends State<?>>
 	 * </ul>
 	 * @return a new instance that reverses the behavior of the current instance
 	 */
-	public Transition<S> invert()
-	{
+	public Transition<S> invert() {
 		return new Transition<S>(toState, fromState, conditions) {
 			@Override
 			public boolean isTriggered() {
@@ -204,8 +200,7 @@ public class Transition<S extends State<?>>
 	 * Determines whether this transition should take effect or not.
 	 * @return {@code true} if all the conditions are met, {@code false} otherwise
 	 */
-	public boolean isTriggered()
-	{
+	public boolean isTriggered() {
 		if (conditions.isEmpty())
 			return false;
 

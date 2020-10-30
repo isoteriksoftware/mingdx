@@ -1,7 +1,6 @@
 package com.isoterik.mgdx.ai.fsm.conditions;
 
-public class NotEqualCondition<T> extends EqualsCondition<T>
-{
+public class NotEqualCondition<T> extends EqualsCondition<T> {
 	/**
 	 * Creates a new instance given the data sources.
 	 * @param firstDataSource the first value source
@@ -28,24 +27,25 @@ public class NotEqualCondition<T> extends EqualsCondition<T>
 	 * @param second the second value
 	 * @param identity if {@code true} != will be used for comparison else {@link Object#equals(Object)} will be used
 	 */
-	public NotEqualCondition(T first, T second, boolean identity)
-	{ super(first, second, identity);}
+	public NotEqualCondition(T first, T second, boolean identity) {
+		super(first, second, identity);
+	}
 
 	/**
 	 * Creates a new instance given the two values to compare. Will use != for comparison by default
 	 * @param first the first value
 	 * @param second the second value
 	 */
-	public NotEqualCondition(T first, T second)
-	{ super(first, second); }
+	public NotEqualCondition(T first, T second) {
+		super(first, second);
+	}
 
 	/**
 	 * Sets the first value.
 	 * @param first the value
 	 * @return this instance for chaining
 	 */
-	public NotEqualCondition<T> setFirst(T first)
-	{
+	public NotEqualCondition<T> setFirst(T first) {
 		super.setFirst(first);
 		return this;
 	}
@@ -55,8 +55,7 @@ public class NotEqualCondition<T> extends EqualsCondition<T>
 	 * @param second the value
 	 * @return this instance for chaining
 	 */
-	public NotEqualCondition<T> setSecond(T second)
-	{
+	public NotEqualCondition<T> setSecond(T second) {
 		super.setSecond(second);
 		return this;
 	}
@@ -66,8 +65,7 @@ public class NotEqualCondition<T> extends EqualsCondition<T>
 	 * @param identity if {@code true} == will be used for comparison else {@link Object#equals(Object)} will be used
 	 * @return this instance for chaining
 	 */
-	public NotEqualCondition<T> setIdentity(boolean identity)
-	{
+	public NotEqualCondition<T> setIdentity(boolean identity) {
 		super.setIdentity(identity);
 		return this;
 	}

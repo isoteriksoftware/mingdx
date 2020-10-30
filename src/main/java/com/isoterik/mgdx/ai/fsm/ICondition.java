@@ -1,8 +1,8 @@
 package com.isoterik.mgdx.ai.fsm;
 
 /**
- * An instance of {@link ICondition} is used to test if a condition is met.
- * An implementation of this interface is expected to do the necessary calculations to determine if the condition is met or not.
+ * An instance of {@link ICondition} is used to test if a condition is satisfied (evaluates to boolean <em>true</em>).
+ * An implementation of this interface is expected to do the necessary calculations to determine if the condition is satisfied or not.
  *
  * @author isoteriksoftware
  * @see Transition

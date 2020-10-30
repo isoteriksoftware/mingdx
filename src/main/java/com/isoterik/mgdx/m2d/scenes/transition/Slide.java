@@ -11,8 +11,7 @@ import com.badlogic.gdx.math.Interpolation;
  *
  * @author isoteriksoftware
  */
-public class Slide implements ISceneTransition
-{
+public class Slide implements ISceneTransition {
     private static final Slide instance =   new Slide();
 
     private float duration;
@@ -30,8 +29,7 @@ public class Slide implements ISceneTransition
      * @return the created instance
      */
     public static Slide init( float duration, int direction,
-                              boolean slideOut, Interpolation easing)
-    {
+                              boolean slideOut, Interpolation easing) {
         instance.duration = duration;
         instance.direction = direction;
         instance.slideOut = slideOut;
@@ -46,8 +44,7 @@ public class Slide implements ISceneTransition
 
     @Override
     public void render( SpriteBatch batch, Texture currScreen,
-                        Texture nextScreen, float alpha)
-    {
+                        Texture nextScreen, float alpha) {
         float w = currScreen.getWidth();
         float h = currScreen.getHeight();
         float x = 0;

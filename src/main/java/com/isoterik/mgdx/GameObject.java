@@ -18,8 +18,7 @@ import com.badlogic.gdx.utils.Array;
  *
  * @author isoteriksoftware
  */
-public final class GameObject
-{
+public final class GameObject {
     private Array<Component> components;
     private Array.ArrayIterator<Component> arrayIterator;
 
@@ -32,8 +31,7 @@ public final class GameObject
     private GameObject()
     { this("Untagged"); }
 
-    private GameObject(String tag)
-    {
+    private GameObject(String tag) {
         components = new Array<>();
         arrayIterator = new Array.ArrayIterator<>(components,
                 true);
@@ -50,8 +48,7 @@ public final class GameObject
      * This method is called internally by the system. Do not call it directly!
      * @param hostScene the host scene
      */
-    public void __setHostScene(Scene hostScene)
-    {
+    public void __setHostScene(Scene hostScene) {
         this.hostScene = hostScene;
         for (Component comp : components)
             comp.__setHostScene(hostScene);
@@ -79,11 +76,19 @@ public final class GameObject
     { return tag; }
 
     /**
+     * Called when this game object is removed from a scene.
+     * DO NOT CALL THIS METHOD!
+     */
+    public void __removeFromScene() {
+        for (Component comp : components)
+            comp.stop();
+    }
+
+    /**
      * Adds a component to this game object.
      * @param component the component
      */
-    public void addComponent(Component component)
-    {
+    public void addComponent(Component component) {
         if (components.contains(component, true))
             return;
 
@@ -112,8 +117,7 @@ public final class GameObject
      * @param component the component to remove.
      * @return true if the component was removed. false otherwise
      */
-    public boolean removeComponent(Component component)
-    {
+    public boolean removeComponent(Component component) {
         if (components.contains(component, true) &&
                 components.removeValue(component, true)) {
             for (Component comp : components)
@@ -139,8 +143,7 @@ public final class GameObject
     public <T extends Component> boolean removeComponent(Class<T> componentClass)
     { return removeComponent(getComponent(componentClass)); }
 
-    public <T extends Component> void removeComponents(Class<T> clazz)
-    {
+    public <T extends Component> void removeComponents(Class<T> clazz) {
         for (Component c : components) {
             if (clazz.isInstance(c))
                 removeComponent(c);
@@ -154,10 +157,8 @@ public final class GameObject
      * @param <T> the type of component
      * @return the component. null if not found
      */
-    public <T extends Component> T getComponent(Class<T> componentClass)
-    {
-        for (Component c : components)
-        {
+    public <T extends Component> T getComponent(Class<T> componentClass) {
+        for (Component c : components) {
             if (componentClass.isInstance(c))
                 return componentClass.cast(c);
         }
@@ -171,8 +172,7 @@ public final class GameObject
      * @param <T> the type of component
      * @return the components found or empty list if none found
      */
-    public <T extends Component> Array<T> getComponents(Class<T> componentClass)
-    {
+    public <T extends Component> Array<T> getComponents(Class<T> componentClass) {
         Array<T> comps = new Array<>();
 
         for (Component c : components) {
@@ -212,8 +212,7 @@ public final class GameObject
      * This method is used internally by the system. While it is safe to call it, you usually don't need to.
      * @param iterationListener the iteration listener
      */
-    public void __forEachComponent(__ComponentIterationListener iterationListener)
-    {
+    public void __forEachComponent(__ComponentIterationListener iterationListener) {
         while (arrayIterator.hasNext())
             iterationListener.onComponent(arrayIterator.next());
 
@@ -223,8 +222,7 @@ public final class GameObject
     /**
      * An iteration listener that can be used to iterate the components of a {@link GameObject}.
      */
-    public interface __ComponentIterationListener
-    {
+    public interface __ComponentIterationListener {
         void onComponent(Component component);
     }
 

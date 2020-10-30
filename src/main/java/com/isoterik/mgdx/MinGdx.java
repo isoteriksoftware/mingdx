@@ -15,8 +15,7 @@ import com.isoterik.mgdx.m2d.scenes.transition.ISceneTransition;
  *
  * @author isoteriksoftware
  */
-public final class MinGdx
-{
+public final class MinGdx {
     private static MinGdx instance;
 
     /** A reference to libGDXs {@link Application} instance. This is not a replacement or an extension of it. */
@@ -50,8 +49,7 @@ public final class MinGdx
     public static MinGdx instance()
     { return instance; }
 
-    private MinGdx()
-    {
+    private MinGdx() {
         app = Gdx.app;
         graphics = Gdx.graphics;
 
@@ -125,8 +123,7 @@ public final class MinGdx
      * Called when the application is getting destroyed.
      * DO NOT CALL THIS METHOD
      */
-    public void __dispose()
-    {
+    public void __dispose() {
         sceneManager.__dispose();
         assets.__dispose();
     }

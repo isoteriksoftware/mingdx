@@ -8,8 +8,7 @@ import com.badlogic.gdx.utils.Pool;
  *
  * @author isoteriksoftware
  */
-public class KeyEventData implements Pool.Poolable
-{
+public class KeyEventData implements Pool.Poolable {
 	/**
 	 * Types of key events
 	 */
@@ -37,8 +36,7 @@ public class KeyEventData implements Pool.Poolable
 	 * @param keyEvent the key event
 	 * @param keyCode the key code
 	 */
-    public KeyEventData (KeyEvent keyEvent, int keyCode)
-    {
+    public KeyEventData (KeyEvent keyEvent, int keyCode) {
         this.keyEvent = keyEvent;
         this.keyCode  = keyCode;
     }
@@ -49,19 +47,16 @@ public class KeyEventData implements Pool.Poolable
 	 * @param keyCode the key code
 	 * @param keyChar the key character
 	 */
-    public KeyEventData (KeyEvent keyEvent, int keyCode, char keyChar)
-    {
+    public KeyEventData (KeyEvent keyEvent, int keyCode, char keyChar) {
         this.keyEvent = keyEvent;
         this.keyCode  = keyCode;
         this.keyChar  = keyChar;
     }
 
-    public KeyEventData()
-	{}
+    public KeyEventData() {}
 
 	@Override
-	public void reset()
-	{
+	public void reset() {
 		keyEvent = null;
 		keyCode = 0;
 		keyChar = 0;
@@ -77,7 +72,7 @@ public class KeyEventData implements Pool.Poolable
 
 	/**
 	 * Determines if a given {@link KeyEventData} has the same event as this one.
-	 * <strong>Note:</strong> only the events are compared, the comparison does not include other attributes
+	 * <strong>Note:</strong> this compares all the properties.
 	 * @param secondData the given event data
 	 * @return {@code true} it the two event data have similar events
 	 */
@@ -114,8 +109,7 @@ public class KeyEventData implements Pool.Poolable
 	/**
 	 * A pool for recycling instances of {@link KeyEventData}
 	 */
-	public static class DataPool extends Pool<KeyEventData>
-	{
+	public static class DataPool extends Pool<KeyEventData> {
 		@Override
 		protected KeyEventData newObject()
 		{

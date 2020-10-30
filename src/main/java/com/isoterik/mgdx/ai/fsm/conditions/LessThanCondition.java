@@ -6,12 +6,7 @@ package com.isoterik.mgdx.ai.fsm.conditions;
  *
  * @author isoteriksoftware
  */
-public class LessThanCondition<T extends Number> extends GreaterThanCondition<T>
-{
-	/**
-	 * Creates a new instance with the given data source.
-	 * @param dataSource the data source.
-	 */
+public class LessThanCondition<T extends Number> extends GreaterThanCondition<T> {
 	/**
 	 * Creates a new instance given the data sources.
 	 * @param firstDataSource the first value source
@@ -26,16 +21,16 @@ public class LessThanCondition<T extends Number> extends GreaterThanCondition<T>
 	 * @param first the first value
 	 * @param second the second value
 	 */
-	public LessThanCondition(T first, T second)
-	{ super(first, second); }
+	public LessThanCondition(T first, T second) {
+		super(first, second);
+	}
 
 	/**
 	 * Sets the first value.
 	 * @param first the value
 	 * @return this instance for chaining
 	 */
-	public LessThanCondition<T> setFirst(T first)
-	{
+	public LessThanCondition<T> setFirst(T first) {
 		super.setFirst(first);
 		return this;
 	}
@@ -45,8 +40,7 @@ public class LessThanCondition<T extends Number> extends GreaterThanCondition<T>
 	 * @param second the value
 	 * @return this instance for chaining
 	 */
-	public LessThanCondition<T> setSecond(T second)
-	{
+	public LessThanCondition<T> setSecond(T second) {
 		super.setSecond(second);
 		return this;
 	}
@@ -76,8 +70,7 @@ public class LessThanCondition<T extends Number> extends GreaterThanCondition<T>
 	 * @return {@code true} if the first value is greater than the second value, {@code false} otherwise
 	 */
 	@Override
-	public boolean test()
-	{
+	public boolean test() {
 		if (firstDataSource.data instanceof Integer) {
 			return firstDataSource.data.intValue() < secondDataSource.data.intValue();
 		}

@@ -4,12 +4,11 @@ import com.isoterik.mgdx.ai.fsm.ICondition;
 
 /**
  * A condition that compares two given values using equality.
- * @param <T> the type of data that will be compared
+ * @param <T> the type of data that will be compared.
  *
  * @author isoteriksoftware
  */
-public class EqualsCondition<T> implements ICondition
-{
+public class EqualsCondition<T> implements ICondition {
 	protected DataSource<T> firstDataSource;
 	protected DataSource<T> secondDataSource;
 
@@ -30,8 +29,9 @@ public class EqualsCondition<T> implements ICondition
 	 * @param first the first value
 	 * @param second the second value
 	 */
-	public EqualsCondition(T first, T second)
-	{ this(first, second, true); }
+	public EqualsCondition(T first, T second) {
+		this(first, second, true);
+	}
 
 	/**
 	 * Creates a new instance given the data sources.
@@ -60,8 +60,7 @@ public class EqualsCondition<T> implements ICondition
 	 * @param first the value
 	 * @return this instance for chaining
 	 */
-	public EqualsCondition<T> setFirst(T first)
-	{
+	public EqualsCondition<T> setFirst(T first) {
 		firstDataSource.data = first;
 		return this;
 	}
@@ -70,16 +69,16 @@ public class EqualsCondition<T> implements ICondition
 	 *
 	 * @return the first value
 	 */
-	public T getFirst()
-	{ return firstDataSource.data; }
+	public T getFirst() {
+		return firstDataSource.data;
+	}
 
 	/**
 	 * Sets the second value
 	 * @param second the value
 	 * @return this instance for chaining
 	 */
-	public EqualsCondition<T> setSecond(T second)
-	{
+	public EqualsCondition<T> setSecond(T second) {
 		secondDataSource.data = second;
 		return this;
 	}
@@ -88,8 +87,9 @@ public class EqualsCondition<T> implements ICondition
 	 *
 	 * @return the second value
 	 */
-	public T getSecond()
-	{ return secondDataSource.data; }
+	public T getSecond() {
+		return secondDataSource.data;
+	}
 
 	/**
 	 * Returns the data source for the first value.
@@ -132,8 +132,7 @@ public class EqualsCondition<T> implements ICondition
 	 * @param identity if {@code true} == will be used for comparison else {@link Object#equals(Object)} will be used
 	 * @return this instance for chaining
 	 */
-	public EqualsCondition<T> setIdentity(boolean identity)
-	{
+	public EqualsCondition<T> setIdentity(boolean identity) {
 		this.identity = identity;
 		return this;
 	}
@@ -142,16 +141,16 @@ public class EqualsCondition<T> implements ICondition
 	 *
 	 * @return {@code true} if == is used for comparison, {@code false} otherwise
 	 */
-	public boolean isIdentity()
-	{ return identity; }
+	public boolean isIdentity() {
+		return identity;
+	}
 
 	/**
 	 *
 	 * @return {@code true} if both values are equal, {@code false} otherwise
 	 */
 	@Override
-	public boolean test()
-	{
+	public boolean test() {
 		if (identity)
 			return firstDataSource.data == secondDataSource.data;
 

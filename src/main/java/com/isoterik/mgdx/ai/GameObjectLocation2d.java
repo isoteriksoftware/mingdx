@@ -10,14 +10,13 @@ import com.isoterik.mgdx.utils.ArithmeticUtils;
 /**
  * An instance of {@link GameObjectLocation2d} conveys and manipulate the 2D world information of a {@link GameObject}.
  * This is used extensively by {@link com.badlogic.gdx.ai.steer.SteeringBehavior}s to know the current location of a {@link GameObject}.
- * It is a component so it can be attached to any {@link GameObject}.
+ * It is a component, so it can be attached to any {@link GameObject}.
  *
  * @author isoteriksoftware
  * @see Location
  * @see Component
  */
-public class GameObjectLocation2d extends Component implements Location<Vector2>
-{
+public class GameObjectLocation2d extends Component implements Location<Vector2> {
     /**
      * The position of the {@link GameObject} in 2D coordinates
      */
@@ -27,15 +26,15 @@ public class GameObjectLocation2d extends Component implements Location<Vector2>
      * Creates a new instance with no {@link GameObject}.
      * This will make the instance less usable until explicitly attached to a {@link GameObject}
      */
-    public GameObjectLocation2d()
-    { this.position = new Vector2(); }
+    public GameObjectLocation2d() {
+        this.position = new Vector2();
+    }
 
     /**
      * Creates a new instance and automatically attaches itself to the given {@link GameObject}
      * @param gameObject the {@link GameObject} that should be associated with the instance
      */
-    public GameObjectLocation2d(GameObject gameObject)
-    {
+    public GameObjectLocation2d(GameObject gameObject) {
         this();
         gameObject.addComponent(this);
     }
@@ -45,8 +44,7 @@ public class GameObjectLocation2d extends Component implements Location<Vector2>
      * @return the position of the host {@link GameObject} or the default position if this instance is not attached to any {@link GameObject}
      */
     @Override
-    public Vector2 getPosition()
-    {
+    public Vector2 getPosition() {
         if (gameObject != null)
             position.set(gameObject.transform.position.x, gameObject.transform.position.y);
 
@@ -58,8 +56,7 @@ public class GameObjectLocation2d extends Component implements Location<Vector2>
      * @return the current orientation of the host {@link GameObject} or always 0 if this instance is not attached to any {@link GameObject}
      */
     @Override
-    public float getOrientation()
-    {
+    public float getOrientation() {
         if (gameObject == null)
             return 0;
 
@@ -72,8 +69,7 @@ public class GameObjectLocation2d extends Component implements Location<Vector2>
      * @param orientation the orientation
      */
     @Override
-    public void setOrientation(float orientation)
-    {
+    public void setOrientation(float orientation) {
         if (gameObject != null)
         gameObject.transform.setRotation(
                 orientation * MathUtils.radiansToDegrees);
@@ -84,8 +80,9 @@ public class GameObjectLocation2d extends Component implements Location<Vector2>
      * @return a new instance.
      */
     @Override
-    public Location<Vector2> newLocation()
-    { return new GameObjectLocation2d(); }
+    public Location<Vector2> newLocation() {
+        return new GameObjectLocation2d();
+    }
 
     /**
      * Converts a {@link Vector2} to an angle in radians
@@ -93,8 +90,9 @@ public class GameObjectLocation2d extends Component implements Location<Vector2>
      * @return the converted angle in radians
      */
     @Override
-    public float vectorToAngle(Vector2 vector)
-    { return ArithmeticUtils.vectorToAngle2d(vector); }
+    public float vectorToAngle(Vector2 vector) {
+        return ArithmeticUtils.vectorToAngle2d(vector);
+    }
 
     /**
      * Converts an angle in radians to a {@link Vector2}
@@ -103,8 +101,7 @@ public class GameObjectLocation2d extends Component implements Location<Vector2>
      * @return the output {@link Vector2}
      */
     @Override
-    public Vector2 angleToVector(Vector2 outVector, float angle)
-    {
+    public Vector2 angleToVector(Vector2 outVector, float angle) {
         return ArithmeticUtils.angleToVector2d(angle, outVector);
     }
 }

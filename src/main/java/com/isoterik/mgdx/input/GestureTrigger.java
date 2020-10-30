@@ -6,8 +6,7 @@ package com.isoterik.mgdx.input;
  *
  * @author isoteriksoftware
  */
-public class GestureTrigger extends Trigger
-{
+public class GestureTrigger extends Trigger {
     /**
      * Determines when this trigger should fire
      */

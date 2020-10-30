@@ -7,8 +7,7 @@ import com.badlogic.gdx.math.Interpolation;
  *
  * @author isoteriksoftware
  */
-public final class SceneTransitions
-{
+public final class SceneTransitions {
     public static Fade fade(float duration)
     { return Fade.init(duration); }
 

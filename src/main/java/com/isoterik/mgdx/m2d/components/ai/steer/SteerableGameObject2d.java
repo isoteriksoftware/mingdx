@@ -22,8 +22,7 @@ import com.isoterik.mgdx.m2d.components.physics.Physics2d;
  *
  * @author isoteriksoftware
  */
-public class SteerableGameObject2d extends Component implements Steerable<Vector2>
-{
+public class SteerableGameObject2d extends Component implements Steerable<Vector2> {
 	protected Body body;
 	
 	protected float boundingRadius;
@@ -51,8 +50,7 @@ public class SteerableGameObject2d extends Component implements Steerable<Vector
 	 * game object to always face the direction where it is going.
 	 *
 	 */
-	public SteerableGameObject2d(GameObject owner, float boundingRadius, boolean independentFacing)
-	{
+	public SteerableGameObject2d(GameObject owner, float boundingRadius, boolean independentFacing) {
 		if (owner != null)
 			owner.addComponent(this);
 			
@@ -81,8 +79,7 @@ public class SteerableGameObject2d extends Component implements Steerable<Vector
 	 * Creates a new instance given an owner. This component will be attached to the owner if not null.
 	 * @param owner the game object that owns this component
 	 */
-	public SteerableGameObject2d(GameObject owner)
-	{
+	public SteerableGameObject2d(GameObject owner) {
 		this(owner, (owner.transform.size.x / owner.transform.size.y)
 			* 4f);
 	}
@@ -136,8 +133,7 @@ public class SteerableGameObject2d extends Component implements Steerable<Vector
 	/**
 	 * Tries to get the physics body ({@link Body}) attached to the host game object.
 	 */
-	protected void resolvePhysicsBody()
-	{
+	protected void resolvePhysicsBody() {
 		if (body == null) {
 			Physics2d physics2d = getComponent(Physics2d.class);
 			if (physics2d == null)
@@ -225,16 +221,14 @@ public class SteerableGameObject2d extends Component implements Steerable<Vector
 	{ return independentFacing; }
 
 	@Override
-	public void setOrientation(float orientation)
-	{
+	public void setOrientation(float orientation) {
 		resolvePhysicsBody();
 		if (body != null)
 			body.setTransform(body.getPosition(), orientation);
 	}
 
 	@Override
-	public float getAngularVelocity()
-	{
+	public float getAngularVelocity() {
 		resolvePhysicsBody();
 		if (body == null)
 			return 0;
@@ -243,8 +237,7 @@ public class SteerableGameObject2d extends Component implements Steerable<Vector
 	}
 
 	@Override
-	public Vector2 getLinearVelocity()
-	{
+	public Vector2 getLinearVelocity() {
 		resolvePhysicsBody();
 		if (body == null)
 			return Vector2.Zero;
@@ -253,8 +246,7 @@ public class SteerableGameObject2d extends Component implements Steerable<Vector
 	}
 
 	@Override
-	public float getOrientation()
-	{
+	public float getOrientation() {
 		resolvePhysicsBody();
 		if (body == null)
 			return 0;
@@ -263,8 +255,7 @@ public class SteerableGameObject2d extends Component implements Steerable<Vector
 	}
 
 	@Override
-	public Vector2 getPosition()
-	{
+	public Vector2 getPosition() {
 		resolvePhysicsBody();
 		if (body == null)
 			return Vector2.Zero;
@@ -285,8 +276,7 @@ public class SteerableGameObject2d extends Component implements Steerable<Vector
 	{ return new GameObjectLocation2d(gameObject); }
 
 	@Override
-	public void start()
-	{
+	public void start() {
 		/*
 		On start, we try to resolve the physics body for the host game object. At this point it is possible that no Physics2d component is attached
 		so the physics body may still be null. However making this check now will help speed things up because if a physics body exists, we wont have to
@@ -296,8 +286,7 @@ public class SteerableGameObject2d extends Component implements Steerable<Vector
 	}
 
 	@Override
-	public void componentAdded(Component component)
-	{
+	public void componentAdded(Component component) {
 		/*
 		We check to see if the component added is a Physics2d instance. If it is then we grab the physics body
 		 */
@@ -306,8 +295,7 @@ public class SteerableGameObject2d extends Component implements Steerable<Vector
 	}
 
 	@Override
-	public void componentRemoved(Component component)
-	{
+	public void componentRemoved(Component component) {
 		/*
 		Once the Physics2d component is removed, the physics body will be destroyed. So we need to make sure we are not pointing to a non-existing instance
 		 */
@@ -316,8 +304,7 @@ public class SteerableGameObject2d extends Component implements Steerable<Vector
 	}
 
 	@Override
-	public void fixedUpdate(float deltaTime)
-	{
+	public void fixedUpdate(float deltaTime) {
 		// We do nothing if there is no body yet
 		resolvePhysicsBody();
 		if (body == null)
@@ -332,8 +319,7 @@ public class SteerableGameObject2d extends Component implements Steerable<Vector
 		}
 	}
 	
-	protected void applySteering(float deltaTime)
-	{
+	protected void applySteering(float deltaTime) {
 		// Was there any acceleration applied?
 		boolean anyAcceleration = false;
 		

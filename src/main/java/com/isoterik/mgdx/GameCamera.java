@@ -7,14 +7,13 @@ import com.isoterik.mgdx.utils.WorldUnits;
 
 /**
  * A GameCamera encapsulates a {@link Camera} object. Concrete subclasses makes use of a specific kind of camera.
- * The class also uses {@link WorldUnits} object to define the visible regions of the world at a time and also for unit conversions.
+ * The class also uses {@link WorldUnits} object to define the visible regions of the world at a time (viewport) and also for unit conversions.
  *
  * @see com.isoterik.mgdx.m2d.GameCamera2d
  *
  * @author isoteriksoftware
  */
-public abstract class GameCamera
-{
+public abstract class GameCamera {
     protected Camera camera;
 
     protected Viewport viewport;
@@ -27,8 +26,7 @@ public abstract class GameCamera
      * @param viewport the viewport
      * @param worldUnits an instance of {@link WorldUnits}
      */
-    public GameCamera(Viewport viewport, WorldUnits worldUnits)
-    {
+    public GameCamera(Viewport viewport, WorldUnits worldUnits) {
         this.viewport = viewport;
         setup(viewport, worldUnits);
     }
@@ -53,8 +51,7 @@ public abstract class GameCamera
      * @param viewport the new viewport
      * @param worldUnits the new world units
      */
-    public void setup(Viewport viewport, WorldUnits worldUnits)
-    {
+    public void setup(Viewport viewport, WorldUnits worldUnits) {
         this.worldUnits = worldUnits;
         this.viewport = viewport;
         this.camera = viewport.getCamera();
