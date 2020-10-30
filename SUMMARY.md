@@ -1,4 +1,4 @@
 # Table of contents
 
-* [Introduction](README.md)
+* [minGDX](README.md)
 

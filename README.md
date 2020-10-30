@@ -1,4 +1,4 @@
-# Introduction
+# minGDX
 
-## Hello
+A small libGDX based game library
 
