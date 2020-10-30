@@ -6,15 +6,14 @@ import com.badlogic.gdx.Gdx;
 import com.isoterik.mgdx.m2d.scenes.transition.ISceneTransition;
 
 /**
- * Your starter class must extend this class to make it a minGdx game.
+ * Your starter class must extend this class to make it a minGDX game.
  * <code>MinGdxGame</code> initializes all the core systems and start your game.
  * <p>
  *
  * If you need to override any of the life cycle methods in your starter classes, don't forget to call the implementation of the super class.
  * @author isoteriksoftware
  */
-public abstract class MinGdxGame implements ApplicationListener
-{
+public abstract class MinGdxGame implements ApplicationListener {
     protected MinGdx minGdx;
     protected ISceneTransition splashTransition = null;
 
@@ -31,8 +30,7 @@ public abstract class MinGdxGame implements ApplicationListener
     public static final int LOG_DEBUG = Application.LOG_DEBUG;
 
     @Override
-    public void create()
-    {
+    public void create() {
         MinGdx.__init();
         minGdx = MinGdx.instance();
         minGdx.setScene(initGame(), splashTransition);
