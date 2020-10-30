@@ -556,6 +556,8 @@ public class Scene implements ContactListener {
 
         gameObject.__setHostScene(this);
         layer.addGameObject(gameObject);
+
+        gameObject.__forEachComponent(startIter);
     }
 
     /**
@@ -571,6 +573,8 @@ public class Scene implements ContactListener {
 
         gameObject.__setHostScene(this);
         layer.addGameObject(gameObject);
+
+        gameObject.__forEachComponent(startIter);
     }
 
     /**
@@ -580,6 +584,8 @@ public class Scene implements ContactListener {
     public void addGameObject(GameObject gameObject) {
         gameObject.__setHostScene(this);
         defaultLayer.addGameObject(gameObject);
+
+        gameObject.__forEachComponent(startIter);
     }
 
     /**
@@ -592,6 +598,7 @@ public class Scene implements ContactListener {
         if (!hasLayer(layer))
             return false;
 
+        gameObject.__removeFromScene();
         gameObject.__setHostScene(null);
         return layer.removeGameObject(gameObject);
     }
@@ -618,6 +625,7 @@ public class Scene implements ContactListener {
      * @return true if the game object was removed. false otherwise.
      */
     public boolean removeGameObject(GameObject gameObject) {
+        gameObject.__removeFromScene();
         gameObject.__setHostScene(null);
         return defaultLayer.removeGameObject(gameObject);
     }
@@ -684,25 +692,12 @@ public class Scene implements ContactListener {
     }
 
     /**
-     * Called when the scene is entered.
-     * <strong>DO NOT CALL THIS METHOD!</strong>
-     */
-    public void __start() {
-        Array<GameObject> gameObjects = getGameObjects();
-
-        for (GameObject go : gameObjects) {
-            go.__forEachComponent(startIter);
-        }
-    }
-
-    /**
      * Called when the screen is resized.
      * <strong>DO NOT CALL THIS METHOD!</strong>
      * @param width the new width
      * @param height the new height
      */
-    public void __resize(int width, int height)
-    {
+    public void __resize(int width, int height) {
         this.resizedWidth = width;
         this.resizedHeight = height;
 
@@ -718,11 +713,10 @@ public class Scene implements ContactListener {
     }
 
     /**
-     * Called when the scene needs to resume.
+     * Called when the scene is resumed.
      * <strong>DO NOT CALL THIS METHOD!</strong>
      */
-    public void __resume()
-    {
+    public void __resume() {
         isActive = true;
 
         Array<GameObject> gameObjects = getGameObjects();
@@ -733,11 +727,10 @@ public class Scene implements ContactListener {
     }
 
     /**
-     * Called when this scene needs to pause.
+     * Called when this scene is paused.
      * <strong>DO NOT CALL THIS METHOD!</strong>
      */
-    public void __pause()
-    {
+    public void __pause() {
         isActive = false;
 
         Array<GameObject> gameObjects = getGameObjects();
@@ -748,12 +741,11 @@ public class Scene implements ContactListener {
     }
 
     /**
-     * Called when this scene needs to update.
+     * Called when this scene is updated.
      * <strong>DO NOT CALL THIS METHOD!</strong>
      * @param deltaTime the time difference between this frame and the previous frame
      */
-    public void __update(final float deltaTime)
-    {
+    public void __update(final float deltaTime) {
         this.deltaTime = deltaTime;
 
         inputManager.__update();
@@ -790,11 +782,10 @@ public class Scene implements ContactListener {
     }
 
     /**
-     * Called when this scene needs to render.
+     * Called when this scene is rendered.
      * <strong>DO NOT CALL THIS METHOD!</strong>
      */
-    public void __render()
-    {
+    public void __render() {
         Array<GameObject> gameObjects = getGameObjects();
 
         if (mainCamera instanceof GameCamera2d) {
@@ -851,8 +842,7 @@ public class Scene implements ContactListener {
      * Called when this scene is getting destroyed.
      * <strong>DO NOT CALL THIS METHOD!</strong>
      */
-    public void __destroy()
-    {
+    public void __destroy() {
         Array<GameObject> gameObjects = getGameObjects();
 
         for (GameObject go : gameObjects) {
@@ -894,8 +884,7 @@ public class Scene implements ContactListener {
      * @return the created game object
      */
     public GameObject newSpriteObject(String tag, TextureRegion sprite,
-                                      WorldUnits worldUnits)
-    {
+                                      WorldUnits worldUnits) {
         GameObject go = GameObject.newInstance(tag);
         SpriteRenderer sr = new SpriteRenderer(sprite, worldUnits);
         go.addComponent(sr);
@@ -970,8 +959,7 @@ public class Scene implements ContactListener {
     public void preSolve(Contact contact, Manifold manifold) {}
 
     @Override
-    public void beginContact(Contact contact)
-    {
+    public void beginContact(Contact contact) {
         Body bodyA = contact.getFixtureA().getBody();
         Body bodyB = contact.getFixtureB().getBody();
 
@@ -1006,8 +994,7 @@ public class Scene implements ContactListener {
     }
 
     @Override
-    public void endContact(Contact contact)
-    {
+    public void endContact(Contact contact) {
         Body bodyA = contact.getFixtureA().getBody();
         Body bodyB = contact.getFixtureB().getBody();
 

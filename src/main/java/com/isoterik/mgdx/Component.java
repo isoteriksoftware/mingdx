@@ -31,7 +31,8 @@ public class Component {
     public void attach() {}
 
     /**
-     * Called when the {@link Scene} where the host game object resides is entered.
+     * Called when the host game object is added to a {@link Scene}.
+     * If the game object is already added to a scene before this component gets attached, this method will still be called (immediately after {@link #attach()})
      * It is safe to make scene related calls here because a {@link Scene} instance exists. This is where you will typically do all initializations.
      */
     public void start() {}

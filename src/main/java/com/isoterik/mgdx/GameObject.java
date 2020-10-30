@@ -101,11 +101,7 @@ public final class GameObject {
         // If this game object is already added to a scene then we need to alert the component
         if (hostScene != null) {
             component.__setHostScene(hostScene);
-
-            // If we are at runtime then we need to start the component immediately
-            if (hostScene != null && hostScene.isActive()) {
-                component.start();
-            }
+            component.start();
         }
 
         components.add(component);

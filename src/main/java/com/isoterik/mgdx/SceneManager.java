@@ -10,12 +10,11 @@ import com.isoterik.mgdx.m2d.scenes.transition.ISceneTransition;
 
 /**
  * A SceneManager manages the scenes in a game. It maintains a stack of {@link Scene#setStackable(boolean) stackable} scenes that can be revisited using {@link #revertToPreviousScene(ISceneTransition)}.
- * Scenes can be transitioned immediately or using an {@link ISceneTransition} to animate the transition.
+ * Scenes can be transitioned immediately or using a {@link ISceneTransition} to animate the transition.
  *
  * @author isoteriksoftware
  */
-public final class SceneManager
-{
+public final class SceneManager {
     private boolean init;
     private Scene currScene;
     private Scene nextScene;
@@ -59,8 +58,7 @@ public final class SceneManager
      * @param scene the scene to transition to.
      * @param sceneTransition a scene transition to animate the transition with. Can be null
      */
-    public void setCurrentScene (Scene scene, ISceneTransition sceneTransition)
-    {
+    public void setCurrentScene (Scene scene, ISceneTransition sceneTransition) {
         if (!init) {
             initVars();
             init = true;
@@ -68,7 +66,7 @@ public final class SceneManager
 
         // start new transition
         nextScene = scene;
-        nextScene.__start(); // activate next scene
+        nextScene.__resume(); // activate next scene
         nextScene.__update(0); // let next scene update() once
         nextScene.__render();
 
@@ -85,8 +83,7 @@ public final class SceneManager
             pushScene(scene);
     }
 
-    private void initVars()
-    {
+    private void initVars() {
         int w = Gdx.graphics.getWidth();
         int h = Gdx.graphics.getHeight();
 
@@ -105,8 +102,7 @@ public final class SceneManager
      * Called when the game needs to render. Frame rate is capped at 60 frames per second.
      * <strong>DO NOT CALL THIS METHOD!</strong>
      */
-    public void __render()
-    {
+    public void __render() {
         // get delta time and ensure an upper limit of one 60th second
         float deltaTime = MinGdx.instance().getDeltaTime();
 
@@ -177,8 +173,7 @@ public final class SceneManager
      * Called when the game should pause.
      * <strong>DO NOT CALL THIS METHOD!</strong>
      */
-    public void __pause()
-    {
+    public void __pause() {
         if (currScene != null)
             currScene.__pause();
     }
@@ -189,8 +184,7 @@ public final class SceneManager
      * @param width the new width
      * @param height the new height
      */
-    public void __resize(int width, int height)
-    {
+    public void __resize(int width, int height) {
         if (currScene != null)
             currScene.__resize(width, height);
     }
@@ -199,8 +193,7 @@ public final class SceneManager
      * Called when the game should resume.
      * <strong>DO NOT CALL THIS METHOD!</strong>
      */
-    public void __resume()
-    {
+    public void __resume() {
         if (currScene != null) {
             currScene.__resume();
             Gdx.input.setInputProcessor(currScene.getInputManager().getInputMultiplexer());
@@ -211,8 +204,7 @@ public final class SceneManager
      * Called when the game is getting destroyed.
      * <strong>DO NOT CALL THIS METHOD!</strong>
      */
-    public void __dispose ()
-    {
+    public void __dispose () {
         if (currScene != null)
             currScene.__destroy();
         if (nextScene != null)
@@ -258,8 +250,7 @@ public final class SceneManager
      * <strong>Note:</strong> Only {@link Scene#setStackable(boolean) stackable} scenes can be reverted to.
      * @param transition a transition animation to use. can be null
      */
-    public void revertToPreviousScene(ISceneTransition transition)
-    {
+    public void revertToPreviousScene(ISceneTransition transition) {
         if(!canRevertToPreviousScene())
             return;
 
@@ -285,8 +276,7 @@ public final class SceneManager
      * Adds a scene to the stack
      * @param scene a scene to add
      */
-    protected void pushScene(Scene scene)
-    {
+    protected void pushScene(Scene scene) {
         if(sceneStack.contains(scene, true))
             return;
 
@@ -297,8 +287,7 @@ public final class SceneManager
      *
      * @return a scene removed from the bottom of the stack
      */
-    protected Scene popScene()
-    {
+    protected Scene popScene() {
         if(sceneStack.isEmpty())
             return null;
 

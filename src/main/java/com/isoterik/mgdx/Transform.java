@@ -8,8 +8,7 @@ import com.badlogic.gdx.math.Vector3;
  *
  * @author isoteriksoftware
  */
-public class Transform extends Component
-{
+public class Transform extends Component {
     /** The position of the host game object */
     public final Vector3 position;
 
@@ -30,8 +29,7 @@ public class Transform extends Component
     /**
      * Creates a new instance.
      */
-    public Transform()
-    {
+    public Transform() {
         position = new Vector3(0, 0, 0);
         scale    = new Vector3(1, 1, 1);
         size     = new Vector3(0, 0, 0);
@@ -165,8 +163,7 @@ public class Transform extends Component
      *
      * @return the diagonal of the host game object
      */
-    public float calcDiagonal()
-    {
+    public float calcDiagonal() {
         float w = size.x;
         float h = size.y;
         float d = size.z;
@@ -183,8 +180,7 @@ public class Transform extends Component
      * @param camera the camera
      * @return true if the game can be seen by the camera. false otherwise
      */
-    public boolean isInCameraFrustum(Camera camera)
-    {
+    public boolean isInCameraFrustum(Camera camera) {
         float x = position.x;
         float y = position.y;
         float z = position.z;
@@ -198,21 +194,18 @@ public class Transform extends Component
     }
 
     @Override
-    public void attach()
-    {
+    public void attach() {
         if (hasComponent(Transform.class))
             throw new UnsupportedOperationException("There can only be one Transform component for a GameObject!");
     }
 
     @Override
-    public void detach()
-    {
+    public void detach() {
         throw new UnsupportedOperationException("You cannot detach the Transform component!");
     }
 
     @Override
-    public void addComponent(Component component)
-    {
+    public void addComponent(Component component) {
         if (component instanceof Transform && hasComponent(Transform.class))
             throw new UnsupportedOperationException("There can only be one Transform component for a GameObject!");
     }
