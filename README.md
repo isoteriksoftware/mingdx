@@ -11,10 +11,12 @@ minGDX takes care of common boiler plates and presents a clean component-based A
 
 Just in case you're wondering what the **min** in minGDX means, it stands for _minimal_, as in **minimal libGDX**. We're terrible at naming things, yes we know :)
 
+
 ## Getting minGDX / Documentation
 minGDX is dependent on two of the main libGDX extensions: **box2d** and **gdx-ai**. When creating your libGDX project, it is advisable to add those extensions at that point.
 
 minGDX is available in JCenter. Since libGDX is now gradle-based, your project is most likely pulling dependencies from jcenter already, you're all set.
+
 To pull minGDX, open the project-level build.gradle file, add `api 'com.isoterik.mgdx:mingdx:1.0.0'` to the dependencies closure of the core project.
 Sync the project and wait for gradle to do its magic!
 
@@ -23,7 +25,9 @@ depend on the core project.
 
 Though minGDX is a relatively small library, it is very well documented! We offer a regularly updated tutorial blog dedicated to minGDX and a clean documentation website:
 - [Visit the tutorial blog](https://gdx-gaming.blogspot.com)
-- [Read the docs](https://isoteriktechnologies.gitbook.io/mingdx/)
+- [MinGdx documentation](https://isoteriktechnologies.gitbook.io/mingdx/)
+- [Javadocs](https://isoteriktechnologies.github.io/mingdx/)
+
 
 ## Usage
 It is very easy to get started with minGDX. Integrate minGDX in 4 easy steps:
@@ -65,9 +69,11 @@ public class MyGameClass extends MinGdxGame {
 
 If you see a red background displayed then congratulations, you've just ran your first minGDX game!
 
+
 ## Support
 We've only just scratched the surface! Head on to our [tutorial blog](https://gdx-gaming.blogspot.com) to learn more.
-Check out the [documentations](https://isoteriktechnologies.gitbook.io/mingdx/) also.
+Check out the [documentations](https://isoteriktechnologies.gitbook.io/mingdx/) and, also the [minGDDX javadocs](https://isoteriktechnologies.github.io/mingdx/).
+
 
 ## License
 Just like libGDX, minGDX is licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) meaning you can use it free of charge, without strings attached in commercial and non-commercial projects.
