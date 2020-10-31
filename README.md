@@ -1,4 +1,5 @@
-# minGDX
+![mingdx-logo](https://user-images.githubusercontent.com/50753501/97774186-13e76000-1b56-11eb-804d-f89aba2681b2.png)
+
 [ ![Download](https://api.bintray.com/packages/isoteriksoftware/MinGdx/com.isoterik.mgdx/images/download.svg) ](https://bintray.com/isoteriksoftware/MinGdx/com.isoterik.mgdx/_latestVersion)
 
 [minGDX](https://isoteriktechnologies.gitbook.io/mingdx/) is a small open source Java game development library based on [libGDX](https://libgdx.com/).
