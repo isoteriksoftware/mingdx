@@ -32,7 +32,7 @@ Though minGDX is a relatively small library, it is very well documented! We offe
 
 ## Usage
 It is very easy to get started with minGDX. Integrate minGDX in 4 easy steps:
-- Make your game class (starter class) extend `com.isoterik.mgdx.MinGdxGame`:
+- Make your game class extend `com.isoterik.mgdx.MinGdxGame`:
 ```java
 import com.isoterik.mgdx.MinGdxGame;
 
