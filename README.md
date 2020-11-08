@@ -2,8 +2,8 @@
 
 [ ![Download](https://api.bintray.com/packages/isoteriksoftware/MinGdx/com.isoterik.mgdx/images/download.svg) ](https://bintray.com/isoteriksoftware/MinGdx/com.isoterik.mgdx/_latestVersion)
 
-[minGDX](https://isoteriktechnologies.gitbook.io/mingdx/) is a small open source Java game development library based on [libGDX](https://libgdx.com/).
-It is neither an alternative nor a replacement for libGDX, it simply provides another (better) way of coding a libGDX game. minGDX is not an extension of libGDX either!
+[minGDX](https://isoteriktechnologies.gitbook.io/mingdx/) **is a small open source Java game development library based on [libGDX](https://libgdx.com/).
+It is neither an alternative nor a replacement for libGDX, it simply provides another (better) way of coding a libGDX game. minGDX is not an extension of libGDX either!**
 
 We all love libGDX, it is cross-platform, and most of the time, it gets the job done. However, just like any other framework, liGDX can't handle every needs of a game.
 This is because games are usually too specific, so it is hard to anticipate the developer's needs. libGDX already handles most of the low-level details that we (libGDX users)
