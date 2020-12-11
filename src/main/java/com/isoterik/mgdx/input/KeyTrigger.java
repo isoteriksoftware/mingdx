@@ -44,11 +44,10 @@ public class KeyTrigger extends Trigger {
     { return new KeyTrigger(KeyEventData.downEvent(keyCode)); }
 
     /**
-     * @param keyCode the key code
      * @param keyChar the key character
      * @return a trigger that fires when a keyTyped event occurs
      * @see com.isoterik.mgdx.input.KeyEventData.KeyEvent
      */
-    public static KeyTrigger keyTypedTrigger (int keyCode, char keyChar)
-    { return new KeyTrigger(KeyEventData.typedEvent(keyCode, keyChar)); }
+    public static KeyTrigger keyTypedTrigger (char keyChar)
+    { return new KeyTrigger(KeyEventData.typedEvent(keyChar)); }
 }

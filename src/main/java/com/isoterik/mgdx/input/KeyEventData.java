@@ -42,14 +42,11 @@ public class KeyEventData implements Pool.Poolable {
     }
 
 	/**
-	 * Creates a new instance given a key event, key code and a character
-	 * @param keyEvent the key event
-	 * @param keyCode the key code
+	 * Creates a new instance given a key event, key code and a character.
 	 * @param keyChar the key character
 	 */
-    public KeyEventData (KeyEvent keyEvent, int keyCode, char keyChar) {
-        this.keyEvent = keyEvent;
-        this.keyCode  = keyCode;
+    public KeyEventData (char keyChar) {
+        this.keyEvent = KeyEvent.KEY_TYPED;
         this.keyChar  = keyChar;
     }
 
@@ -99,12 +96,11 @@ public class KeyEventData implements Pool.Poolable {
     { return new KeyEventData(KeyEvent.KEY_DOWN, keyCode); }
 
 	/**
-	 * @param keyCode the key code
 	 * @param keyChar the keyboard character
 	 * @return a key event data for a typed event
 	 */
-	public static KeyEventData typedEvent(int keyCode, char keyChar)
-    { return new KeyEventData(KeyEvent.KEY_TYPED, keyCode, keyChar); }
+	public static KeyEventData typedEvent(char keyChar)
+    { return new KeyEventData( keyChar); }
 
 	/**
 	 * A pool for recycling instances of {@link KeyEventData}
