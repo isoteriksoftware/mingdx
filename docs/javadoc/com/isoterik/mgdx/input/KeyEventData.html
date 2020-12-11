@@ -197,16 +197,14 @@ implements com.badlogic.gdx.utils.Pool.Poolable</pre>
 <td class="colOne"><code><span class="memberNameLink"><a href="../../../../com/isoterik/mgdx/input/KeyEventData.html#KeyEventData--">KeyEventData</a></span>()</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../com/isoterik/mgdx/input/KeyEventData.html#KeyEventData-com.isoterik.mgdx.input.KeyEventData.KeyEvent-int-">KeyEventData</a></span>(<a href="../../../../com/isoterik/mgdx/input/KeyEventData.KeyEvent.html" title="enum in com.isoterik.mgdx.input">KeyEventData.KeyEvent</a>&nbsp;keyEvent,
-            int&nbsp;keyCode)</code>
-<div class="block">Creates a new instance given a key event and a key code</div>
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../com/isoterik/mgdx/input/KeyEventData.html#KeyEventData-char-">KeyEventData</a></span>(char&nbsp;keyChar)</code>
+<div class="block">Creates a new instance given a key event, key code and a character.</div>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../com/isoterik/mgdx/input/KeyEventData.html#KeyEventData-com.isoterik.mgdx.input.KeyEventData.KeyEvent-int-char-">KeyEventData</a></span>(<a href="../../../../com/isoterik/mgdx/input/KeyEventData.KeyEvent.html" title="enum in com.isoterik.mgdx.input">KeyEventData.KeyEvent</a>&nbsp;keyEvent,
-            int&nbsp;keyCode,
-            char&nbsp;keyChar)</code>
-<div class="block">Creates a new instance given a key event, key code and a character</div>
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../com/isoterik/mgdx/input/KeyEventData.html#KeyEventData-com.isoterik.mgdx.input.KeyEventData.KeyEvent-int-">KeyEventData</a></span>(<a href="../../../../com/isoterik/mgdx/input/KeyEventData.KeyEvent.html" title="enum in com.isoterik.mgdx.input">KeyEventData.KeyEvent</a>&nbsp;keyEvent,
+            int&nbsp;keyCode)</code>
+<div class="block">Creates a new instance given a key event and a key code</div>
 </td>
 </tr>
 </table>
@@ -246,8 +244,7 @@ implements com.badlogic.gdx.utils.Pool.Poolable</pre>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>static <a href="../../../../com/isoterik/mgdx/input/KeyEventData.html" title="class in com.isoterik.mgdx.input">KeyEventData</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/isoterik/mgdx/input/KeyEventData.html#typedEvent-int-char-">typedEvent</a></span>(int&nbsp;keyCode,
-          char&nbsp;keyChar)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/isoterik/mgdx/input/KeyEventData.html#typedEvent-char-">typedEvent</a></span>(char&nbsp;keyChar)</code>&nbsp;</td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>static <a href="../../../../com/isoterik/mgdx/input/KeyEventData.html" title="class in com.isoterik.mgdx.input">KeyEventData</a></code></td>
@@ -333,20 +330,16 @@ implements com.badlogic.gdx.utils.Pool.Poolable</pre>
 </dl>
 </li>
 </ul>
-<a name="KeyEventData-com.isoterik.mgdx.input.KeyEventData.KeyEvent-int-char-">
+<a name="KeyEventData-char-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>KeyEventData</h4>
-<pre>public&nbsp;KeyEventData(<a href="../../../../com/isoterik/mgdx/input/KeyEventData.KeyEvent.html" title="enum in com.isoterik.mgdx.input">KeyEventData.KeyEvent</a>&nbsp;keyEvent,
-                    int&nbsp;keyCode,
-                    char&nbsp;keyChar)</pre>
-<div class="block">Creates a new instance given a key event, key code and a character</div>
+<pre>public&nbsp;KeyEventData(char&nbsp;keyChar)</pre>
+<div class="block">Creates a new instance given a key event, key code and a character.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>keyEvent</code> - the key event</dd>
-<dd><code>keyCode</code> - the key code</dd>
 <dd><code>keyChar</code> - the key character</dd>
 </dl>
 </li>
@@ -444,17 +437,15 @@ implements com.badlogic.gdx.utils.Pool.Poolable</pre>
 </dl>
 </li>
 </ul>
-<a name="typedEvent-int-char-">
+<a name="typedEvent-char-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>typedEvent</h4>
-<pre>public static&nbsp;<a href="../../../../com/isoterik/mgdx/input/KeyEventData.html" title="class in com.isoterik.mgdx.input">KeyEventData</a>&nbsp;typedEvent(int&nbsp;keyCode,
-                                      char&nbsp;keyChar)</pre>
+<pre>public static&nbsp;<a href="../../../../com/isoterik/mgdx/input/KeyEventData.html" title="class in com.isoterik.mgdx.input">KeyEventData</a>&nbsp;typedEvent(char&nbsp;keyChar)</pre>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>keyCode</code> - the key code</dd>
 <dd><code>keyChar</code> - the keyboard character</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a key event data for a typed event</dd>
