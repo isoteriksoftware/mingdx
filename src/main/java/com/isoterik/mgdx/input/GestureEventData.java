@@ -29,7 +29,7 @@ public class GestureEventData implements Pool.Poolable {
     public float x, y;
 
     /**
-     * The fling velocity
+     * The fling velocity (in world units per second)
      */
     public float flingVelocityX, flingVelocityY;
 

@@ -829,10 +829,12 @@ public class InputManager extends InputAdapter implements GestureDetector.Gestur
 
 	@Override
 	public boolean fling (float velocityX, float velocityY, int button) {
+		Vector2 velocity = getWorldCoords(velocityX, velocityY);
+
 		GestureEventData eventData = obtainGestureEventData();
 		eventData.gestureEvent = GestureEventData.GestureEvent.FLING;
-		eventData.flingVelocityX = velocityX;
-		eventData.flingVelocityY = velocityY;
+		eventData.flingVelocityX = velocity.x;
+		eventData.flingVelocityY = velocity.y;
 		eventData.button = button;
 
 		wakeGestureListeners(eventData);
