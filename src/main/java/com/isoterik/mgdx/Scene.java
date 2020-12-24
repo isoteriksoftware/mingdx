@@ -314,7 +314,7 @@ public class Scene implements ContactListener {
                     comp.onCollisionExit2d(collisionB);
             }
         };
-        
+
         collisionPool = new Collision2d.CollisionPool();
 
         WorldUnits worldUnits = mainCamera.getWorldUnits();
