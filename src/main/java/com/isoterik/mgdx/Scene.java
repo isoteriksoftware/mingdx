@@ -168,103 +168,153 @@ public class Scene implements ContactListener {
 
         physicsDebugRenderer2d = new Box2DDebugRenderer();
 
-        startIter = component -> {
-            if (component.isEnabled())
-                component.start();
+        startIter = new GameObject.__ComponentIterationListener() {
+            @Override
+            public void onComponent(Component component) {
+                if (component.isEnabled())
+                    component.start();
+            }
         };
 
-        resumeIter = component -> {
-            if (component.isEnabled())
-                component.resume();
+        resumeIter = new GameObject.__ComponentIterationListener() {
+            @Override
+            public void onComponent(Component component) {
+                if (component.isEnabled())
+                    component.resume();
+            }
         };
 
-        pauseIter = component -> {
-            if (component.isEnabled())
-                component.pause();
+        pauseIter = new GameObject.__ComponentIterationListener() {
+            @Override
+            public void onComponent(Component component) {
+                if (component.isEnabled())
+                    component.pause();
+            }
         };
 
-        resizeIter = component -> {
-            if (component.isEnabled())
-                component.resize(resizedWidth, resizedHeight);
+        resizeIter = new GameObject.__ComponentIterationListener() {
+            @Override
+            public void onComponent(Component component) {
+                if (component.isEnabled())
+                    component.resize(resizedWidth, resizedHeight);
+            }
         };
 
-        updateIter = component -> {
-            if (component.isEnabled())
-                component.update(deltaTime);
+        updateIter = new GameObject.__ComponentIterationListener() {
+            @Override
+            public void onComponent(Component component) {
+                if (component.isEnabled())
+                    component.update(deltaTime);
+            }
         };
 
-        fixedUpdateIter = component -> {
-            if (component.isEnabled())
-                component.fixedUpdate(physicsTimeStep);
+        fixedUpdateIter = new GameObject.__ComponentIterationListener() {
+            @Override
+            public void onComponent(Component component) {
+                if (component.isEnabled())
+                    component.fixedUpdate(physicsTimeStep);
+            }
         };
 
-        lateUpdateIter = component -> {
-            if (component.isEnabled())
-                component.lateUpdate(deltaTime);
+        lateUpdateIter = new GameObject.__ComponentIterationListener() {
+            @Override
+            public void onComponent(Component component) {
+                if (component.isEnabled())
+                    component.lateUpdate(deltaTime);
+            }
         };
 
-        renderIter = component -> {
-            if (component.isEnabled())
-                component.render(mainCamera);
+        renderIter = new GameObject.__ComponentIterationListener() {
+            @Override
+            public void onComponent(Component component) {
+                if (component.isEnabled())
+                    component.render(mainCamera);
+            }
         };
 
-        debugLineIter = component -> {
-            if (component.isEnabled())
-                component.drawDebugLine(shapeRenderer, mainCamera);
+        debugLineIter = new GameObject.__ComponentIterationListener() {
+            @Override
+            public void onComponent(Component component) {
+                if (component.isEnabled())
+                    component.drawDebugLine(shapeRenderer, mainCamera);
+            }
         };
 
-        debugFilledIter = component -> {
-            if (component.isEnabled())
-                component.drawDebugFilled(shapeRenderer, mainCamera);
+        debugFilledIter = new GameObject.__ComponentIterationListener() {
+            @Override
+            public void onComponent(Component component) {
+                if (component.isEnabled())
+                    component.drawDebugFilled(shapeRenderer, mainCamera);
+            }
         };
 
-        debugPointIter = component -> {
-            if (component.isEnabled())
-                component.drawDebugPoint(shapeRenderer, mainCamera);
+        debugPointIter = new GameObject.__ComponentIterationListener() {
+            @Override
+            public void onComponent(Component component) {
+                if (component.isEnabled())
+                    component.drawDebugPoint(shapeRenderer, mainCamera);
+            }
         };
 
-        destroyIter = Component::destroy;
-
-        iterAEnter = comp -> {
-            if (!comp.isEnabled())
-                return;
-
-            if (isSensorA)
-                comp.onSensorEnter2d(collisionA);
-            else
-                comp.onCollisionEnter2d(collisionA);
+        destroyIter = new GameObject.__ComponentIterationListener() {
+            @Override
+            public void onComponent(Component component) {
+                component.destroy();
+            }
         };
 
-        iterBEnter = comp -> {
-            if (!comp.isEnabled())
-                return;
+        iterAEnter = new GameObject.__ComponentIterationListener() {
+            @Override
+            public void onComponent(Component comp) {
+                if (!comp.isEnabled())
+                    return;
 
-            if (isSensorB)
-                comp.onSensorEnter2d(collisionB);
-            else
-                comp.onCollisionEnter2d(collisionB);
+                if (isSensorA)
+                    comp.onSensorEnter2d(collisionA);
+                else
+                    comp.onCollisionEnter2d(collisionA);
+            }
         };
 
-        iterAExit = comp -> {
-            if (!comp.isEnabled())
-                return;
+        iterBEnter = new GameObject.__ComponentIterationListener() {
+            @Override
+            public void onComponent(Component comp) {
+                if (!comp.isEnabled())
+                    return;
 
-            if (isSensorA)
-                comp.onSensorExit2d(collisionA);
-            else
-                comp.onCollisionExit2d(collisionA);
+                if (isSensorB)
+                    comp.onSensorEnter2d(collisionB);
+                else
+                    comp.onCollisionEnter2d(collisionB);
+            }
         };
 
-        iterBExit = comp -> {
-            if (!comp.isEnabled())
-                return;
+        iterAExit = new GameObject.__ComponentIterationListener() {
+            @Override
+            public void onComponent(Component comp) {
+                if (!comp.isEnabled())
+                    return;
 
-            if (isSensorB)
-                comp.onSensorExit2d(collisionB);
-            else
-                comp.onCollisionExit2d(collisionB);
+                if (isSensorA)
+                    comp.onSensorExit2d(collisionA);
+                else
+                    comp.onCollisionExit2d(collisionA);
+            }
         };
 
+        iterBExit = new GameObject.__ComponentIterationListener() {
+            @Override
+            public void onComponent(Component comp) {
+                if (!comp.isEnabled())
+                    return;
+
+                if (isSensorB)
+                    comp.onSensorExit2d(collisionB);
+                else
+                    comp.onCollisionExit2d(collisionB);
+            }
+        };
+        
         collisionPool = new Collision2d.CollisionPool();
 
         WorldUnits worldUnits = mainCamera.getWorldUnits();
