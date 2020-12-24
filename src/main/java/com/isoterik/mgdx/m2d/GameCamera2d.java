@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.isoterik.mgdx.GameCamera;
+import com.isoterik.mgdx.MinGdx;
 import com.isoterik.mgdx.utils.WorldUnits;
 
 /**
@@ -49,8 +50,10 @@ public class GameCamera2d extends GameCamera {
      * Creates a new scene. The screen dimensions defaults to (1280 x 720) taking 100 pixels per meter for unit conversions.
      * The viewport defaults to an {@link ExtendViewport}.
      */
-    public GameCamera2d()
-    { this(new WorldUnits(1280f, 720f, 100f)); }
+    public GameCamera2d() {
+        this(new WorldUnits(MinGdx.instance().defaultSettings.VIEWPORT_WIDTH, MinGdx.instance().defaultSettings.VIEWPORT_HEIGHT,
+                MinGdx.instance().defaultSettings.PIXELS_PER_UNIT));
+    }
 
     /**
      * Sets the sprite batch used for rendering

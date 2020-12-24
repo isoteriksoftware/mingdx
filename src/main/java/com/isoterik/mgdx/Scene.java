@@ -142,6 +142,19 @@ public class Scene implements ContactListener {
     public Scene(Vector3 gravity, boolean is3dMode) {
         this.is3dMode = is3dMode;
 
+        velocityIterations = 8;
+        positionIterations = 3;
+
+        accumulator = 0.0;
+        currentTime = TimeUtils.millis() / 1000.0;
+
+        simulatePhysics = true;
+        renderPhysicsDebugLines = false;
+
+        renderCustomDebugLines = false;
+
+        onConstruction();
+
         defaultLayer = new Layer(DEFAULT_LAYER);
         layers = new Array<>();
         layers.add(defaultLayer);
@@ -150,17 +163,9 @@ public class Scene implements ContactListener {
 
         inputManager = new InputManager(this);
 
-        simulatePhysics = true;
-        renderPhysicsDebugLines = false;
-
         physicsWorld2d = new World(new Vector2(gravity.x, gravity.y),true);
         physicsWorld2d.setContactListener(this);
 
-        velocityIterations = 8;
-        positionIterations = 3;
-
-        accumulator = 0.0;
-        currentTime = TimeUtils.millis() / 1000.0;
         physicsDebugRenderer2d = new Box2DDebugRenderer();
 
         startIter = component -> {
@@ -221,6 +226,9 @@ public class Scene implements ContactListener {
         destroyIter = Component::destroy;
 
         iterAEnter = comp -> {
+            if (!comp.isEnabled())
+                return;
+
             if (isSensorA)
                 comp.onSensorEnter2d(collisionA);
             else
@@ -228,6 +236,9 @@ public class Scene implements ContactListener {
         };
 
         iterBEnter = comp -> {
+            if (!comp.isEnabled())
+                return;
+
             if (isSensorB)
                 comp.onSensorEnter2d(collisionB);
             else
@@ -235,6 +246,9 @@ public class Scene implements ContactListener {
         };
 
         iterAExit = comp -> {
+            if (!comp.isEnabled())
+                return;
+
             if (isSensorA)
                 comp.onSensorExit2d(collisionA);
             else
@@ -242,6 +256,9 @@ public class Scene implements ContactListener {
         };
 
         iterBExit = comp -> {
+            if (!comp.isEnabled())
+                return;
+
             if (isSensorB)
                 comp.onSensorExit2d(collisionB);
             else
@@ -255,7 +272,6 @@ public class Scene implements ContactListener {
                 worldUnits.getScreenHeight()));
 
         shapeRenderer = new ShapeRenderer();
-        renderCustomDebugLines = false;
     }
 
     /**
@@ -263,6 +279,15 @@ public class Scene implements ContactListener {
      */
     public Scene()
     { this(new Vector3(0f, -9.8f, 0f), false); }
+
+    /**
+     * This is called during construction. This is useful for setting default properties
+     * that will be used during construction.
+     *
+     * <strong>Most instance variables are not initialized yet, it is not safe to make use of them here!</strong>
+     */
+    protected void onConstruction() {
+    }
 
     /**
      *

@@ -28,7 +28,7 @@ public abstract class DebugRendererBase extends Component {
 	}
 	
 	public DebugRendererBase(ShapeRenderer.ShapeType shapeType) {
-		this(shapeType, Color.RED);
+		this(shapeType, Color.WHITE);
 	}
 	
 	public DebugRendererBase() {

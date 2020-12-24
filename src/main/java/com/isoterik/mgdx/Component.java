@@ -24,7 +24,7 @@ public class Component {
     protected boolean enabled = true;
 
     /**
-     * Called when this component is attached to a {@link GameObject}.
+     * Called when the component is attached to a {@link GameObject}.
      * <strong>Note:</strong> At this point it is guaranteed that a game object exists for this component but it
      * is not guaranteed that the game object has been added to a {@link Scene} yet!
      */
@@ -38,20 +38,20 @@ public class Component {
     public void start() {}
 
     /**
-     * Called when the {@link Scene} where the host game object resides is resumed.
+     * Called when the component should resume.
      * This is where you will typically resume music playbacks.
      */
     public void resume() {}
 
     /**
-     * Called when the host game object needs to update.
+     * Called when the component should update.
      * @param deltaTime the time difference between the current frame and the previous frame.
      */
     public void update(float deltaTime) {}
 
     /**
-     * Called after all the components of the host game object have been updated.
-     * This is useful for tasks that depends on the updated state of game objects
+     * Called after all the components of the host game object are updated.
+     * This is useful for tasks that depends on the updated state of game objects.
      * @param deltaTime the time difference between the current frame and the previous frame.
      */
     public void lateUpdate(float deltaTime) {}
@@ -65,48 +65,48 @@ public class Component {
 
     /**
      * Called when the screen is resized.
-     * @param newScreenWidth the new screen width
-     * @param newScreenHeight the new screen height
+     * @param newScreenWidth the new screen width (in pixels)
+     * @param newScreenHeight the new screen height (in pixels)
      */
     public void resize(int newScreenWidth, int newScreenHeight) {}
 
     /**
-     * Called when the {@link Scene} where the host game object resides wants to render
+     * Called when the component should render.
      * @param gameCamera the camera used by the scene
      */
     public void render(GameCamera gameCamera) {}
 
     /**
-     * Called when the {@link Scene} where the host game object resides wants to render debug drawings of type {@link com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType#Line}
+     * Called when the component should render debug drawings of type {@link com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType#Line}
      * @param shapeRenderer a shape renderer to draw with
      * @param gameCamera the camera used by the scene
      */
     public void drawDebugLine(ShapeRenderer shapeRenderer, GameCamera gameCamera) {}
 
     /**
-     * Called when the {@link Scene} where the host game object resides wants to render debug drawings of type {@link com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType#Filled}
+     * Called when the component should render debug drawings of type {@link com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType#Filled}
      * @param shapeRenderer a shape renderer to draw with
      * @param gameCamera the camera used by the scene
      */
     public void drawDebugFilled(ShapeRenderer shapeRenderer, GameCamera gameCamera) {}
 
     /**
-     * Called when the {@link Scene} where the host game object resides wants to render debug drawings of type {@link com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType#Point}
+     * Called when the component should render debug drawings of type {@link com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType#Point}
      * @param shapeRenderer a shape renderer to draw with
      * @param gameCamera the camera used by the scene
      */
     public void drawDebugPoint(ShapeRenderer shapeRenderer, GameCamera gameCamera) {}
 
     /**
-     * Called when the {@link Scene} where the host game object resides wants to pause.
+     * Called when the component should pause.
      * This is where you'll typically pause music playbacks.
      */
     public void pause() {}
 
     /**
-     * Called when this component is about to be detached from the host game object.
+     * Called when the component is getting detached from the host game object.
      * The {@link GameObject} instance will become null after this method completes so this is the last place to communicate with the game object.
-     * It is usually a good idea to dispose component related resources here. Resources disposed here are usually the ones allocated in {@link #attach()}
+     * It is usually a good idea to dispose component-allocated resources here. Resources disposed here are usually the ones allocated in {@link #attach()}
      */
     public void detach() {}
 
@@ -117,21 +117,21 @@ public class Component {
     public void stop() {}
 
     /**
-     * Called when the {@link Scene} where the host game object resides is getting destroyed.
+     * Called when the component is getting destroyed.
      * You should dispose all scene wide resources here.
      */
     public void destroy() {}
 
     /**
      * Called when a new component is attached to the host game object.
-     * <strong>Note:</strong> the new component will be added once this method completes and every other component is notified
+     * <strong>Note:</strong> the new component will be added once this method completes and every other component is notified.
      * @param component the new component
      */
     public void componentAdded(Component component) {}
 
     /**
-     * Called when an existing component is about to be detached from the host game object.
-     * <strong>Note:</strong> the new component will be detached once this method completes and every other component is notified
+     * Called when an existing component is getting detached from the host game object.
+     * <strong>Note:</strong> the new component will be detached once this method completes and every other component is notified.
      * @param component the new component
      */
     public void componentRemoved(Component component) {}
@@ -283,6 +283,7 @@ public class Component {
 
     /**
      * Removes a game object from the host scene. This will have no effect if there is no existing host scene.
+     * This has no effect if there is no existing valid {@link Scene}.
      * @param gameObject the game object.
      * @param layer the layer where the game object is added.
      * @return whether the game object was removed.
@@ -297,6 +298,7 @@ public class Component {
 
     /**
      * Removes a game object from the host scene. This will have no effect if there is no existing host scene.
+     * This has no effect if there is no existing valid {@link Scene}.
      * @param gameObject the game object.
      * @param layerName the name of the layer where the game object is added.
      * @return whether the game object was removed.
@@ -312,6 +314,7 @@ public class Component {
 
     /**
      * Removes a game object from the host scene. This will have no effect if there is no existing host scene.
+     * This has no effect if there is no existing valid {@link Scene}.
      * @param gameObject the game object.
      * @return whether the game object was removed.
      *
@@ -322,5 +325,39 @@ public class Component {
         }
 
         return false;
+    }
+
+    /**
+     * Adds a game object to the host scene given a layer to add it to.
+     * This has no effect if there is no existing valid {@link Scene}.
+     * @param gameObject the game object to add
+     * @param layer the layer to add the game object to
+     * @throws IllegalArgumentException if the given layer does not exist in the host scene.
+     */
+    public void addGameObject(GameObject gameObject, Layer layer) throws IllegalArgumentException {
+        if (scene != null)
+            scene.addGameObject(gameObject, layer);
+    }
+
+    /**
+     * Adds a game object to the host scene given the name of a layer to add it to.
+     * This has no effect if there is no existing valid {@link Scene}.
+     * @param gameObject the game object to add
+     * @param layerName the name of the layer to add the game object to
+     * @throws IllegalArgumentException if there is no existing layer with such name
+     */
+    public void addGameObject(GameObject gameObject, String layerName) throws IllegalArgumentException {
+        if (scene != null)
+            scene.addGameObject(gameObject, layerName);
+    }
+
+    /**
+     * Adds a game object to the host scene. The game object is added to the default layer.
+     * This has no effect if there is no existing valid {@link Scene}.
+     * @param gameObject the game object to add.
+     */
+    public void addGameObject(GameObject gameObject) {
+        if (scene != null)
+            scene.addGameObject(gameObject);
     }
 }

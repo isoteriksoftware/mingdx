@@ -24,7 +24,7 @@ public class Transform extends Component {
     /** The orientation of the host game object */
     public final Vector3 rotation;
 
-    private Vector3 temp = new Vector3();
+    private final Vector3 temp = new Vector3();
 
     /**
      * Creates a new instance.
@@ -135,6 +135,66 @@ public class Transform extends Component {
     public float getRotation()
     { return rotation.z; }
 
+    public float getX() {
+        return position.x;
+    }
+
+    public float getY() {
+        return position.y;
+    }
+
+    public float getZ() {
+        return position.z;
+    }
+
+    public float getScaleX() {
+        return scale.x;
+    }
+
+    public float getScaleY() {
+        return scale.y;
+    }
+
+    public float getScaleZ() {
+        return scale.z;
+    }
+
+    public float getWidth() {
+        return size.x;
+    }
+
+    public float getHeight() {
+        return size.y;
+    }
+
+    public float getDepth() {
+        return size.z;
+    }
+
+    public float getOriginX() {
+        return origin.x;
+    }
+
+    public float getOriginY() {
+        return origin.y;
+    }
+
+    public float getOriginZ() {
+        return origin.x;
+    }
+
+    public float getRotationX() {
+        return rotation.x;
+    }
+
+    public float getRotationY() {
+        return rotation.y;
+    }
+
+    public float getRotationZ() {
+        return rotation.z;
+    }
+
     /**
      * Translates the host game object.
      * @param x change on the x-axis
@@ -176,7 +236,7 @@ public class Transform extends Component {
     }
 
     /**
-     * Determines whether the host agent is currently within a visible area of a given camera.
+     * Determines whether the transform is currently within a visible area of a given camera.
      * @param camera the camera
      * @return true if the game can be seen by the camera. false otherwise
      */

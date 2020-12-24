@@ -33,6 +33,9 @@ public final class MinGdx {
     /** A reference to the shared instance of {@link SceneManager} for scene management. */
     public final SceneManager sceneManager;
 
+    /** A reference to the shared instance of {@link DefaultSettings} */
+    public final DefaultSettings defaultSettings;
+
     private float deltaTime;
 
     /**
@@ -63,6 +66,8 @@ public final class MinGdx {
         this.sceneManager = SceneManager.instance();
 
         InputManager.__initPools();
+
+        defaultSettings = new DefaultSettings();
     }
 
     /**
@@ -134,4 +139,21 @@ public final class MinGdx {
      */
     public float getDeltaTime()
     { return deltaTime; }
+
+    /**
+     * This class defines default settings for some features of minGDX. The settings can always be changed.
+     *
+     * It is useful for setting values that don't change or is not expected to change often.
+     */
+    public static class DefaultSettings {
+        /* Camera settings */
+        /** The default viewport width (in pixels) of a camera. */
+        public float VIEWPORT_WIDTH  = 1280f;
+
+        /** The default viewport height (in pixels) of a camera. */
+        public float VIEWPORT_HEIGHT = 720f;
+
+        /** The default number of pixels that equals one world unit. */
+        public float PIXELS_PER_UNIT = 100f;
+    }
 }
