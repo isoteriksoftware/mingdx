@@ -18,7 +18,7 @@ minGDX is dependent on two of the main libGDX extensions: **box2d** and **gdx-ai
 
 minGDX is available in JCenter. Since libGDX is now gradle-based, your project is most likely pulling dependencies from jcenter already, you're all set.
 
-To pull minGDX, open the project-level build.gradle file, add `api 'com.isoterik.mgdx:mingdx:1.0.0'` to the dependencies closure of the core project.
+To pull minGDX, open the project-level build.gradle file, add `api 'com.isoterik.mgdx:mingdx:1.1.0'` to the dependencies closure of the core project.
 Sync the project and wait for gradle to do its magic!
 
 **Note:** We used _api_ instead of _implementation_ because we want the other sub-projects (modules) to be able to access minGDX. This is possible because the sub-projects
