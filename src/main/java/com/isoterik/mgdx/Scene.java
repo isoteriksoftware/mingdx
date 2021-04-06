@@ -56,7 +56,7 @@ public class Scene implements ContactListener {
     /** The name of the default layer. Use this to add {@link GameObject}s to the default layer. */
     public static final String DEFAULT_LAYER = "MGDX_DEFAULT_LAYER";
 
-    private Layer defaultLayer;
+    private final Layer defaultLayer;
     protected Array<Layer> layers;
 
     /** The main camera used for projecting a portion of the scene. */
@@ -736,8 +736,11 @@ public class Scene implements ContactListener {
         currentTime = newTime;
         accumulator += frameTime;
 
-        Array<GameObject> gameObjects = getGameObjects();
+        // Step once
+        physicsWorld2d.step(physicsTimeStep, velocityIterations, positionIterations);
 
+        // Update components
+        Array<GameObject> gameObjects = getGameObjects();
         for (GameObject go : gameObjects) {
             go.__forEachComponent(fixedUpdateIter);
         }
@@ -746,6 +749,10 @@ public class Scene implements ContactListener {
         while(accumulator >= physicsTimeStep) {
             physicsWorld2d.step(physicsTimeStep, velocityIterations, positionIterations);
             accumulator -= physicsTimeStep;
+
+            for (GameObject go : gameObjects) {
+                go.__forEachComponent(fixedUpdateIter);
+            }
 
             interpolateTransforms(gameObjects, (float)accumulator/physicsTimeStep);
         }

@@ -19,8 +19,8 @@ import com.badlogic.gdx.utils.Array;
  * @author isoteriksoftware
  */
 public final class GameObject {
-    private Array<Component> components;
-    private Array.ArrayIterator<Component> arrayIterator;
+    private final Array<Component> components;
+    private final Array.ArrayIterator<Component> arrayIterator;
 
     public final Transform transform;
 
@@ -141,7 +141,7 @@ public final class GameObject {
 
     public <T extends Component> void removeComponents(Class<T> clazz) {
         for (Component c : components) {
-            if (clazz.isInstance(c))
+            if (c.getClass() == clazz)
                 removeComponent(c);
         }
     }
@@ -155,8 +155,8 @@ public final class GameObject {
      */
     public <T extends Component> T getComponent(Class<T> componentClass) {
         for (Component c : components) {
-            if (componentClass.isInstance(c))
-                return componentClass.cast(c);
+            if (c.getClass() == componentClass)
+                return (T)c;
         }
 
         return null;
@@ -172,8 +172,8 @@ public final class GameObject {
         Array<T> comps = new Array<>();
 
         for (Component c : components) {
-            if (componentClass.isInstance(c))
-                comps.add(componentClass.cast(c));
+            if (c.getClass() == componentClass)
+                comps.add((T)c);
         }
 
         return comps;

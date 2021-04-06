@@ -416,7 +416,7 @@ public class InputManager extends InputAdapter implements GestureDetector.Gestur
 		Array<ITrigger> triggers = getMapping(mappingName);
 		for (ITrigger trigger : triggers)
 		{
-			if (triggerClass.isInstance(trigger))
+			if (trigger.getClass() == triggerClass)
 				trigger.setActive(active);
 		}
 
