@@ -1,6 +1,6 @@
 ![mingdx-logo](https://user-images.githubusercontent.com/50753501/97774186-13e76000-1b56-11eb-804d-f89aba2681b2.png)
 
-[ ![Download](https://api.bintray.com/packages/isoteriksoftware/MinGdx/com.isoterik.mgdx/images/download.svg) ](https://bintray.com/isoteriksoftware/MinGdx/com.isoterik.mgdx/_latestVersion)
+![Release](https://jitpack.io/v/iSoterikTechnologies/mingdx.svg)
 
 [minGDX](https://isoteriktechnologies.gitbook.io/mingdx/) **is a small open source Java game development library based on [libGDX](https://libgdx.com/).
 It is neither an alternative nor a replacement for libGDX, it simply provides another (better) way of coding a libGDX game. minGDX is not an extension of libGDX either!**
@@ -16,13 +16,21 @@ Just in case you're wondering what the **min** in minGDX means, it stands for _m
 ## Getting minGDX / Documentation
 minGDX is dependent on two of the main libGDX extensions: **box2d** and **gdx-ai**. When creating your libGDX project, it is advisable to add those extensions at that point.
 
-minGDX is available in JCenter. Since libGDX is now gradle-based, your project is most likely pulling dependencies from jcenter already, you're all set.
-
-To pull minGDX, open the project-level build.gradle file, add `api 'com.isoterik.mgdx:mingdx:2.0.0'` to the dependencies closure of the core project.
+minGDX is available in JitPack:
+- Add JitPack it in your root build.gradle at the end of repositories:
+```shell
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+- To pull minGDX, open the project-level build.gradle file, add `api 'com.github.iSoterikTechnologies:mingdx:v2.0.0'` to the dependencies closure of the core project.
 Sync the project and wait for gradle to do its magic!
 
 **Note:** We used _api_ instead of _implementation_ because we want the other sub-projects (modules) to be able to access minGDX. This is possible because the sub-projects
-depend on the core project.
+depend on the core project. If we don't do this, then we must add the dependecy to every other module!
 
 Though minGDX is a relatively small library, it is very well documented! We offer a regularly updated tutorial blog dedicated to minGDX and a clean documentation website:
 - [Visit the tutorial blog](https://gdx-gaming.blogspot.com)
