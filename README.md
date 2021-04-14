@@ -17,7 +17,7 @@ Just in case you're wondering what the **min** in minGDX means, it stands for _m
 minGDX is dependent on two of the main libGDX extensions: **box2d** and **gdx-ai**. When creating your libGDX project, it is advisable to add those extensions at that point.
 
 minGDX is available in JitPack:
-- Add JitPack it in your root build.gradle at the end of repositories:
+- Add JitPack in your root build.gradle at the end of repositories:
 ```shell
 allprojects {
     repositories {
