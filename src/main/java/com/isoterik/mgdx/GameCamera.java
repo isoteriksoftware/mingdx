@@ -16,6 +16,10 @@ import com.isoterik.mgdx.utils.WorldUnits;
 public abstract class GameCamera {
     protected Camera camera;
 
+    public Viewport getViewport() {
+        return viewport;
+    }
+
     protected Viewport viewport;
 
     protected WorldUnits worldUnits;

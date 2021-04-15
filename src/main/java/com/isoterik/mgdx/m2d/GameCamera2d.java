@@ -34,6 +34,7 @@ public class GameCamera2d extends GameCamera {
             camera = new OrthographicCamera(worldUnits.getWorldWidth(), worldUnits.getWorldHeight());
 
         getCamera().position.set(worldUnits.getWorldWidth() * .5f, worldUnits.getWorldHeight() * .5f, 0);
+        viewport.setCamera(camera);
     }
 
     /**
@@ -92,6 +93,7 @@ public class GameCamera2d extends GameCamera {
         super.setup(viewport, worldUnits);
         camera = new OrthographicCamera(worldUnits.getWorldWidth(), worldUnits.getWorldHeight());
         camera.position.set(worldUnits.getWorldWidth() * .5f, worldUnits.getWorldHeight() * .5f, 0);
+        viewport.setCamera(camera);
     }
 
     @Override
