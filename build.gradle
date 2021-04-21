@@ -31,7 +31,7 @@ ext {
     libraryName = 'mingdx'
     publishedGroupId = 'com.isoterik.mgdx'
     artifact = 'mingdx'
-    libraryVersion = '2.2.0'
+    libraryVersion = '2.3.0-alpha'
 
     libraryDescription = 'A small library for building libGDX games easier'
     siteUrl = 'https://github.com/isoteriksoftware/mingdx'
