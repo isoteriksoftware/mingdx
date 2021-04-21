@@ -24,7 +24,7 @@ public class Transform extends Component {
     /** The orientation of the host game object */
     public final Vector3 rotation;
 
-    private final Vector3 temp = new Vector3();
+    protected final Vector3 temp = new Vector3();
 
     /**
      * Creates a new instance.

@@ -6,9 +6,9 @@ package com.isoterik.mgdx;
  * @author isoteriksoftware
  */
 public class Version {
-    public static final int MAJOR      = 1;
+    public static final int MAJOR      = 2;
 
-    public static final int MINOR      = 1;
+    public static final int MINOR      = 2;
 
     public static final int REVISION   = 0;
 

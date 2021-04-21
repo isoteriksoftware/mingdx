@@ -103,6 +103,9 @@ public class Scene implements ContactListener {
     /** {@link com.badlogic.gdx.scenes.scene2d.Stage} instance used for managing UI elements */
     protected Stage canvas;
 
+    /** {@link com.badlogic.gdx.scenes.scene2d.Stage} instance used for managing GameObjects that wants to use the Scene2d API for animations */
+    protected Stage animationCanvas;
+
     /** ShapeRenderer for debug drawings */
     protected ShapeRenderer shapeRenderer;
 
@@ -320,6 +323,7 @@ public class Scene implements ContactListener {
         WorldUnits worldUnits = mainCamera.getWorldUnits();
         setupCanvas(new StretchViewport(worldUnits.getScreenWidth(),
                 worldUnits.getScreenHeight()));
+        setupAnimationCanvas(mainCamera.getViewport());
 
         shapeRenderer = new ShapeRenderer();
     }
@@ -433,8 +437,24 @@ public class Scene implements ContactListener {
         if (canvas != null)
             inputManager.getInputMultiplexer().removeProcessor(canvas);
 
-        canvas = new Stage(viewport);
+        if (canvas == null)
+            canvas = new Stage(viewport);
+        else
+            canvas.setViewport(viewport);
+
         inputManager.getInputMultiplexer().addProcessor(canvas);
+    }
+
+    /**
+     * By default, the animation canvas (an instance of {@link Stage}) is setup with the same viewport as the main camera
+     * Use this method to change the viewport to your desired viewport.
+     * @param viewport the viewport for scaling UI elements
+     */
+    public void setupAnimationCanvas(Viewport viewport) {
+        if (animationCanvas == null)
+            animationCanvas = new Stage(viewport);
+        else
+            animationCanvas.setViewport(viewport);
     }
 
     /**
@@ -629,6 +649,10 @@ public class Scene implements ContactListener {
         if (!hasLayer(layer))
             throw new IllegalArgumentException("This layer does not exist in this scene");
 
+        // If this game object is an ActorGameObject, add it to the animation canvas
+        if (gameObject instanceof ActorGameObject)
+            animationCanvas.addActor(((ActorGameObject)gameObject).transform.actor);
+
         gameObject.__setHostScene(this);
         layer.addGameObject(gameObject);
 
@@ -646,6 +670,10 @@ public class Scene implements ContactListener {
         if (layer == null)
             throw new IllegalArgumentException("This layer does not exist in this scene");
 
+        // If this game object is an ActorGameObject, add it to the animation canvas
+        if (gameObject instanceof ActorGameObject)
+            animationCanvas.addActor(((ActorGameObject)gameObject).transform.actor);
+
         gameObject.__setHostScene(this);
         layer.addGameObject(gameObject);
 
@@ -657,6 +685,10 @@ public class Scene implements ContactListener {
      * @param gameObject the game object to add.
      */
     public void addGameObject(GameObject gameObject) {
+        // If this game object is an ActorGameObject, add it to the animation canvas
+        if (gameObject instanceof ActorGameObject)
+            animationCanvas.addActor(((ActorGameObject)gameObject).transform.actor);
+
         gameObject.__setHostScene(this);
         defaultLayer.addGameObject(gameObject);
 
@@ -672,6 +704,10 @@ public class Scene implements ContactListener {
     public boolean removeGameObject(GameObject gameObject, Layer layer) {
         if (!hasLayer(layer))
             return false;
+
+        // If this game object is an ActorGameObject, remove it to the animation canvas
+        if (gameObject instanceof ActorGameObject)
+            ((ActorGameObject)gameObject).transform.actor.remove();
 
         gameObject.__removeFromScene();
         gameObject.__setHostScene(null);
@@ -689,6 +725,10 @@ public class Scene implements ContactListener {
         if (layer == null)
             return false;
 
+        // If this game object is an ActorGameObject, remove it to the animation canvas
+        if (gameObject instanceof ActorGameObject)
+            ((ActorGameObject)gameObject).transform.actor.remove();
+
         gameObject.__removeFromScene();
         gameObject.__setHostScene(null);
         return layer.removeGameObject(gameObject);
@@ -700,6 +740,10 @@ public class Scene implements ContactListener {
      * @return true if the game object was removed. false otherwise.
      */
     public boolean removeGameObject(GameObject gameObject) {
+        // If this game object is an ActorGameObject, remove it to the animation canvas
+        if (gameObject instanceof ActorGameObject)
+            ((ActorGameObject)gameObject).transform.actor.remove();
+
         gameObject.__removeFromScene();
         gameObject.__setHostScene(null);
         return defaultLayer.removeGameObject(gameObject);
@@ -844,6 +888,7 @@ public class Scene implements ContactListener {
             go.__forEachComponent(lateUpdateIter);
         }
 
+        animationCanvas.act(deltaTime);
         canvas.act(deltaTime);
 
         // destroy physics bodies scheduled for removal
@@ -1036,6 +1081,86 @@ public class Scene implements ContactListener {
      */
     public GameObject newSpriteObject(Texture sprite)
     { return newSpriteObject("Untagged", sprite); }
+
+    /**
+     * A convenient method for quickly creating a game object that renders a sprite ({@link TextureRegion}).
+     * <strong>The returned game object is not added to the scene; you have to add it yourself!</strong>
+     * @param tag a tag for the game object.
+     * @param sprite a {@link TextureRegion} to render
+     * @param worldUnits a {@link WorldUnits} instance used for converting the sprite's pixel dimensions to world units
+     * @return the created game object
+     */
+    public ActorGameObject newActorSpriteObject(String tag, TextureRegion sprite,
+                                      WorldUnits worldUnits) {
+        ActorGameObject go = ActorGameObject.newInstance(tag);
+        SpriteRenderer sr = new SpriteRenderer(sprite, worldUnits);
+        go.addComponent(sr);
+
+        return go;
+    }
+
+    /**
+     * A convenient method for quickly creating a game object that renders a sprite ({@link TextureRegion}).
+     * The {@link WorldUnits} instance of the current main camera will be used for unit conversions.
+     * <strong>The returned game object is not added to the scene; you have to add it yourself!</strong>
+     * @param tag a tag for the game object.
+     * @param sprite a {@link TextureRegion} to render
+     * @return the created game object
+     */
+    public ActorGameObject newActorSpriteObject(String tag, TextureRegion sprite)
+    { return newActorSpriteObject(tag, sprite, mainCamera.getWorldUnits()); }
+
+    /**
+     * A convenient method for quickly creating a game object that renders a sprite ({@link TextureRegion}).
+     * <strong>The returned game object is not added to the scene; you have to add it yourself!</strong>
+     * @param sprite a {@link TextureRegion} to render
+     * @param worldUnits a {@link WorldUnits} instance used for converting the sprite's pixel dimensions to world units
+     * @return the created game object
+     */
+    public ActorGameObject newActorSpriteObject(TextureRegion sprite, WorldUnits worldUnits)
+    { return newActorSpriteObject("Untagged", sprite, worldUnits); }
+
+    /**
+     * A convenient method for quickly creating a game object that renders a sprite ({@link TextureRegion}).
+     * The {@link WorldUnits} instance of the current main camera will be used for unit conversions.
+     * <strong>The returned game object is not added to the scene; you have to add it yourself!</strong>
+     * @param sprite a {@link TextureRegion} to render
+     * @return the created game object
+     */
+    public ActorGameObject newActorSpriteObject(TextureRegion sprite)
+    { return newActorSpriteObject("Untagged", sprite); }
+
+    /**
+     * A convenient method for quickly creating a game object that renders a sprite ({@link TextureRegion}).
+     * <strong>The returned game object is not added to the scene; you have to add it yourself!</strong>
+     * @param tag a tag for the game object.
+     * @param sprite a {@link Texture} to render. <strong>The entire texture will be rendered!</strong>
+     * @param worldUnits a {@link WorldUnits} instance used for converting the sprite's pixel dimensions to world units
+     * @return the created game object
+     */
+    public ActorGameObject newActorSpriteObject(String tag, Texture sprite, WorldUnits worldUnits)
+    { return newActorSpriteObject(tag, new TextureRegion(sprite), worldUnits); }
+
+    /**
+     * A convenient method for quickly creating a game object that renders a sprite ({@link TextureRegion}).
+     * The {@link WorldUnits} instance of the current main camera will be used for unit conversions.
+     * <strong>The returned game object is not added to the scene; you have to add it yourself!</strong>
+     * @param tag a tag for the game object.
+     * @param sprite a {@link Texture} to render. <strong>The entire texture will be rendered!</strong>
+     * @return the created game object
+     */
+    public ActorGameObject newActorSpriteObject(String tag, Texture sprite)
+    { return newActorSpriteObject(tag, sprite, mainCamera.getWorldUnits()); }
+
+    /**
+     * A convenient method for quickly creating a game object that renders a sprite ({@link TextureRegion}).
+     * The {@link WorldUnits} instance of the current main camera will be used for unit conversions.
+     * <strong>The returned game object is not added to the scene; you have to add it yourself!</strong>
+     * @param sprite a {@link Texture} to render. <strong>The entire texture will be rendered!</strong>
+     * @return the created game object
+     */
+    public ActorGameObject newActorSpriteObject(Texture sprite)
+    { return newActorSpriteObject("Untagged", sprite); }
 
     @Override
     public void preSolve(Contact contact, Manifold manifold) {}

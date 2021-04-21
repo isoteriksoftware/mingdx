@@ -18,20 +18,20 @@ import com.badlogic.gdx.utils.Array;
  *
  * @author isoteriksoftware
  */
-public final class GameObject {
-    private final Array<Component> components;
-    private final Array.ArrayIterator<Component> arrayIterator;
+public class GameObject {
+    protected final Array<Component> components;
+    protected final Array.ArrayIterator<Component> arrayIterator;
 
     public final Transform transform;
 
-    private String tag;
+    protected String tag;
 
-    private Scene hostScene;
+    protected Scene hostScene;
 
-    private GameObject()
+    public GameObject()
     { this("Untagged"); }
 
-    private GameObject(String tag) {
+    public GameObject(String tag) {
         components = new Array<>();
         arrayIterator = new Array.ArrayIterator<>(components,
                 true);
@@ -147,7 +147,7 @@ public final class GameObject {
     }
 
     /**
-     * Removes all component of a particular type that is attached to this game object.
+     * Gets a component of a particular type that is attached to this game object.
      * <strong>Note:</strong> a component can remove itself.
      * @param componentClass the class of the component
      * @param <T> the type of component
