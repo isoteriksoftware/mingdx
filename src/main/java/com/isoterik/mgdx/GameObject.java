@@ -22,7 +22,7 @@ public class GameObject {
     protected final Array<Component> components;
     protected final Array.ArrayIterator<Component> arrayIterator;
 
-    public final Transform transform;
+    public Transform transform;
 
     protected String tag;
 

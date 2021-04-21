@@ -651,7 +651,7 @@ public class Scene implements ContactListener {
 
         // If this game object is an ActorGameObject, add it to the animation canvas
         if (gameObject instanceof ActorGameObject)
-            animationCanvas.addActor(((ActorGameObject)gameObject).transform.actor);
+            animationCanvas.addActor(((ActorGameObject)gameObject).actorTransform.actor);
 
         gameObject.__setHostScene(this);
         layer.addGameObject(gameObject);
@@ -672,7 +672,7 @@ public class Scene implements ContactListener {
 
         // If this game object is an ActorGameObject, add it to the animation canvas
         if (gameObject instanceof ActorGameObject)
-            animationCanvas.addActor(((ActorGameObject)gameObject).transform.actor);
+            animationCanvas.addActor(((ActorGameObject)gameObject).actorTransform.actor);
 
         gameObject.__setHostScene(this);
         layer.addGameObject(gameObject);
@@ -687,7 +687,7 @@ public class Scene implements ContactListener {
     public void addGameObject(GameObject gameObject) {
         // If this game object is an ActorGameObject, add it to the animation canvas
         if (gameObject instanceof ActorGameObject)
-            animationCanvas.addActor(((ActorGameObject)gameObject).transform.actor);
+            animationCanvas.addActor(((ActorGameObject)gameObject).actorTransform.actor);
 
         gameObject.__setHostScene(this);
         defaultLayer.addGameObject(gameObject);
@@ -707,7 +707,7 @@ public class Scene implements ContactListener {
 
         // If this game object is an ActorGameObject, remove it to the animation canvas
         if (gameObject instanceof ActorGameObject)
-            ((ActorGameObject)gameObject).transform.actor.remove();
+            ((ActorGameObject)gameObject).actorTransform.actor.remove();
 
         gameObject.__removeFromScene();
         gameObject.__setHostScene(null);
@@ -727,7 +727,7 @@ public class Scene implements ContactListener {
 
         // If this game object is an ActorGameObject, remove it to the animation canvas
         if (gameObject instanceof ActorGameObject)
-            ((ActorGameObject)gameObject).transform.actor.remove();
+            ((ActorGameObject)gameObject).actorTransform.actor.remove();
 
         gameObject.__removeFromScene();
         gameObject.__setHostScene(null);
@@ -742,7 +742,7 @@ public class Scene implements ContactListener {
     public boolean removeGameObject(GameObject gameObject) {
         // If this game object is an ActorGameObject, remove it to the animation canvas
         if (gameObject instanceof ActorGameObject)
-            ((ActorGameObject)gameObject).transform.actor.remove();
+            ((ActorGameObject)gameObject).actorTransform.actor.remove();
 
         gameObject.__removeFromScene();
         gameObject.__setHostScene(null);
