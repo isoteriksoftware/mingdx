@@ -81,7 +81,7 @@ If you see a red background displayed then congratulations, you've just ran your
 
 ## Support
 We've only just scratched the surface! Head on to our [tutorial blog](https://gdx-gaming.blogspot.com) to learn more.
-Check out the [documentations](https://isoteriktechnologies.gitbook.io/mingdx/) and, also the [minGDX javadocs](https://isoteriktechnologies.github.io/mingdx/).
+Check out the [documentations](https://isoteriksoftware.gitbook.io/mingdx/) and, also the [minGDX javadocs](https://isoteriksoftware.github.io/mingdx/).
 
 
 ## License
